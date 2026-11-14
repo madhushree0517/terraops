@@ -1,0 +1,90 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Run TERRAOPS Streamlit",
+			"type": "shell",
+			"command": "C:/Users/madhu/AppData/Local/Programs/Python/Python313/python.exe",
+			"args": [
+				"-m",
+				"streamlit",
+				"run",
+				"app/Home.py",
+				"--server.headless",
+				"true",
+				"--server.port",
+				"8501"
+			],
+			"isBackground": true,
+			"group": "build"
+		},
+		{
+			"label": "Run TERRAOPS Verification Server",
+			"type": "shell",
+			"command": "C:/Users/madhu/AppData/Local/Programs/Python/Python313/python.exe",
+			"args": [
+				"-m",
+				"streamlit",
+				"run",
+				"app/Home.py",
+				"--server.headless",
+				"true",
+				"--server.port",
+				"8502"
+			],
+			"isBackground": true,
+			"group": "build"
+		},
+		{
+			"label": "Run TERRAOPS Compatibility Check",
+			"type": "shell",
+			"command": "C:/Users/madhu/AppData/Local/Programs/Python/Python313/python.exe",
+			"args": [
+				"-m",
+				"streamlit",
+				"run",
+				"app/Home.py",
+				"--server.headless",
+				"true",
+				"--server.port",
+				"8503"
+			],
+			"isBackground": true,
+			"group": "build"
+		},
+		{
+			"label": "Run TERRAOPS Final App",
+			"type": "shell",
+			"command": "C:/Users/madhu/AppData/Local/Programs/Python/Python313/python.exe",
+			"args": [
+				"-m",
+				"streamlit",
+				"run",
+				"app/Home.py",
+				"--server.headless",
+				"true",
+				"--server.port",
+				"8504"
+			],
+			"isBackground": true,
+			"group": "build"
+		},
+		{
+			"label": "Run TERRAOPS Scoring Verification",
+			"type": "shell",
+			"command": "C:/Users/madhu/AppData/Local/Programs/Python/Python313/python.exe",
+			"args": [
+				"-m",
+				"streamlit",
+				"run",
+				"app/Home.py",
+				"--server.headless",
+				"true",
+				"--server.port",
+				"8505"
+			],
+			"isBackground": true,
+			"group": "build"
+		}
+	]
+}

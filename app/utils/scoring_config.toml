@@ -1,0 +1,21 @@
+method = "weighted_capped_linear_difference"
+resolution_comparability_factor = 2.0
+
+[weights]
+elevation_mean_m = 0.0
+elevation_std_m = 0.2142857143
+slope_mean_deg = 0.2857142857
+slope_p95_deg = 0.2857142857
+roughness_metric = 0.2142857143
+
+[difference_scales]
+# Source: TBD; set from rover mobility criteria.
+elevation_mean_m = 5000.0
+# Source: TBD; set from rover mobility criteria.
+elevation_std_m = 1000.0
+# Source: TBD; set from rover mobility criteria.
+slope_mean_deg = 20.0
+# Source: TBD; set from rover mobility criteria.
+slope_p95_deg = 30.0
+# Source: TBD; set from rover mobility criteria.
+roughness_metric = 1.0

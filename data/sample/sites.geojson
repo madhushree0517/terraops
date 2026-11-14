@@ -1,0 +1,9 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {"type": "Feature", "geometry": {"type": "Point", "coordinates": [77.6, 18.4]}, "properties": {"schema_version": "1.0", "site_id": "jezero", "name": "Jezero Crater", "body": "Mars", "lat": 18.4, "lon": 77.6, "notes": "PLACEHOLDER: approximate Mars reference coordinates; longitude is east-positive."}},
+    {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-69.25, -23.0]}, "properties": {"schema_version": "1.0", "site_id": "atacama", "name": "Atacama Desert", "body": "Earth", "lat": -23.0, "lon": -69.25, "notes": "PLACEHOLDER: candidate region; not an endorsement."}},
+    {"type": "Feature", "geometry": {"type": "Point", "coordinates": [77.6, 34.15]}, "properties": {"schema_version": "1.0", "site_id": "ladakh", "name": "Ladakh", "body": "Earth", "lat": 34.15, "lon": 77.6, "notes": "PLACEHOLDER: candidate region; not an endorsement."}},
+    {"type": "Feature", "geometry": {"type": "Point", "coordinates": [-19.0, 64.9]}, "properties": {"schema_version": "1.0", "site_id": "iceland", "name": "Iceland Highlands", "body": "Earth", "lat": 64.9, "lon": -19.0, "notes": "PLACEHOLDER: candidate region; not an endorsement."}}
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "schema_version": "1.0",
+  "variable_type": "surface_temp",
+  "min_c": -90,
+  "max_c": 5,
+  "source": "PLACEHOLDER_envelope_source",
+  "notes": "PLACEHOLDER: illustrative range only; not a validated Mars temperature envelope."
+}

@@ -1,0 +1,4 @@
+[
+  {"schema_version": "1.0", "factor": "Atmospheric pressure", "can_rehearse_on_earth": false, "explanation": "PLACEHOLDER: Earth field sites do not reproduce the Martian atmospheric pressure."},
+  {"schema_version": "1.0", "factor": "Selected terrain mobility", "can_rehearse_on_earth": true, "explanation": "PLACEHOLDER: selected surface-mobility tasks may be rehearsed, but equivalence is not implied."}
+]

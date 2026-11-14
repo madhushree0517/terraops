@@ -1,0 +1,3 @@
+# PLACEHOLDER DATA
+
+Every record in this directory is illustrative placeholder content created only to exercise the TERRAOPS data contract and app wiring. This includes numeric measurements, which remain numeric so parsers and charts can be tested. Text provenance fields are marked `PLACEHOLDER` where applicable. These values are not source observations, must not be cited, and must not inform site selection or operational decisions.

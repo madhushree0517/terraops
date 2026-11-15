@@ -1,4 +1,62 @@
 [
-  {"schema_version": "1.0", "factor": "Atmospheric pressure", "can_rehearse_on_earth": false, "explanation": "PLACEHOLDER: Earth field sites do not reproduce the Martian atmospheric pressure."},
-  {"schema_version": "1.0", "factor": "Selected terrain mobility", "can_rehearse_on_earth": true, "explanation": "PLACEHOLDER: selected surface-mobility tasks may be rehearsed, but equivalence is not implied."}
+  {
+    "schema_version": "1.0",
+    "factor": "Atmospheric pressure",
+    "can_rehearse_on_earth": false,
+    "explanation": "Already in the repo file. Earth field sites do not reproduce the Martian atmospheric pressure (about 0.6 percent of Earth sea level)."
+  },
+  {
+    "schema_version": "1.0",
+    "factor": "Terrain mobility: slope, rock cover, step height, roughness",
+    "can_rehearse_on_earth": true,
+    "explanation": "Relative difficulty only. Geometry of terrain (slopes, rocks, steps, roughness) can be matched to Jezero and rehearsed at Earth sites, but results show relative difficulty, not absolute passability. 30 m DEMs cannot resolve the 20 to 35 cm hazards."
+  },
+  {
+    "schema_version": "1.0",
+    "factor": "Gravity (Earth about 2.6 times Mars)",
+    "can_rehearse_on_earth": false,
+    "explanation": "Offload rig can partly compensate. A field site cannot change gravity. Normal load on the wheels is about 2.6 times higher than on Mars."
+  },
+  {
+    "schema_version": "1.0",
+    "factor": "Wheel sinkage and traction at Mars load",
+    "can_rehearse_on_earth": false,
+    "explanation": "Needs offload or simulation. Embedding and slip depend on normal load and soil, so absolute sinkage and slip measured at Earth gravity do not transfer to Mars."
+  },
+  {
+    "schema_version": "1.0",
+    "factor": "Surface material and soil mechanics",
+    "can_rehearse_on_earth": true,
+    "explanation": "Class-level proxy only. Earth basalt, tephra, sand and salt crust can stand in for Jezero material classes (bedrock, cohesive soil, sand). Cohesion, grain shape and bearing strength are not matched; no bearing-strength data exist."
+  },
+  {
+    "schema_version": "1.0",
+    "factor": "Autonomy and traverse-planning workflow",
+    "can_rehearse_on_earth": true,
+    "explanation": "Vehicle differs from Perseverance. Autonomous driving, hazard avoidance and traverse planning can be rehearsed in the field. Atacama has the strongest record (Zoe, over 300 km)."
+  },
+  {
+    "schema_version": "1.0",
+    "factor": "Command and communication latency",
+    "can_rehearse_on_earth": true,
+    "explanation": "Emulated, not site-dependent. Earth sites have real-time links, so delay has to be injected by the test setup. It does not depend on the site."
+  },
+  {
+    "schema_version": "1.0",
+    "factor": "Temperature and thermal cycling",
+    "can_rehearse_on_earth": false,
+    "explanation": "Separate thermal workstream. Earth field sites overlap only part of the Mars temperature range and have a different atmosphere, so thermal effects cannot be fully rehearsed on site."
+  },
+  {
+    "schema_version": "1.0",
+    "factor": "Dust adhesion and electrostatics",
+    "can_rehearse_on_earth": false,
+    "explanation": "Not covered. Mars dust properties and electrostatic behaviour are not reproduced by Earth soils."
+  },
+  {
+    "schema_version": "1.0",
+    "factor": "Radiation environment",
+    "can_rehearse_on_earth": false,
+    "explanation": "Not covered. Earth sites have a protective atmosphere and magnetic field."
+  }
 ]

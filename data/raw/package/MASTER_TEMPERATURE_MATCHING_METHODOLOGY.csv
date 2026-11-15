@@ -1,0 +1,8 @@
+step,method,implementation,status
+1,Measurement harmonisation,Compare NASA POWER T2M with MEDA AIR_TEMP; compare MODIS LST with MEDA GROUND_TEMP.,Defined
+2,Mars seasonal assignment,"Use official PDS Ls mapping and northern Mars seasons: Spring 0–90°, Summer 90–180°, Autumn 180–270°, Winter 270–360°.",Implemented for mapped sols
+3,Local-time aggregation,"Parse LTST, bin Mars observations into 30-minute intervals, calculate per-sol bin means, then summarise across sols.",Implemented
+4,Seasonal reference envelope,Calculate Mars per-sol temperature distributions and P05–P95 reference intervals for each season.,Implemented
+5,Earth comparison,Calculate the number and percentage of Earth daily observations inside the relevant Mars seasonal envelope.,Implemented; interpretation preliminary
+6,Time-of-day compatibility,Compare Earth day/night or local-time observations only against appropriately matched Mars local-time intervals.,Partially implemented; exact Earth local-time matching is not established by daily POWER data.
+7,Uncertainty and coverage,"Retain MEDA uncertainty, Earth valid pixel counts, missing observations, and contributing-sol counts.",Partially implemented; full combined uncertainty model pending

@@ -1,0 +1,37 @@
+
+Processing algorithm 1/3…
+Algorithm Raster layer statistics starting…
+Input parameters:
+{"BAND":1,"INPUT":"C:/Users/aryas/OneDrive/Desktop/SHE Orbits project/NASA Space apps/DATA/Askja_Reprojected_slope.tif","OUTPUT_HTML_FILE":""}
+
+Algorithm Raster layer statistics correctly executed…
+Execution completed in 0.279 seconds
+Results:
+{"COUNT":6880248,"MAX":87.40215301513672,"MEAN":3.676787553963025,"MIN":0.0,"RANGE":87.40215301513672,"STD_DEV":7.0877596636742535,"SUM":25297210.214578994,"SUM_OF_SQUARES":345638407.2793048}
+
+Loading resulting layers
+
+Processing algorithm 2/3…
+Algorithm Raster layer statistics starting…
+Input parameters:
+{"BAND":1,"INPUT":"C:/Users/aryas/OneDrive/Desktop/SHE Orbits project/NASA Space apps/DATA/Atacama_Reprojected_slope.tif","OUTPUT_HTML_FILE":""}
+
+Algorithm Raster layer statistics correctly executed…
+Execution completed in 0.479 seconds
+Results:
+{"COUNT":12996764,"MAX":89.41896057128906,"MEAN":6.412182581141583,"MIN":0.0,"RANGE":89.41896057128906,"STD_DEV":7.9977308509604566,"SUM":83337623.73200801,"SUM_OF_SQUARES":831321033.4443604}
+
+Loading resulting layers
+
+Processing algorithm 3/3…
+Algorithm Raster layer statistics starting…
+Input parameters:
+{"BAND":1,"INPUT":"C:/Users/aryas/OneDrive/Desktop/SHE Orbits project/NASA Space apps/DATA/Ladakh_Reprojected_slope.tif","OUTPUT_HTML_FILE":""}
+
+Algorithm Raster layer statistics correctly executed…
+Execution completed in 0.474 seconds
+Results:
+{"COUNT":13360659,"MAX":89.53579711914063,"MEAN":26.551391952664954,"MIN":0.0,"RANGE":89.53579711914063,"STD_DEV":14.788001085014608,"SUM":354744093.8549006,"SUM_OF_SQUARES":2921775175.281921}
+
+Loading resulting layers
+Batch execution completed in 1.419 seconds

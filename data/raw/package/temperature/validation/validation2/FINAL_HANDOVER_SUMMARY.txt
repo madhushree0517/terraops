@@ -1,0 +1,66 @@
+TERRAOPS RESEARCH — FINAL SCIENTIFIC CLOSURE AND HANDOVER
+Generated: 2026-11-15T01:55:08
+
+OVERALL STATUS
+The temperature-analysis workstream is complete.
+The computational checks and evidence packaging are being handed over
+with the scope limitations stated below.
+
+VALIDATED WORKSTREAMS
+
+1. Historical LS residual reproduction
+   - 2,058 records across 12 residual files.
+   - Six unique sols after deduplication.
+   - Maximum absolute residual: 2.57948045146e-8 degrees.
+   - Agreement at six decimal places.
+   - Rounding-level reproduction validated at the stated precision.
+
+2. MODIS land-surface-temperature QA
+   - 95 HDF granules independently reprocessed.
+   - Zero read errors.
+   - Pixel counts agreed exactly.
+   - Mean-temperature agreement within 1e-5 degrees C.
+   - MOD11A1/MYD11A1 Collection 6.1.
+   - QA filtering and scale-factor handling documented.
+
+3. ATS reconstruction
+   - Mast comparisons: 1,372,709; mismatches: zero at 1e-8 C.
+   - Body comparisons: 1,372,699; mismatches: zero at 1e-8 C.
+   - Maximum absolute differences approximately 4e-14 C.
+   - Exception review completed.
+
+4. MEDA flag documentation
+   - SIS definitions extracted and reviewed.
+   - ROVER_LOW_TILT definition recorded with the SIS boundary
+     notation caveat retained.
+   - Flag interpretation is documented separately from
+     instrument-geometry validation.
+
+5. Earth–Mars seasonal temperature comparison
+   - 24-row comparison source retained.
+   - Result is an exploratory seasonal surface-temperature
+     comparison, not proof of simultaneous or direct equivalence.
+   - MODIS land-surface temperature and NASA POWER near-surface
+     air temperature are distinct quantities and are not treated
+     as interchangeable.
+
+6. Mars 2020 SPICE
+   - 113 kernels loaded successfully.
+   - 52 text-declared frame IDs recognised by SPICE.
+   - 84 CK files inventoried.
+   - 15 distinct CK object IDs identified.
+   - Rover surface-position test produced a plausible Mars-fixed
+     position.
+
+SPICE SCOPE LIMITATION
+The loaded kernel set and current frame inventory did not establish
+explicit MEDA/TIRS-specific frames or time-specific CK coverage
+for MEDA/TIRS instrument geometry. Instrument geometry is therefore
+not claimed as validated. This does not invalidate the completed
+temperature-analysis and other independently checked workstreams.
+
+HANDOVER
+Original TERRAOPS files remain untouched.
+Evidence is copied into the existing Cosmic Catalyst/temp datasets
+Documentation, Validation, Validation and Documentation, Mars,
+and Earth folders.

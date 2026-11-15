@@ -1,0 +1,3 @@
+schema_version,site_id,month,variable_type,temp_min_c,temp_mean_c,temp_max_c,pct_in_envelope,n_valid_obs,n_missing_obs,source,period_start,period_end
+1.0,atacama,7,air_temp,4.89,12.040000000000001,16.8,,31,0,NASA POWER T2M; package/temperature/earth/14_earth_site_temperature_summary.csv,2024-07-01,2024-07-31
+1.0,ladakh,7,air_temp,7.16,10.37258064516129,14.82,,31,0,NASA POWER T2M; package/temperature/earth/14_earth_site_temperature_summary.csv,2024-07-01,2024-07-31

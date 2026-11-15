@@ -1,0 +1,66 @@
+status: "draft v0.1, pending engineering review"
+baseline_m: 30
+metrics:
+  pct_area_slope_gt24:
+    label: "Share of area above 24 degrees"
+    unit: "%"
+    bands:
+      # Basis: engineering-framework draft v0.1 threshold supplied in the task.
+      - label: "low constraint"
+        upper: 2
+        upper_inclusive: false
+        color: "#dcefe4"
+      # Basis: engineering-framework draft v0.1 threshold supplied in the task.
+      - label: "moderate"
+        lower: 2
+        lower_inclusive: true
+        upper: 10
+        upper_inclusive: true
+        color: "#fff0c2"
+      # Basis: engineering-framework draft v0.1 threshold supplied in the task.
+      - label: "high"
+        lower: 10
+        lower_inclusive: false
+        color: "#f5d6d3"
+  rock_cover_cfa_pct:
+    label: "Rock cover CFA"
+    unit: "%"
+    bands:
+      # Basis: engineering-framework draft v0.1 threshold supplied in the task.
+      - label: "low constraint"
+        upper: 7
+        upper_inclusive: false
+        color: "#dcefe4"
+      # Basis: engineering-framework draft v0.1 threshold supplied in the task.
+      - label: "moderate"
+        lower: 7
+        lower_inclusive: true
+        upper: 15
+        upper_inclusive: true
+        color: "#fff0c2"
+      # Basis: engineering-framework draft v0.1 threshold supplied in the task.
+      - label: "high"
+        lower: 15
+        lower_inclusive: false
+        color: "#f5d6d3"
+  pct_area_step_gt35cm:
+    label: "Share of area with steps above 35 cm"
+    unit: "%"
+    bands:
+      # Basis: engineering-framework draft v0.1 threshold supplied in the task.
+      - label: "low constraint"
+        upper: 5
+        upper_inclusive: false
+        color: "#dcefe4"
+      # Basis: engineering-framework draft v0.1 threshold supplied in the task.
+      - label: "moderate"
+        lower: 5
+        lower_inclusive: true
+        upper: 15
+        upper_inclusive: true
+        color: "#fff0c2"
+      # Basis: engineering-framework draft v0.1 threshold supplied in the task.
+      - label: "high"
+        lower: 15
+        lower_inclusive: false
+        color: "#f5d6d3"

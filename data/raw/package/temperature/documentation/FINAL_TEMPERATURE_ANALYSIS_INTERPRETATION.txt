@@ -1,0 +1,43 @@
+TERRAOPS — FINAL TEMPERATURE ANALYSIS INTERPRETATION
+
+COMPLETED:
+- Mars MEDA ATS and TIRS calibrated-data processing.
+- SCLK-derived ATS/TIRS minute-bin matching.
+- Temperature reference summaries and TIRS uncertainty summaries.
+- MEDA flag completeness and distribution diagnostics.
+- July 2024 Earth analog summaries for Atacama, Ladakh and Iceland.
+- Measurement-comparability and scientific-limitations documentation.
+
+SEASONAL REFERENCE:
+Official PDS Ls reference coverage is available for 1,526 of 1,754 ATS sols.
+The remaining 228 sols are unresolved. Missing values have not been
+interpolated or estimated.
+
+QUALITY FLAGS:
+Flag distributions and completeness have been summarized.
+Physical interpretation requires the applicable PDS documentation.
+
+GEOMETRY:
+General physical mounting documentation has been identified.
+Dynamic sensor pointing and terrain footprint remain unverified
+without product-level geometry, frame and ancillary-data validation.
+
+COMPARABILITY:
+MODIS LST represents surface skin temperature.
+POWER T2M represents near-surface gridded air temperature.
+MEDA channels have distinct measurement roles.
+Direct Earth-Mars suitability ranking requires harmonized
+measurement quantities and temporal coverage.
+
+RELIABLE CONCLUSION:
+The main processing and descriptive temperature-analysis work is
+substantially complete. The available data support comparisons
+within the documented coverage and measurement limitations.
+
+OUTSTANDING:
+- Resolve missing Ls from an authoritative source if possible.
+- Verify quality-flag interpretation against PDS documentation.
+- Verify product-level dynamic geometry if suitable data are available.
+- Harmonize Earth-Mars temporal and measurement characteristics.
+
+No unsupported habitat-suitability ranking is claimed.

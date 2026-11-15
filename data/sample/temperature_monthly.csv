@@ -8,6 +8,3 @@ schema_version,site_id,month,variable_type,temp_min_c,temp_mean_c,temp_max_c,pct
 1.0,ladakh,1,surface_temp,-30,-8,18,52,100,2,PLACEHOLDER_surface_record,PLACEHOLDER_period_start,PLACEHOLDER_period_end
 1.0,ladakh,7,surface_temp,2,22,44,35,98,4,PLACEHOLDER_surface_record,PLACEHOLDER_period_start,PLACEHOLDER_period_end
 1.0,ladakh,1,air_temp,-20,-5,12,49,90,12,PLACEHOLDER_air_record,PLACEHOLDER_period_start,PLACEHOLDER_period_end
-1.0,iceland,1,surface_temp,-25,-8,8,47,100,2,PLACEHOLDER_surface_record,PLACEHOLDER_period_start,PLACEHOLDER_period_end
-1.0,iceland,7,surface_temp,-5,12,28,41,98,4,PLACEHOLDER_surface_record,PLACEHOLDER_period_start,PLACEHOLDER_period_end
-1.0,iceland,1,air_temp,-15,-2,9,55,90,12,PLACEHOLDER_air_record,PLACEHOLDER_period_start,PLACEHOLDER_period_end

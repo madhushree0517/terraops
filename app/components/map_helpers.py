@@ -14,6 +14,17 @@ def load_mars_map_config() -> dict[str, str]:
         return json.load(source)
 
 
+def filter_sites_by_body(sites: gpd.GeoDataFrame, body: str) -> gpd.GeoDataFrame:
+    """Return a copy containing only sites for the requested planetary body."""
+    return sites.loc[sites["body"] == body].copy()
+
+
+def _sites_with_coordinates(sites: gpd.GeoDataFrame) -> gpd.GeoDataFrame:
+    latitude = pd.to_numeric(sites["lat"], errors="coerce")
+    longitude = pd.to_numeric(sites["lon"], errors="coerce")
+    return sites.loc[latitude.notna() & longitude.notna()].copy()
+
+
 def build_site_map(
     sites: gpd.GeoDataFrame,
     *,
@@ -22,14 +33,18 @@ def build_site_map(
     tile_attribution: str = "",
 ) -> folium.Map:
     """Build a site map with an Earth basemap or an optional configured tile layer."""
-    if sites.empty:
+    sites_with_coordinates = _sites_with_coordinates(sites)
+    if sites_with_coordinates.empty:
         return folium.Map(
             location=[0, 0],
             zoom_start=2,
             control_scale=True,
             tiles="OpenStreetMap" if use_earth_basemap else None,
         )
-    center = [float(sites["lat"].mean()), float(sites["lon"].mean())]
+    center = [
+        float(sites_with_coordinates["lat"].mean()),
+        float(sites_with_coordinates["lon"].mean()),
+    ]
     site_map = folium.Map(
         location=center,
         zoom_start=2 if len(sites) > 1 else 4,
@@ -44,21 +59,21 @@ def build_site_map(
             overlay=False,
             control=True,
         ).add_to(site_map)
-    for site in sites.itertuples():
+    for site in sites_with_coordinates.itertuples():
         folium.Marker(
             location=[site.lat, site.lon],
             tooltip=site.name,
             popup=f"{site.name} ({site.body}) | {site.site_id}",
             icon=folium.Icon(color="red" if site.body == "Mars" else "green"),
         ).add_to(site_map)
-    if len(sites) > 1:
-        site_map.fit_bounds(
-            [
-                [float(sites["lat"].min()), float(sites["lon"].min())],
-                [float(sites["lat"].max()), float(sites["lon"].max())],
-            ],
+    site_map.fit_bounds(
+        [
+            [float(sites_with_coordinates["lat"].min()), float(sites_with_coordinates["lon"].min())],
+            [float(sites_with_coordinates["lat"].max()), float(sites_with_coordinates["lon"].max())],
+        ],
             padding=(24, 24),
-        )
+        max_zoom=5,
+    )
     return site_map
 
 
@@ -85,12 +100,15 @@ def render_site_map(
         key=key,
     )
     clicked = result.get("last_object_clicked") if result else None
-    if not clicked or not sites.size:
+    sites_with_coordinates = _sites_with_coordinates(sites)
+    if not clicked or sites_with_coordinates.empty:
         return None
     latitude = float(clicked["lat"])
     longitude = float(clicked["lng"])
-    distances = (sites["lat"] - latitude) ** 2 + (sites["lon"] - longitude) ** 2
+    distances = (sites_with_coordinates["lat"] - latitude) ** 2 + (
+        sites_with_coordinates["lon"] - longitude
+    ) ** 2
     nearest_index = distances.idxmin()
     if float(distances.loc[nearest_index]) > 0.0004:
         return None
-    return str(sites.loc[nearest_index, "site_id"])
+    return str(sites_with_coordinates.loc[nearest_index, "site_id"])

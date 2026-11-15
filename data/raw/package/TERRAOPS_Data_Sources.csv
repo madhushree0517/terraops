@@ -1,0 +1,5 @@
+dataset,source,url
+Mars MEDA ATS and TIRS,NASA Mars 2020 MEDA calibrated environmental archive,https://pds-atmospheres.nmsu.edu/PDS/data/PDS4/Mars2020/mars2020_meda/data_calibrated_env/
+MODIS,NASA MODIS,https://modis.gsfc.nasa.gov/data/
+NASA POWER,NASA POWER,https://power.larc.nasa.gov/
+Copernicus DEM,Copernicus Data Space Ecosystem,https://dataspace.copernicus.eu/

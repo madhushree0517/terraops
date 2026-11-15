@@ -1,0 +1,109 @@
+
+Processing algorithm 1/9…
+Algorithm Raster layer statistics starting…
+Input parameters:
+{"BAND":1,"INPUT":"C:/Users/aryas/OneDrive/Desktop/SHE Orbits project/NASA Space apps/DATA/Askja_Roughness.tif","OUTPUT_HTML_FILE":""}
+
+Algorithm Raster layer statistics correctly executed…
+Execution completed in 0.095 seconds
+Results:
+{"COUNT":6469204,"MAX":185.7244873046875,"MEAN":5.663050302523281,"MIN":0.0,"RANGE":185.7244873046875,"STD_DEV":7.9921812639760095,"SUM":36635427.66928482,"SUM_OF_SQUARES":413220091.63073117}
+
+Loading resulting layers
+
+Processing algorithm 2/9…
+Algorithm Raster layer statistics starting…
+Input parameters:
+{"BAND":1,"INPUT":"C:/Users/aryas/OneDrive/Desktop/SHE Orbits project/NASA Space apps/DATA/Askja_Slope.tif","OUTPUT_HTML_FILE":""}
+
+Algorithm Raster layer statistics correctly executed…
+Execution completed in 0.096 seconds
+Results:
+{"COUNT":6469204,"MAX":89.99978637695313,"MEAN":89.28433015846433,"MIN":0.0,"RANGE":89.99978637695313,"STD_DEV":7.759330139035741,"SUM":577598545.7984581,"SUM_OF_SQUARES":389492626.07461566}
+
+Loading resulting layers
+
+Processing algorithm 3/9…
+Algorithm Raster layer statistics starting…
+Input parameters:
+{"BAND":1,"INPUT":"C:/Users/aryas/OneDrive/Desktop/SHE Orbits project/NASA Space apps/Earth and Mars Datasets/Iceland Askja Copernicus GLO30 DEM.tif","OUTPUT_HTML_FILE":""}
+
+Algorithm Raster layer statistics correctly executed…
+Execution completed in 0.199 seconds
+Results:
+{"COUNT":6480000,"MAX":1575.94921875,"MEAN":521.565189352318,"MIN":39.0,"RANGE":1536.94921875,"STD_DEV":198.64335887183975,"SUM":3379742427.0030212,"SUM_OF_SQUARES":255695473015.60056}
+
+Loading resulting layers
+
+Processing algorithm 4/9…
+Algorithm Raster layer statistics starting…
+Input parameters:
+{"BAND":1,"INPUT":"C:/Users/aryas/OneDrive/Desktop/SHE Orbits project/NASA Space apps/DATA/Atacama_Roughness.tif","OUTPUT_HTML_FILE":""}
+
+Algorithm Raster layer statistics correctly executed…
+Execution completed in 0.197 seconds
+Results:
+{"COUNT":12945604,"MAX":170.36669921875,"MEAN":9.33773703101216,"MIN":0.0,"RANGE":170.36669921875,"STD_DEV":10.99698187441343,"SUM":120882645.85961914,"SUM_OF_SQUARES":1565558508.8983068}
+
+Loading resulting layers
+
+Processing algorithm 5/9…
+Algorithm Raster layer statistics starting…
+Input parameters:
+{"BAND":1,"INPUT":"C:/Users/aryas/OneDrive/Desktop/SHE Orbits project/NASA Space apps/DATA/Atacama_Slope.tif","OUTPUT_HTML_FILE":""}
+
+Algorithm Raster layer statistics correctly executed…
+Execution completed in 0.211 seconds
+Results:
+{"COUNT":12945604,"MAX":89.99976348876953,"MEAN":89.89221788952891,"MIN":0.0,"RANGE":89.99976348876953,"STD_DEV":2.8731756987695753,"SUM":1163709055.479557,"SUM_OF_SQUARES":106867746.97379386}
+
+Loading resulting layers
+
+Processing algorithm 6/9…
+Algorithm Raster layer statistics starting…
+Input parameters:
+{"BAND":1,"INPUT":"C:/Users/aryas/OneDrive/Desktop/SHE Orbits project/NASA Space apps/Earth and Mars Datasets/Atacama Copernicus GLO30 DEM.tif","OUTPUT_HTML_FILE":""}
+
+Algorithm Raster layer statistics correctly executed…
+Execution completed in 0.454 seconds
+Results:
+{"COUNT":12960000,"MAX":5952.99560546875,"MEAN":3106.261927224769,"MIN":2068.65478515625,"RANGE":3884.3408203125,"STD_DEV":579.820866893028,"SUM":40257154576.83301,"SUM_OF_SQUARES":4357051064199.95}
+
+Loading resulting layers
+
+Processing algorithm 7/9…
+Algorithm Raster layer statistics starting…
+Input parameters:
+{"BAND":1,"INPUT":"C:/Users/aryas/OneDrive/Desktop/SHE Orbits project/NASA Space apps/DATA/Ladakh_Roughness.tif","OUTPUT_HTML_FILE":""}
+
+Algorithm Raster layer statistics correctly executed…
+Execution completed in 0.21 seconds
+Results:
+{"COUNT":12945604,"MAX":351.123779296875,"MEAN":41.80988858567794,"MIN":0.0,"RANGE":351.123779296875,"STD_DEV":24.324381577472323,"SUM":541254260.9143066,"SUM_OF_SQUARES":7659596634.34231}
+
+Loading resulting layers
+
+Processing algorithm 8/9…
+Algorithm Raster layer statistics starting…
+Input parameters:
+{"BAND":1,"INPUT":"C:/Users/aryas/OneDrive/Desktop/SHE Orbits project/NASA Space apps/DATA/Ladakh_Slope.tif","OUTPUT_HTML_FILE":""}
+
+Algorithm Raster layer statistics correctly executed…
+Execution completed in 0.216 seconds
+Results:
+{"COUNT":12945604,"MAX":89.99988555908203,"MEAN":89.97360913041608,"MIN":0.0,"RANGE":89.99988555908203,"STD_DEV":1.4318560203045874,"SUM":1164762714.253151,"SUM_OF_SQUARES":26541226.253646567}
+
+Loading resulting layers
+
+Processing algorithm 9/9…
+Algorithm Raster layer statistics starting…
+Input parameters:
+{"BAND":1,"INPUT":"C:/Users/aryas/OneDrive/Desktop/SHE Orbits project/NASA Space apps/Earth and Mars Datasets/Ladakh Copernicus GLO30 DEM.tif","OUTPUT_HTML_FILE":""}
+
+Algorithm Raster layer statistics correctly executed…
+Execution completed in 0.415 seconds
+Results:
+{"COUNT":12960000,"MAX":7616.13818359375,"MEAN":4743.635916183434,"MIN":2925.218994140625,"RANGE":4690.919189453125,"STD_DEV":829.8336976576913,"SUM":61477521473.737305,"SUM_OF_SQUARES":8924565907732.38}
+
+Loading resulting layers
+Batch execution completed in 2.373 seconds

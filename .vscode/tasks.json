@@ -85,6 +85,74 @@
 			],
 			"isBackground": true,
 			"group": "build"
+		},
+		{
+			"label": "Run TERRAOPS Earth Map Check",
+			"type": "shell",
+			"command": "C:/Users/madhu/AppData/Local/Programs/Python/Python313/python.exe",
+			"args": [
+				"-m",
+				"streamlit",
+				"run",
+				"app/Home.py",
+				"--server.headless",
+				"true",
+				"--server.port",
+				"8506"
+			],
+			"isBackground": true,
+			"group": "build"
+		},
+		{
+			"label": "Run TERRAOPS Final Earth Check",
+			"type": "shell",
+			"command": "C:/Users/madhu/AppData/Local/Programs/Python/Python313/python.exe",
+			"args": [
+				"-m",
+				"streamlit",
+				"run",
+				"app/Home.py",
+				"--server.headless",
+				"true",
+				"--server.port",
+				"8507"
+			],
+			"isBackground": true,
+			"group": "build"
+		},
+		{
+			"label": "Run TERRAOPS Mixed Data Verification",
+			"type": "shell",
+			"command": "C:/Users/madhu/AppData/Local/Programs/Python/Python313/python.exe",
+			"args": [
+				"-m",
+				"streamlit",
+				"run",
+				"app/Home.py",
+				"--server.headless",
+				"true",
+				"--server.port",
+				"8508"
+			],
+			"isBackground": true,
+			"group": "build"
+		},
+		{
+			"label": "Run TERRAOPS Fresh Python",
+			"type": "shell",
+			"command": "C:/Users/madhu/Terraroaps/.venv/Scripts/python.exe",
+			"args": [
+				"-m",
+				"streamlit",
+				"run",
+				"app/Home.py",
+				"--server.headless",
+				"true",
+				"--server.port",
+				"8509"
+			],
+			"isBackground": true,
+			"group": "build"
 		}
 	]
 }

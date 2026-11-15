@@ -1,0 +1,2 @@
+candidate_Ls_fields,candidate_found,verified,seasonal_profiles_generated,reason
+,False,False,False,No solar-longitude field found in the available master schemas. Sol number alone is not used as a substitute for Ls.

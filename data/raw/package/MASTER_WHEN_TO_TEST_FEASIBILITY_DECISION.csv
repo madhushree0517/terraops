@@ -1,0 +1,6 @@
+feature,decision,reason
+Seasonal Mars reference temperature,FEASIBLE,All four seasons have substantial contributing-sol coverage in the generated 30-minute LTST reference profiles.
+Earth site temperature comparison,FEASIBLE AS PRELIMINARY COMPARISON,"Compatible measurement classes can be compared, but Earth data currently cover one month."
+Season-specific local-time matching,PARTIALLY FEASIBLE,Mars local-time references are available. Earth daily POWER data do not provide exact local-time matching.
+Annual When-to-Test calendar,NOT YET VALIDATED,Earth coverage is limited to July 2024 and official quality/geometry verification remains outstanding.
+Preliminary When-to-Test guidance,FEASIBLE WITH EXPLICIT LIMITATIONS,"Can provide a preliminary seasonal comparison and identify candidate observation windows, not validated operational recommendations."

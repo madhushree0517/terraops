@@ -1,0 +1,8 @@
+assigned_task,status,evidence,remaining
+Check prepared Mars and Earth temperature datasets,COMPLETED,"Earth daily audit, TIRS per-sol audit, ATS/TIRS dataset inventory and validation outputs.",No major data audit pending.
+Confirm measurement types and units,MOSTLY COMPLETED,"POWER T2M, MODIS LST, TIRS air and ground temperature identified and separated.",Verify official irradiance units and all source product measurement definitions.
+Confirm observation periods,COMPLETED WITH LIMITATIONS,Earth daily audit and Mars per-sol coverage audits.,"Earth currently covers July 2024 only. Mars Ls is mapped for 1,496 of 1,751 TIRS sols."
+Confirm quality flags,PARTIALLY COMPLETED,Per-sol flag fractions and uncertainty summaries generated.,Official flag semantics and filtering rules require PDS documentation.
+Identify scientifically valid comparisons,COMPLETED,Measurement-class comparison matrix generated.,Use air-to-air and surface-to-surface comparisons; state spatial and temporal caveats.
+Define temperature matching method,DEFINED; PARTIALLY IMPLEMENTED,"Seasonal Ls assignment, 30-minute Mars LTST bins, per-sol aggregation and P05–P95 envelopes.",Exact Earth-Mars local-time matching and a full uncertainty propagation model remain incomplete.
+Report When-to-Test feasibility,PRELIMINARY FEASIBILITY ESTABLISHED,Seasonal Mars reference profiles and preliminary Earth-Mars temperature-envelope comparisons.,Annual operational calendar cannot be validated using only July 2024 Earth observations.

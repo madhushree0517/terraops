@@ -1,0 +1,5 @@
+northern_season,sol_count,first_sol,last_sol,mean_Ls_deg,min_Ls_deg,max_Ls_deg
+Northern Autumn,264,362,1172,223.9864583333333,180.09,269.68
+Northern Spring,340,1,851,47.71188235294118,0.04,89.87
+Northern Summer,337,184,1029,134.48912462908012,90.32,179.97
+Northern Winter,238,504,1258,309.52319327731095,270.04,359.54

@@ -1,0 +1,38 @@
+{
+  "schema_version": "1.0",
+  "variable_type": "surface_temp",
+  "min_c": null,
+  "max_c": null,
+  "source": "package/temperature/validation/handover/05_EARTH_MARS_FINAL_RECALCULATED_TABLE.csv",
+  "notes": "Season-specific TIRS GROUND_TEMP P05-P95 intervals copied from the final recalculated surface-temperature comparison. No single global min/max is asserted; Earth comparisons are exploratory and not a direct matched-site experiment.",
+  "seasonal_envelopes": [
+    {
+      "season": "Northern Spring",
+      "min_c": -54.20122205756504,
+      "max_c": -40.00628837476505,
+      "mars_variable": "TIRS ground temperature",
+      "comparison_class": "SURFACE_TEMPERATURE"
+    },
+    {
+      "season": "Northern Summer",
+      "min_c": -50.0903358755237,
+      "max_c": -36.58036623135518,
+      "mars_variable": "TIRS ground temperature",
+      "comparison_class": "SURFACE_TEMPERATURE"
+    },
+    {
+      "season": "Northern Autumn",
+      "min_c": -66.0541884160499,
+      "max_c": -39.297407287068815,
+      "mars_variable": "TIRS ground temperature",
+      "comparison_class": "SURFACE_TEMPERATURE"
+    },
+    {
+      "season": "Northern Winter",
+      "min_c": -64.59924723051415,
+      "max_c": -44.98437532637752,
+      "mars_variable": "TIRS ground temperature",
+      "comparison_class": "SURFACE_TEMPERATURE"
+    }
+  ]
+}

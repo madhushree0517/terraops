@@ -1,0 +1,7 @@
+flag,data_available,fraction_computed,official_semantics_verified,allowed_interpretation
+SUN_OUTSIDE_TIRS_FOV_mean,Yes,Yes,No,Descriptive flag fraction only; do not infer good/bad quality.
+ROVER_LOW_TILT_mean,Yes,Yes,No,Descriptive flag fraction only; do not infer good/bad quality.
+TIRS_GROUND_FOOTPRINT_NOT_IN_SHADOW_mean,Yes,Yes,No,Descriptive flag fraction only; do not infer good/bad quality.
+ROVER_STILL_mean,Yes,Yes,No,Descriptive flag fraction only; do not infer good/bad quality.
+RSM_HEAD_OUTSIDE_TIRS_UPWARD_LOOKING_FOV_mean,Yes,Yes,No,Descriptive flag fraction only; do not infer good/bad quality.
+WHEEL_OUTSIDE_TIRS_DOWNWARD_LOOKING_FOV_mean,Yes,Yes,No,Descriptive flag fraction only; do not infer good/bad quality.

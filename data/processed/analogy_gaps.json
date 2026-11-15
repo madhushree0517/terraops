@@ -1,0 +1,82 @@
+[
+  {
+    "schema_version": "1.0",
+    "factor": "Earth temporal window",
+    "can_rehearse_on_earth": null,
+    "explanation": "The current Earth temperature comparison covers July 2024, not a full annual climatology. Next action: Extend Earth observations across seasons before making annual suitability claims.",
+    "review_status": "draft, pending engineering review",
+    "source": "package/temperature/validation/FINAL_REVISED_SCIENTIFIC_LIMITATIONS_REGISTER.csv"
+  },
+  {
+    "schema_version": "1.0",
+    "factor": "Iceland MODIS coverage",
+    "can_rehearse_on_earth": null,
+    "explanation": "Only 8 of 31 days have valid daytime and 8 of 31 have valid nighttime MODIS observations. Next action: Treat Iceland surface temperature estimates as lower-coverage descriptive evidence.",
+    "review_status": "draft, pending engineering review",
+    "source": "package/temperature/validation/FINAL_REVISED_SCIENTIFIC_LIMITATIONS_REGISTER.csv"
+  },
+  {
+    "schema_version": "1.0",
+    "factor": "Martian seasonal reference",
+    "can_rehearse_on_earth": null,
+    "explanation": "Official PDS Ls reference coverage is available for 1,526 of 1,754 ATS sols. The remaining 228 sols are unresolved and have not been interpolated. Next action: Recover missing Ls values only from an authoritative PDS source; preserve unresolved sols as missing.",
+    "review_status": "draft, pending engineering review",
+    "source": "package/temperature/validation/FINAL_REVISED_SCIENTIFIC_LIMITATIONS_REGISTER.csv"
+  },
+  {
+    "schema_version": "1.0",
+    "factor": "MEDA geometry",
+    "can_rehearse_on_earth": null,
+    "explanation": "Available index metadata do not independently establish dynamic sensor pointing or terrain footprint. Next action: Verify instrument mounting, boresight, FOV, frame and ancillary geometry against authoritative documentation.",
+    "review_status": "draft, pending engineering review",
+    "source": "package/temperature/validation/FINAL_REVISED_SCIENTIFIC_LIMITATIONS_REGISTER.csv"
+  },
+  {
+    "schema_version": "1.0",
+    "factor": "ATS-TIRS time alignment",
+    "can_rehearse_on_earth": null,
+    "explanation": "SCLK-derived minute-bin matching was previously reported, but the matched and height-aware Parquet files were not located in the current Google Drive project search. Exact clock coincidence is not established. Next action: Recover and verify the original matched datasets before including them as downloadable integration artifacts.",
+    "review_status": "draft, pending engineering review",
+    "source": "package/temperature/validation/FINAL_REVISED_SCIENTIFIC_LIMITATIONS_REGISTER.csv"
+  },
+  {
+    "schema_version": "1.0",
+    "factor": "MODIS QA interpretation",
+    "can_rehearse_on_earth": null,
+    "explanation": "QA category distributions have been audited, but their scientific meaning must be checked against the exact MODIS product documentation. Next action: Document product-specific mandatory QA and LST error meanings.",
+    "review_status": "draft, pending engineering review",
+    "source": "package/temperature/validation/FINAL_REVISED_SCIENTIFIC_LIMITATIONS_REGISTER.csv"
+  },
+  {
+    "schema_version": "1.0",
+    "factor": "TIRS uncertainty",
+    "can_rehearse_on_earth": null,
+    "explanation": "Instrument uncertainty fields have been summarized by sol. Next action: Retain uncertainty separately from observed temperature variability and Earth-Mars comparison uncertainty.",
+    "review_status": "draft, pending engineering review",
+    "source": "package/temperature/validation/FINAL_REVISED_SCIENTIFIC_LIMITATIONS_REGISTER.csv"
+  },
+  {
+    "schema_version": "1.0",
+    "factor": "Temperature threshold",
+    "can_rehearse_on_earth": null,
+    "explanation": "The previously used 293 K threshold is a chosen screening threshold, not a verified instrument operating limit. Next action: Do not describe it as an official instrument limit without authoritative documentation.",
+    "review_status": "draft, pending engineering review",
+    "source": "package/temperature/validation/FINAL_REVISED_SCIENTIFIC_LIMITATIONS_REGISTER.csv"
+  },
+  {
+    "schema_version": "1.0",
+    "factor": "Earth-Mars analogue interpretation",
+    "can_rehearse_on_earth": null,
+    "explanation": "Similar temperature distributions alone do not establish overall site suitability for a lunar or Martian habitat. Next action: Integrate radiation, pressure, dust, terrain, water, resources and operational constraints in later work.",
+    "review_status": "draft, pending engineering review",
+    "source": "package/temperature/validation/FINAL_REVISED_SCIENTIFIC_LIMITATIONS_REGISTER.csv"
+  },
+  {
+    "schema_version": "1.0",
+    "factor": "Matched Parquet artifact availability",
+    "can_rehearse_on_earth": null,
+    "explanation": "Neither the standard ATS-TIRS matched Parquet file nor the height-aware matched Parquet file was found in the current MyDrive search. Their presence in the shared handoff has not been established. Next action: Recover from original processing environment or regenerate only if source data and validated processing code are available.",
+    "review_status": "draft, pending engineering review",
+    "source": "package/temperature/validation/FINAL_REVISED_SCIENTIFIC_LIMITATIONS_REGISTER.csv"
+  }
+]

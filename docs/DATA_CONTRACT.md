@@ -1,8 +1,8 @@
 # TERRAOPS Data Contract
 
-The app reads the six files below from `data/processed/` when the complete contract is present. In automatic mode, an incomplete or absent processed contract selects `data/sample/`. `TERRAOPS_DATA_MODE=processed` requires processed data; `TERRAOPS_DATA_MODE=sample` always uses fixtures. CSV headers are exact and case-sensitive. Every file declares `schema_version` as `1.0`; unsupported or missing versions fail validation. Missing numeric observations remain missing (`NaN`); loaders do not replace them with zero.
+The app resolves each contract file independently from `data/processed/` when present, otherwise from `data/sample/`. `TERRAOPS_DATA_MODE=processed` requires processed data; `TERRAOPS_DATA_MODE=sample` forces sample files; `auto` uses per-file fallback. CSV headers are exact and case-sensitive. Every file declares `schema_version` as `1.0`; unsupported or missing versions fail validation. Missing numeric observations remain missing (`NaN`); loaders do not replace them with zero.
 
-Measurement values must use the contract's units: geographic coordinates and slope are in degrees, elevations and spatial resolutions are in metres, and temperatures are in Celsius. Unit declarations in `roughness_unit` and `datasets_catalogue.units` accept degree, metre, and Celsius names or common abbreviations only. Convert source values before loading; do not relabel an unconverted value.
+Measurement values must use documented contract units: geographic coordinates are in degrees, elevations and spatial resolutions are in metres, and temperatures are in Celsius. Slope fields and degree-based thresholds require slope values confirmed to be in degrees. `New_Terrain _metrics.txt` gives no unit for its reprojected slope rasters, so the derived slope P90 and threshold shares are labeled unit unconfirmed until that metadata is supplied. Unit declarations in `roughness_unit` and `datasets_catalogue.units` accept degree, metre, and Celsius names or common abbreviations only. Convert source values before loading; do not relabel an unconverted value.
 
 ## `sites.geojson`
 
@@ -18,9 +18,11 @@ GeoJSON `FeatureCollection`, one point feature per site. Required feature proper
 | `lon` | Longitude in decimal degrees, east-positive in the range -180 to 180; GeoJSON point coordinates are ordered `[lon, lat]`. |
 | `notes` | Context, caveats, or provenance notes. |
 
-Required sites are Jezero, Atacama, Ladakh, and Iceland; one additional Earth site is optional.
+Required sites are Jezero, Askja, Atacama, and Ladakh. Askja, Atacama, and Ladakh coordinates are centroids of the supplied extent footprints; these are not verified field boundaries. Jezero retains an approximate reference coordinate pending confirmation.
 
-## `terrain_parameters.csv`
+## Legacy `terrain_parameters.csv`
+
+This legacy wide format is retained for compatibility with the standalone loader only. Current app pages do not load or display it; use `terrain_metrics.csv` for terrain presentation.
 
 | Column | Meaning |
 | --- | --- |
@@ -34,6 +36,50 @@ Required sites are Jezero, Atacama, Ladakh, and Iceland; one additional Earth si
 | `roughness_unit` | Unit or definition for the roughness metric. |
 | `dem_source` | Digital elevation model source or identifier. |
 | `resolution_m` | Spatial resolution in metres. |
+
+## `terrain_metrics.csv`
+
+Long-form mobility metrics. A row represents one site and one metric; `metric_name` identifies the measure and `value` contains its numeric value, except categorical `material_class` values. Required metric names are `slope_p90_deg`, `pct_area_slope_gt10`, `pct_area_slope_gt17`, `pct_area_slope_gt24`, `roughness`, `rock_cover_cfa_pct`, `pct_area_step_gt20cm`, `pct_area_step_gt35cm`, and `material_class`. Additional legacy raster summaries may be retained as separate rows.
+
+Blank values mean missing data and must never be replaced with zero. The tier legend is:
+
+| Tier | Measurement capability |
+| --- | --- |
+| A | Measurable at rover scale, using about 2 m or finer terrain data. |
+| B | Coarse proxy, using about 30 m terrain data; cannot resolve rover-scale features. |
+| Blank | No confirmed open data. |
+
+Tiers describe what can be measured, not how suitable a site is. This build marks available coarse raster-derived metrics Tier B; it assigns no Tier A where rover-scale data are absent. The referenced engineering framework deck was not found in the workspace, so the owner should confirm the tier application. `roughness_metric` and `roughness_window` remain blank unless their method and window are documented. Roughness may be shown as numeric rank order only, not assigned a threshold band.
+
+All raster values describe the whole supplied raster extent unless `statistics_scope` documents another method. An extent polygon is not assumed to be a validated site boundary. `baseline_m` is the common analysis baseline; `native_resolution_m` records the source pixel size in metres, and `computed_at_baseline` states whether values were actually resampled/computed at the baseline. A native-resolution value must not be presented as baseline-normalized. `dem_source` is blank when unverified. Units may be missing when source documentation does not define them.
+
+## Derived slope artifacts
+
+`slope_histograms.csv` contains one row per site and 1-unit slope-value bin (`site_id`, `bin_start`, `bin_end`, `pixel_count`, `share`). The builder reads raster blocks and excludes nodata and non-finite pixels; shares are fractions of valid pixels per site and sum to 1. Slope units remain unconfirmed, so bins are numerical value intervals and are not asserted to be degrees.
+
+Slope preview images are written under `data/processed/previews/` only for sites that pass the builder's existing CRS and extent checks. `slope_preview_metadata.csv` records the source file, CRS, full raster extent, native pixel size/unit, and preview dimensions. Preview pixels are downsampled and are for visual context only, not a validated site boundary or analysis result.
+
+| Column | Meaning |
+| --- | --- |
+| `schema_version` | Contract version; every row is `1.0`. |
+| `site_id` | Canonical join key. |
+| `metric_name` | Mobility measure name, including the supported names listed above. |
+| `value` | Numeric metric value or categorical `material_class`; blank when unavailable. |
+| `value_mean`, `value_std`, `value_min`, `value_max` | Optional raster summary statistics over the stated scope; missing values remain blank/NaN. |
+| `n_valid_pixels` | Count of included non-nodata pixels. |
+| `metric_unit` | Source-defined unit; blank if not established. |
+| `tier` | `A`, `B`, or blank when unavailable at a tier. |
+| `baseline_m` | Common comparison baseline in metres; currently 30 m. |
+| `dem_source` | Documented source DEM name; blank if unknown. |
+| `native_resolution_m` | Source raster pixel size in metres; blank if unavailable. |
+| `computed_at_baseline` | Boolean indicating whether the value was computed at `baseline_m`; blank if not assessable. |
+| `roughness_metric`, `roughness_window` | Roughness definition and window; blank until documented. |
+| `availability_note` | Reason a requested value is pending, when known. |
+| `source_file` | Relative path to the raw raster. |
+| `crs` | Raster CRS. |
+| `resolution_x`, `resolution_y` | Raster pixel dimensions in source CRS units. |
+| `resolution_unit` | Coordinate unit derived from CRS metadata; not assumed to be metres. |
+| `statistics_scope` | Method/scope, such as raster extent or a documented polygon zone. |
 
 ## `temperature_monthly.csv`
 
@@ -57,11 +103,11 @@ One record per site, month, and variable type. `month` is 1-12; `variable_type` 
 
 ## `mars_temperature_envelope.json`
 
-JSON object with `schema_version` (`1.0`), `variable_type` (envelope variable), `min_c` and `max_c` (bounds in degrees Celsius), `source` (source identifier), and `notes` (method and caveats).
+JSON object with `schema_version` (`1.0`), `variable_type` (`surface_temp` or `air_temp`), `source` and `notes`. A single-envelope object uses numeric `min_c` and `max_c` in Celsius. If only season-specific thresholds are supported, `min_c` and `max_c` remain null and `seasonal_envelopes` contains objects with `season`, `min_c`, and `max_c` from the cited source. Do not collapse season-specific ranges into a single range without an approved interpretation.
 
 ## `analogy_gaps.json`
 
-JSON list of objects, each with `schema_version` (`1.0`), `factor` (limitation or condition), `can_rehearse_on_earth` (boolean), and `explanation` (scope and caveats). This file records limitations; it does not assert that Earth reproduces Mars.
+JSON list of objects, each with `schema_version` (`1.0`), `factor` (limitation or condition), `can_rehearse_on_earth` (boolean or null), and `explanation` (scope and caveats). A null decision is allowed only with `review_status: "draft, pending engineering review"`. This file records limitations; it does not assert that Earth reproduces Mars.
 
 ## `datasets_catalogue.csv`
 
@@ -81,4 +127,4 @@ JSON list of objects, each with `schema_version` (`1.0`), `factor` (limitation o
 | `citation` | Recommended citation. |
 | `licence` | Licence or usage terms. |
 
-All content in `data/sample/` is placeholder-only, including numeric values. Replace it with reviewed data in `data/processed/`; preserve these headers and document units, methods, periods, and provenance before comparing measurements.
+Files in `data/sample/` are marked as sample by the app. The sample site locations mirror the documented approximate Jezero reference and supplied Earth extent centroids; sample terrain and temperature measurements remain illustrative placeholders. The app's processed files take precedence per file when present. Preserve these headers and document units, methods, periods, and provenance before comparing measurements.

@@ -1,0 +1,5 @@
+Earth_variable,Mars_variable,measurement_class,status,caveat
+POWER T2M,MEDA TIRS AIR_TEMP,Air temperature,Potentially comparable,"Different height, spatial footprint, sampling and atmospheric conditions. Requires documented harmonisation."
+MODIS LST,MEDA TIRS GROUND_TEMP,Surface temperature,Potentially comparable,Different retrieval/instrument footprints and surface conditions.
+MODIS LST,MEDA TIRS AIR_TEMP,Surface versus air,Not directly comparable,Different physical measurement quantities.
+POWER T2M,MEDA TIRS GROUND_TEMP,Air versus surface,Not directly comparable,Different physical measurement quantities.

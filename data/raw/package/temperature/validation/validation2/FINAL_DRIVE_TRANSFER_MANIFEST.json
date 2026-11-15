@@ -1,0 +1,996 @@
+{
+  "handover_name": "TERRAOPS_FINAL_HANDOVER_20261115",
+  "generated": "2026-11-15T02:00:52",
+  "source_run": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615",
+  "destination_folder_ids": {
+    "Documentation": "1tRjFzf4GJ4D-J9k-36MJQHcz8ZnTPInG",
+    "Validation": "1qIJCrSfaIHuwGW0R8x3WUkhB2UC1yb27",
+    "Validation and Documentation": "1-M7oxiCZRayrCmPkEGUZhsltsMIuehBY",
+    "Mars": "1YpNX26uNJCCIeNYOCbrfQyn5Ud8FsXPw",
+    "Earth": "1wA0yps745e_sNZf-hm84-6N8WsT89bfK"
+  },
+  "copied_count": 144,
+  "skipped_count": 0,
+  "error_count": 28,
+  "copied": [
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/01_MEDA_SIS_EXACT_EXCERPTS.csv",
+      "drive_name": "01_MEDA_SIS_EXACT_EXCERPTS.csv",
+      "drive_id": "1icZacQqPceZLmhg39ULY7VV_QysRw5JZ",
+      "size": 4610
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/02_MEDA_FLAG_DISTRIBUTIONS.csv",
+      "drive_name": "02_MEDA_FLAG_DISTRIBUTIONS.csv",
+      "drive_id": "1bd58mPQr0ZMzovnO6U0HwOftFTBo6-4Y",
+      "size": 362
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/03_MEDA_FINAL_FLAG_CROSSWALK.csv",
+      "drive_name": "03_MEDA_FINAL_FLAG_CROSSWALK.csv",
+      "drive_id": "1zR3q4VcXz5MibOQ4S-aK1IJ1Vw2H5K5s",
+      "size": 4768
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/04_EARTH_MARS_ORIGINAL_SEASONAL_TABLE.csv",
+      "drive_name": "04_EARTH_MARS_ORIGINAL_SEASONAL_TABLE.csv",
+      "drive_id": "1ILXur9k0kK6ZB35-9bRGleXAgl3zhgwX",
+      "size": 4802
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/05_EARTH_MARS_FINAL_RECALCULATED_TABLE.csv",
+      "drive_name": "05_EARTH_MARS_FINAL_RECALCULATED_TABLE.csv",
+      "drive_id": "1YSVzAsKC2YdA4KxebjweVKNzsJE_qX-7",
+      "size": 5618
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/06_EARTH_MARS_COMPARISON_CLASS_SUMMARY.csv",
+      "drive_name": "06_EARTH_MARS_COMPARISON_CLASS_SUMMARY.csv",
+      "drive_id": "13pJ75uMpNCXtMaFIdtLMSWhVgR9ygE4q",
+      "size": 53
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/07_SPICE_DOWNLOAD_ERRORS.csv",
+      "drive_name": "07_SPICE_DOWNLOAD_ERRORS.csv",
+      "drive_id": "1SzPHyvraxgfbux1euUPEmvUfVekOYttk",
+      "size": 1
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/08_SPICE_DOWNLOADED_KERNEL_INVENTORY.csv",
+      "drive_name": "08_SPICE_DOWNLOADED_KERNEL_INVENTORY.csv",
+      "drive_id": "1-8DFnJ-s4iN7ln3B2WiQLw7hu-FZqsOJ",
+      "size": 30810
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/FINAL_THREE_STREAM_STATUS_REGISTER.csv",
+      "drive_name": "FINAL_THREE_STREAM_STATUS_REGISTER.csv",
+      "drive_id": "14zGR7_J-MdHdjNxPSDI6Pb1HDwcbIJhg",
+      "size": 861
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/FINAL_THREE_STREAM_CLOSURE_REPORT.md",
+      "drive_name": "FINAL_THREE_STREAM_CLOSURE_REPORT.md",
+      "drive_id": "1w-pJ3NZjQIx3SmhvyWpjcjPyAOsy_LMK",
+      "size": 1744
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/FINAL_HANDOVER_SUMMARY.txt",
+      "drive_name": "FINAL_HANDOVER_SUMMARY.txt",
+      "drive_id": "1A9E0-nnpXXW_V8ElJ7cI1-g9wC4yARn5",
+      "size": 2555
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/FINAL_VERIFICATION/01_MEDA_ROVER_LOW_TILT_SIS_DEFINITION.csv",
+      "drive_name": "01_MEDA_ROVER_LOW_TILT_SIS_DEFINITION.csv",
+      "drive_id": "1CsJtrSaz0My-j1piwrvTSEmjVIx_RsCM",
+      "size": 513
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/FINAL_VERIFICATION/02_EARTH_MARS_FINAL_SOURCE_TABLE.csv",
+      "drive_name": "02_EARTH_MARS_FINAL_SOURCE_TABLE.csv",
+      "drive_id": "1NwNMaThz4VDs-bt0VISRKAAqQDC8iuAp",
+      "size": 4802
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/FINAL_VERIFICATION/03_EARTH_MARS_SCOPE_AND_LIMITATIONS.csv",
+      "drive_name": "03_EARTH_MARS_SCOPE_AND_LIMITATIONS.csv",
+      "drive_id": "1UHCfWZdeqlxjKbsNC7FHU0KGPJyCYsWi",
+      "size": 423
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/FINAL_VERIFICATION/04_SPICE_MISSING_DEPENDENCIES.csv",
+      "drive_name": "04_SPICE_MISSING_DEPENDENCIES.csv",
+      "drive_id": "1mO_4y04NkVLnnEFcPT2ON1e01g81LJ-v",
+      "size": 19
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/FINAL_VERIFICATION/spice_fresh_process_test.py",
+      "drive_name": "spice_fresh_process_test.py",
+      "drive_id": "12x7ungsRsK0WnVvdtLn4jjNp6RAswi1X",
+      "size": 2376
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/FINAL_VERIFICATION/05_SPICE_VALIDATION_RESULT.json",
+      "drive_name": "05_SPICE_VALIDATION_RESULT.json",
+      "drive_id": "1jWwm7sqA4ZAGQSdyORIEhYeESApuXORe",
+      "size": 1701
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/FINAL_VERIFICATION/FINAL_THREE_STREAM_VALIDATION_REGISTER.csv",
+      "drive_name": "FINAL_THREE_STREAM_VALIDATION_REGISTER.csv",
+      "drive_id": "1wOfxuYhBQQQR-ljINSO8N8JKOzYWuA_r",
+      "size": 708
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/FINAL_VERIFICATION/FINAL_THREE_STREAM_VALIDATION_REPORT.md",
+      "drive_name": "FINAL_THREE_STREAM_VALIDATION_REPORT.md",
+      "drive_id": "1iNFQhUWprCIRFZQatM79nhbEiOp4FlN1",
+      "size": 1357
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/FINAL_VERIFICATION/06_SPICE_ABSOLUTE_PATH_MISSING_FILES.csv",
+      "drive_name": "06_SPICE_ABSOLUTE_PATH_MISSING_FILES.csv",
+      "drive_id": "1I1kYTMjXf9K8_e8wK_NzEVqGEP5g9wrv",
+      "size": 1
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/FINAL_VERIFICATION/m2020_v16_absolute_paths.tm",
+      "drive_name": "m2020_v16_absolute_paths.tm",
+      "drive_id": "1cI8QtXlQCQhaPgI9B7H_LLZUqgjjB1o-",
+      "size": 26935
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/FINAL_VERIFICATION/spice_absolute_path_validation.py",
+      "drive_name": "spice_absolute_path_validation.py",
+      "drive_id": "11W9PAlIPcCIPKKF15dMMHcmXphSXRZTO",
+      "size": 2801
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/FINAL_VERIFICATION/07_SPICE_ABSOLUTE_PATH_VALIDATION.json",
+      "drive_name": "07_SPICE_ABSOLUTE_PATH_VALIDATION.json",
+      "drive_id": "17jdK7kuVH-wTOJtNKaRYLxRoDWyknLPo",
+      "size": 1894
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/FINAL_VERIFICATION/08_SPICE_FINAL_STATUS.csv",
+      "drive_name": "08_SPICE_FINAL_STATUS.csv",
+      "drive_id": "1Oz0jDlQfEEntzjklo7QI87T6rUtd339N",
+      "size": 228
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/FINAL_VERIFICATION/spice_short_path_test.py",
+      "drive_name": "spice_short_path_test.py",
+      "drive_id": "1RsaQPRFrt2aFSuDZ28Zv3aV7cGvVSB_8",
+      "size": 2113
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/FINAL_VERIFICATION/09_SPICE_SHORT_PATH_RESULT.json",
+      "drive_name": "09_SPICE_SHORT_PATH_RESULT.json",
+      "drive_id": "14VwtfSxgJn4no6xNUjzUI1rF1tw_a-gR",
+      "size": 682
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/FINAL_VERIFICATION/10_SPICE_SHORT_PATH_STATUS.csv",
+      "drive_name": "10_SPICE_SHORT_PATH_STATUS.csv",
+      "drive_id": "1Q-5M3no1QW433QEDOT9shu1pb50JbJc6",
+      "size": 236
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/FINAL_VERIFICATION/spice_final_coverage_test.py",
+      "drive_name": "spice_final_coverage_test.py",
+      "drive_id": "1cNdldST6KoQvYFSuykKc5Zh-5XavCRiX",
+      "size": 2737
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/FINAL_VERIFICATION/11_SPICE_FINAL_COVERAGE_RESULT.json",
+      "drive_name": "11_SPICE_FINAL_COVERAGE_RESULT.json",
+      "drive_id": "1Bkd2O0UQbjECHaYdyT1PTOzGVOXHFDBa",
+      "size": 6507
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/FINAL_VERIFICATION/12_SPICE_FINAL_VALIDATION_REGISTER.csv",
+      "drive_name": "12_SPICE_FINAL_VALIDATION_REGISTER.csv",
+      "drive_id": "1nRmkI43_IDM_QYVAcgskOp15rIoSDzye",
+      "size": 307
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/FINAL_VERIFICATION/13_MEDA_TIRS_CK_COVERAGE.csv",
+      "drive_name": "13_MEDA_TIRS_CK_COVERAGE.csv",
+      "drive_id": "1670u_IWnol0b23-jt-Yn4A9U0rSXmJ3t",
+      "size": 1
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/FINAL_VERIFICATION/14_LANDED_ROVER_AND_MEDA_FRAME_VALIDATION.json",
+      "drive_name": "14_LANDED_ROVER_AND_MEDA_FRAME_VALIDATION.json",
+      "drive_id": "1y9E3z3OsCDkfxGiKfpliTuuzq7KpM7oQ",
+      "size": 508
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/FINAL_VERIFICATION/15_ALL_FK_MEDA_TIRS_FRAME_DECLARATIONS.csv",
+      "drive_name": "15_ALL_FK_MEDA_TIRS_FRAME_DECLARATIONS.csv",
+      "drive_id": "1ASgrhIbx27J3qhiicC2z4Z3A5KC5XT8y",
+      "size": 1
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/FINAL_VERIFICATION/16_ALL_FK_MEDA_TIRS_TEXT_MATCHES.csv",
+      "drive_name": "16_ALL_FK_MEDA_TIRS_TEXT_MATCHES.csv",
+      "drive_id": "1LlrSdpzQV4aOnB5XUG70GJlPAKSscE92",
+      "size": 1
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/FINAL_VERIFICATION/17_SPICE_RECOGNIZED_MEDA_TIRS_FRAMES.csv",
+      "drive_name": "17_SPICE_RECOGNIZED_MEDA_TIRS_FRAMES.csv",
+      "drive_id": "12LTun9Z6k3FBNyIdPp2y1H_3Ko1ilfyn",
+      "size": 1
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/FINAL_VERIFICATION/18_ALL_TEXT_KERNEL_FRAME_DECLARATIONS.csv",
+      "drive_name": "18_ALL_TEXT_KERNEL_FRAME_DECLARATIONS.csv",
+      "drive_id": "1EB_-vYKurqN2N3W10BKGPBKlGW5i2nZK",
+      "size": 11551
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/FINAL_VERIFICATION/19_ALL_MEDA_TIRS_TEXT_MATCHES.csv",
+      "drive_name": "19_ALL_MEDA_TIRS_TEXT_MATCHES.csv",
+      "drive_id": "1bd9GEe5duAsCPOb3lMemUPcahxQA380v",
+      "size": 23
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/FINAL_VERIFICATION/20_SPICE_RECOGNIZED_FRAMES.csv",
+      "drive_name": "20_SPICE_RECOGNIZED_FRAMES.csv",
+      "drive_id": "1Zt90FKTAHpwnGgz6qNyC8onGgybhE-YV",
+      "size": 62
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/FINAL_VERIFICATION/21_MEDA_TIRS_RECOGNIZED_FRAMES.csv",
+      "drive_name": "21_MEDA_TIRS_RECOGNIZED_FRAMES.csv",
+      "drive_id": "1calLa7j7VVfY69ihikroHfryjI3kEE-q",
+      "size": 62
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/FINAL_VERIFICATION/22_CK_FILE_OBJECT_INVENTORY.csv",
+      "drive_name": "22_CK_FILE_OBJECT_INVENTORY.csv",
+      "drive_id": "173rwtBa8VjWjBqO6EwPnIc4c3ibLfMZo",
+      "size": 7573
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/FINAL_VERIFICATION/23_FRAME_TO_CK_OBJECT_MATCH.csv",
+      "drive_name": "23_FRAME_TO_CK_OBJECT_MATCH.csv",
+      "drive_id": "1BJvJ3yt1oA6Ypxzy5iDPVN0Ja4P28dfU",
+      "size": 2969
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/FINAL_VERIFICATION/24_CK_OBJECT_DETAILS.csv",
+      "drive_name": "24_CK_OBJECT_DETAILS.csv",
+      "drive_id": "102bfqaUpSqiaET4xfDrA9IkIspU_Tq5g",
+      "size": 23070
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/FINAL_VERIFICATION/25_FINAL_SPICE_FRAME_DIAGNOSTIC_SUMMARY.json",
+      "drive_name": "25_FINAL_SPICE_FRAME_DIAGNOSTIC_SUMMARY.json",
+      "drive_id": "1AdpDjJPaEST3bHD39MBeVEloYe9MUjp2",
+      "size": 377
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/FINAL_VERIFICATION/27_CORRECTED_FRAME_CK_CROSSCHECK.csv",
+      "drive_name": "27_CORRECTED_FRAME_CK_CROSSCHECK.csv",
+      "drive_id": "16Tr6wq4ySQsQlJVvwwrNI98ca64-dm6p",
+      "size": 2925
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/FINAL_VERIFICATION/28_CORRECTED_SPICE_FRAME_INVENTORY.csv",
+      "drive_name": "28_CORRECTED_SPICE_FRAME_INVENTORY.csv",
+      "drive_id": "1kjrdrTES2-VU5M2YhOOqYirv4KGeOqNr",
+      "size": 1884
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/FINAL_HANDOVER_SUMMARY.txt",
+      "drive_name": "FINAL_HANDOVER_SUMMARY.txt",
+      "drive_id": "1Y6Tc1K7X09n1aBzmAW_rBVPVQq3_yhnT",
+      "size": 2555
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/AUTHORITATIVE_DOCUMENTATION/MEDA_DISCOVERED_meda_env_edr_sis.pdf",
+      "drive_name": "MEDA_DISCOVERED_meda_env_edr_sis.pdf",
+      "drive_id": "11jYqnwE2Q8HW5WQzCWYETnynH7QLWPP5",
+      "size": 1688796
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/AUTHORITATIVE_DOCUMENTATION/MEDA_DISCOVERED_meda_env_rdr_sis.pdf",
+      "drive_name": "MEDA_DISCOVERED_meda_env_rdr_sis.pdf",
+      "drive_id": "1rGnjWlElD90u4H4rR3diCYjPjzasBmyP",
+      "size": 1733894
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/AUTHORITATIVE_DOCUMENTATION/MEDA_DISCOVERED_Mars2020_Camera_SIS.pdf",
+      "drive_name": "MEDA_DISCOVERED_Mars2020_Camera_SIS.pdf",
+      "drive_id": "1-sSSekdOIsccAVj8HiAlj8-bHrTBfDkt",
+      "size": 61563309
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/AUTHORITATIVE_DOCUMENTATION/MEDA_DISCOVERED_meda_env_edr_sis.pdf.extracted.txt",
+      "drive_name": "MEDA_DISCOVERED_meda_env_edr_sis.pdf.extracted.txt",
+      "drive_id": "1TaRGkpNlTBUTVxkRbrcfVEsqInC6qHJC",
+      "size": 126626
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/AUTHORITATIVE_DOCUMENTATION/MEDA_DISCOVERED_meda_env_rdr_sis.pdf.extracted.txt",
+      "drive_name": "MEDA_DISCOVERED_meda_env_rdr_sis.pdf.extracted.txt",
+      "drive_id": "1MQz8mTHS14ziX4nj8mtxd3_sij7OcypV",
+      "size": 91920
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/AUTHORITATIVE_DOCUMENTATION/MEDA_DISCOVERED_Mars2020_Camera_SIS.pdf.extracted.txt",
+      "drive_name": "MEDA_DISCOVERED_Mars2020_Camera_SIS.pdf.extracted.txt",
+      "drive_id": "1m-G8GJF1Zrwqlc7npFupcjqOGnl6UBCD",
+      "size": 624258
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/AUTHORITATIVE_DOCUMENTATION/MEDA_RDR_SIS_SOURCE.html.extracted.txt",
+      "drive_name": "MEDA_RDR_SIS_SOURCE.html.extracted.txt",
+      "drive_id": "1Pfx8AQwxp5-GpeJMURkH_JX_MjoU_4cV",
+      "size": 10902
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_SUBMISSION_PACKAGE/REVIEW_MODIS_Earth_Mars_seasonal_comparison.csv",
+      "drive_name": "REVIEW_MODIS_Earth_Mars_seasonal_comparison.csv",
+      "drive_id": "1E70Kv3ISl1befE8E-0VjEOj1Wsr4RIPG",
+      "size": 4802
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/mk/m2020_v16.tm",
+      "drive_name": "m2020_v16.tm",
+      "drive_id": "1FEal0OW7OCBtLNhpOXy1qVnoJcWvnrCT",
+      "size": 9982
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/mk/m2020_v16_colab_validation.tm",
+      "drive_name": "m2020_v16_colab_validation.tm",
+      "drive_id": "1T3wouAM_ZTcGPoKCLo3xQyRm2W1IGymx",
+      "size": 9979
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/lsk/naif0012.tls",
+      "drive_name": "naif0012.tls",
+      "drive_id": "1NbaXckUwzVXLR_1Wl39GamefMKM1kq8B",
+      "size": 5257
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/pck/pck00010.tpc",
+      "drive_name": "pck00010.tpc",
+      "drive_id": "1d3Pi9a-wm-6uXROr6biDYdW-U5k-Z6rL",
+      "size": 126143
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/fk/m2020_v04.tf",
+      "drive_name": "m2020_v04.tf",
+      "drive_id": "1yiBSl1IyMqr5f10Z5Kyp9AuJBIYdYd23",
+      "size": 142335
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/ik/m2020_struct_v00.ti",
+      "drive_name": "m2020_struct_v00.ti",
+      "drive_id": "1rtX7mnXjzhxWwFrBgT6MLALXsw5G-ckO",
+      "size": 6918
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/sclk/m2020_lmst_ops210303_v1.tsc",
+      "drive_name": "m2020_lmst_ops210303_v1.tsc",
+      "drive_id": "1r7GjyfLGf9cei5ltTolPe9AtkS33JBFO",
+      "size": 4913
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/sclk/m2020_168_sclkscet_refit_v19.tsc",
+      "drive_name": "m2020_168_sclkscet_refit_v19.tsc",
+      "drive_id": "1e0MDm0JIwL8UNEMkh4jPn3LfC8dQIyZS",
+      "size": 83474
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/spk/de438s.bsp",
+      "drive_name": "de438s.bsp",
+      "drive_id": "1Emqe3ld21OcoZOdOvIT88DMmVHfoO8XL",
+      "size": 21807104
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/spk/mar097.bsp",
+      "drive_name": "mar097.bsp",
+      "drive_id": "1qa0wxChQgRJIMXNXA6yo_KsCcZqdf2Cx",
+      "size": 469902336
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/spk/m2020_struct_v01.bsp",
+      "drive_name": "m2020_struct_v01.bsp",
+      "drive_id": "1hcYMV2r0XYZtH6qFCw4http6HF4S56-_",
+      "size": 54272
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/spk/m2020_cruise_od138_v1.bsp",
+      "drive_name": "m2020_cruise_od138_v1.bsp",
+      "drive_id": "1FPAqVFMU-LZ_bsB1zZVgAChFA4ChhmMf",
+      "size": 523264
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/spk/m2020_edl_v01.bsp",
+      "drive_name": "m2020_edl_v01.bsp",
+      "drive_id": "1vp5-o8l1qsvNTRZsDvqLFFilCwiIra5l",
+      "size": 10821632
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/spk/m2020_ls_ops210303_iau2000_v1.bsp",
+      "drive_name": "m2020_ls_ops210303_iau2000_v1.bsp",
+      "drive_id": "1V1ad-_vY_rAIeJNBykxSKrEQOVD-lsK_",
+      "size": 7168
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/spk/m2020_surf_rover_loc_0000_0089_v1.bsp",
+      "drive_name": "m2020_surf_rover_loc_0000_0089_v1.bsp",
+      "drive_id": "1DPbH3NAug9EXDywipBRzHQLjAJRsDetJ",
+      "size": 58368
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/spk/m2020_surf_rover_loc_0089_0179_v1.bsp",
+      "drive_name": "m2020_surf_rover_loc_0089_0179_v1.bsp",
+      "drive_id": "1nIjKz_SwM-AyjV0x71CAkI2SE-J0Z4sq",
+      "size": 122880
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/spk/m2020_surf_rover_loc_0179_0299_v1.bsp",
+      "drive_name": "m2020_surf_rover_loc_0179_0299_v1.bsp",
+      "drive_id": "11UAQVFkJkDRFbXbUpnCH2rKY2Fe4ztQ0",
+      "size": 72704
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/spk/m2020_surf_rover_loc_0299_0419_v1.bsp",
+      "drive_name": "m2020_surf_rover_loc_0299_0419_v1.bsp",
+      "drive_id": "1C1iH83jkhYViLGOsOSycXaBqpDZC4Lcd",
+      "size": 488448
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/spk/m2020_surf_rover_loc_0419_0539_v1.bsp",
+      "drive_name": "m2020_surf_rover_loc_0419_0539_v1.bsp",
+      "drive_id": "1g3t441tQ_oOIxwM6SQoQRWa4H2nbHAIi",
+      "size": 202752
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/spk/m2020_surf_rover_loc_0539_0659_v1.bsp",
+      "drive_name": "m2020_surf_rover_loc_0539_0659_v1.bsp",
+      "drive_id": "1ICybvFb0tSnG85HvDbqxNU0yX7XZj7cE",
+      "size": 229376
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/spk/m2020_surf_rover_loc_0659_0779_v1.bsp",
+      "drive_name": "m2020_surf_rover_loc_0659_0779_v1.bsp",
+      "drive_id": "1NtPXjC42hdFhQrqQXxIKkzARQyRkuNLI",
+      "size": 484352
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/spk/m2020_surf_rover_loc_0779_0899_v1.bsp",
+      "drive_name": "m2020_surf_rover_loc_0779_0899_v1.bsp",
+      "drive_id": "1a-zkeeFuoIRQG_6m6fGTTfMOBZUe5nDT",
+      "size": 198656
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/spk/m2020_surf_rover_loc_0899_1019_v1.bsp",
+      "drive_name": "m2020_surf_rover_loc_0899_1019_v1.bsp",
+      "drive_id": "1waF_JT2pRhiUvWM_Xi9uuP8au1RXhsNn",
+      "size": 465920
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/spk/m2020_surf_rover_loc_1019_1139_v1.bsp",
+      "drive_name": "m2020_surf_rover_loc_1019_1139_v1.bsp",
+      "drive_id": "1woh2Fqkr4k6NGG61wVEzTVJlvOKQqE8q",
+      "size": 351232
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/spk/m2020_surf_rover_loc_1139_1259_v1.bsp",
+      "drive_name": "m2020_surf_rover_loc_1139_1259_v1.bsp",
+      "drive_id": "1kESicORZXEa-dt1msUeYXPxmmtyg9aUk",
+      "size": 365568
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/spk/m2020_surf_rover_loc_1259_1379_v1.bsp",
+      "drive_name": "m2020_surf_rover_loc_1259_1379_v1.bsp",
+      "drive_id": "1vuw8aYuN3p-ovUs-Uv3uWfjly4gTVMot",
+      "size": 507904
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/spk/m2020_surf_rover_loc_1379_1499_v1.bsp",
+      "drive_name": "m2020_surf_rover_loc_1379_1499_v1.bsp",
+      "drive_id": "1sXwaOsO2V4rt6qBQtQDmJV_slisTMOlp",
+      "size": 277504
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/spk/m2020_surf_rover_loc_1499_1619_v1.bsp",
+      "drive_name": "m2020_surf_rover_loc_1499_1619_v1.bsp",
+      "drive_id": "1usBKpFziDIAZazv69PRak2pJVGZvlzGy",
+      "size": 409600
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/spk/m2020_surf_rover_loc_1619_1739_v1.bsp",
+      "drive_name": "m2020_surf_rover_loc_1619_1739_v1.bsp",
+      "drive_id": "1_h-Rf3M5fdGUe8-tGeHlTl2o3YRujOYH",
+      "size": 379904
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/spk/m2020_surf_rover_loc_1739_1859_v1.bsp",
+      "drive_name": "m2020_surf_rover_loc_1739_1859_v1.bsp",
+      "drive_id": "1uGNiluK2tgUiXYtfUcfGL8uslxeINUsC",
+      "size": 329728
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/ck/m2020_turret_tools_v1.bc",
+      "drive_name": "m2020_turret_tools_v1.bc",
+      "drive_id": "1GgEW-Mgkg6Cz79dtZcWzT98Pk3963q11",
+      "size": 21504
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/ck/m2020_cruise_recon_rawrt_v1.bc",
+      "drive_name": "m2020_cruise_recon_rawrt_v1.bc",
+      "drive_id": "1vayWB3QIbyyVXLBK3qc0Ev_9mhYUvUQN",
+      "size": 15136768
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/ck/m2020_cruise_recon_raweng_v1.bc",
+      "drive_name": "m2020_cruise_recon_raweng_v1.bc",
+      "drive_id": "1UB3_A5I9WKeJzScrK07sfWa4DFqjFe3s",
+      "size": 14040064
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/ck/m2020_edl_v01.bc",
+      "drive_name": "m2020_edl_v01.bc",
+      "drive_id": "10DL1HiRrwPBdlmYsrxfl1xEJVSFpvzP8",
+      "size": 12311552
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/ck/m2020_surf_ra_tlmenc_0000_0089_v1.bc",
+      "drive_name": "m2020_surf_ra_tlmenc_0000_0089_v1.bc",
+      "drive_id": "1sm_Uoh_AjwC5lEZ324JAd4POfaU0jfPJ",
+      "size": 570368
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/ck/m2020_surf_ra_tlmenc_0089_0179_v1.bc",
+      "drive_name": "m2020_surf_ra_tlmenc_0089_0179_v1.bc",
+      "drive_id": "1D8D8hm2wgGqQo3kMWt0KL2gkTiwLEArs",
+      "size": 557056
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/ck/m2020_surf_ra_tlmenc_0179_0299_v1.bc",
+      "drive_name": "m2020_surf_ra_tlmenc_0179_0299_v1.bc",
+      "drive_id": "1JWcZcAXVMSRIALuYaB53Vu4Xg9DbrhGn",
+      "size": 890880
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/ck/m2020_surf_ra_tlmenc_0299_0419_v1.bc",
+      "drive_name": "m2020_surf_ra_tlmenc_0299_0419_v1.bc",
+      "drive_id": "15-hcwqyOFqfUthO6wVMQI133m2KBLCLs",
+      "size": 1155072
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/ck/m2020_surf_ra_tlmenc_0419_0539_v1.bc",
+      "drive_name": "m2020_surf_ra_tlmenc_0419_0539_v1.bc",
+      "drive_id": "1GQqwCfjpm91Ag8AX-LVcUAS2-ZJWcqH6",
+      "size": 978944
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/ck/m2020_surf_ra_tlmres_1259_1379_v1.bc",
+      "drive_name": "m2020_surf_ra_tlmres_1259_1379_v1.bc",
+      "drive_id": "10XchObsh6BB6-3hB5jfNJy6TXtdgEtUE",
+      "size": 587776
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/ck/m2020_surf_ra_tlmres_1379_1499_v1.bc",
+      "drive_name": "m2020_surf_ra_tlmres_1379_1499_v1.bc",
+      "drive_id": "1Yohuw2lObqtopmMkZH9gA0TbI_-uTpgH",
+      "size": 365568
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/ck/m2020_surf_ra_tlmres_1619_1739_v1.bc",
+      "drive_name": "m2020_surf_ra_tlmres_1619_1739_v1.bc",
+      "drive_id": "1mmYKzaYnW3p0EkGRH9yoLCaTLcEraiV-",
+      "size": 553984
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/ck/m2020_surf_rsm_tlmenc_0000_0089_v1.bc",
+      "drive_name": "m2020_surf_rsm_tlmenc_0000_0089_v1.bc",
+      "drive_id": "1PobY6zVaHXPM9KHcA2LlUgyZXkAI8Hzb",
+      "size": 890880
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/ck/m2020_surf_rsm_tlmenc_0089_0179_v1.bc",
+      "drive_name": "m2020_surf_rsm_tlmenc_0089_0179_v1.bc",
+      "drive_id": "1C2A2omHko5_dFhtyDKNvXOmhuq3azSxP",
+      "size": 1662976
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/ck/m2020_surf_rsm_tlmenc_0179_0299_v1.bc",
+      "drive_name": "m2020_surf_rsm_tlmenc_0179_0299_v1.bc",
+      "drive_id": "16j0QG1cLOy4TiHBEoCjtj2pEibBR7Hwu",
+      "size": 1664000
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/ck/m2020_surf_rsm_tlmenc_0419_0539_v1.bc",
+      "drive_name": "m2020_surf_rsm_tlmenc_0419_0539_v1.bc",
+      "drive_id": "1TiGxP0nVFFFlFLdXYyHpHRlXekKw7LAd",
+      "size": 2073600
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/ck/m2020_surf_rsm_tlmenc_0539_0659_v1.bc",
+      "drive_name": "m2020_surf_rsm_tlmenc_0539_0659_v1.bc",
+      "drive_id": "12hO5yjHq1bnz0aUdYpay-VeFDMo9HBAa",
+      "size": 1906688
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/ck/m2020_surf_rsm_tlmenc_0659_0779_v1.bc",
+      "drive_name": "m2020_surf_rsm_tlmenc_0659_0779_v1.bc",
+      "drive_id": "1bOddp1765ASVcKP9_K6m1csviZ30XOkt",
+      "size": 2656256
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/ck/m2020_surf_rsm_tlmenc_0779_0899_v1.bc",
+      "drive_name": "m2020_surf_rsm_tlmenc_0779_0899_v1.bc",
+      "drive_id": "1mALfA8Meucn-uV4ACICp6GU_2qSl0Trv",
+      "size": 2678784
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/ck/m2020_surf_rsm_tlmenc_0899_1019_v1.bc",
+      "drive_name": "m2020_surf_rsm_tlmenc_0899_1019_v1.bc",
+      "drive_id": "1EihQwReig_zuk80aqLKsZeirNFX1Zfs2",
+      "size": 3018752
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/ck/m2020_surf_rsm_tlmenc_1019_1139_v1.bc",
+      "drive_name": "m2020_surf_rsm_tlmenc_1019_1139_v1.bc",
+      "drive_id": "1cv-zkNY1enjS47S0-1-4rJjzJYV1eQyA",
+      "size": 3014656
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/ck/m2020_surf_rsm_tlmenc_1139_1259_v1.bc",
+      "drive_name": "m2020_surf_rsm_tlmenc_1139_1259_v1.bc",
+      "drive_id": "1RDQXVSoZ65SbGUaQQn3irHCnidjqSRjc",
+      "size": 481280
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/ck/m2020_surf_rsm_tlmenc_1259_1379_v1.bc",
+      "drive_name": "m2020_surf_rsm_tlmenc_1259_1379_v1.bc",
+      "drive_id": "1-zLZkYt3SkTlaiXdrJv9Se7mgaY0hzpC",
+      "size": 606208
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/ck/m2020_surf_rsm_tlmenc_1379_1499_v1.bc",
+      "drive_name": "m2020_surf_rsm_tlmenc_1379_1499_v1.bc",
+      "drive_id": "1wq_SU6vXgAyxD4jcTY9-T-_tvEPkgbP4",
+      "size": 557056
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/ck/m2020_surf_rsm_tlmenc_1499_1619_v1.bc",
+      "drive_name": "m2020_surf_rsm_tlmenc_1499_1619_v1.bc",
+      "drive_id": "1sV7ZVzlAJpIV3ETjALHS_AXHEOq7pEV5",
+      "size": 653312
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/ck/m2020_surf_rsm_tlmenc_1619_1739_v1.bc",
+      "drive_name": "m2020_surf_rsm_tlmenc_1619_1739_v1.bc",
+      "drive_id": "1BL2v2m38J0g0S9Rl-ZHgdKl1wRoZO1ns",
+      "size": 720896
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/ck/m2020_surf_rsm_tlmres_0000_0089_v1.bc",
+      "drive_name": "m2020_surf_rsm_tlmres_0000_0089_v1.bc",
+      "drive_id": "1xeDqsbcsmcSxUMvBswmR-ef-QOdFyu6F",
+      "size": 837632
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/ck/m2020_surf_rsm_tlmres_0089_0179_v1.bc",
+      "drive_name": "m2020_surf_rsm_tlmres_0089_0179_v1.bc",
+      "drive_id": "1y8lskdRtnm9p5qkh2vVp4Gtm5kSOAdus",
+      "size": 1557504
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/ck/m2020_surf_rsm_tlmres_0299_0419_v1.bc",
+      "drive_name": "m2020_surf_rsm_tlmres_0299_0419_v1.bc",
+      "drive_id": "1ovNqCM7Hq84Gbu3ORZenM6TMz0LxgAmV",
+      "size": 1441792
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/ck/m2020_surf_rsm_tlmres_0419_0539_v1.bc",
+      "drive_name": "m2020_surf_rsm_tlmres_0419_0539_v1.bc",
+      "drive_id": "10yW3_vAoxgN5cumApdPs7X1lAFP7uVAx",
+      "size": 1807360
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/ck/m2020_surf_rsm_tlmres_0539_0659_v1.bc",
+      "drive_name": "m2020_surf_rsm_tlmres_0539_0659_v1.bc",
+      "drive_id": "1LZ5-WSva22a6sMuV6IVB3IBGXDuRGklZ",
+      "size": 1556480
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/ck/m2020_surf_rsm_tlmres_0659_0779_v1.bc",
+      "drive_name": "m2020_surf_rsm_tlmres_0659_0779_v1.bc",
+      "drive_id": "1PAanQYZRjyQJPix0nE5h-F2w9f4vDUQg",
+      "size": 2239488
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/ck/m2020_surf_rsm_tlmres_0779_0899_v1.bc",
+      "drive_name": "m2020_surf_rsm_tlmres_0779_0899_v1.bc",
+      "drive_id": "1Qc_nLw72yWwocFQh_yOSs1lPlfxlJXqR",
+      "size": 2202624
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/ck/m2020_surf_rsm_tlmres_0899_1019_v1.bc",
+      "drive_name": "m2020_surf_rsm_tlmres_0899_1019_v1.bc",
+      "drive_id": "1f5CuaO-HxRHow6tyWSzV1Zd-H-UDQhmq",
+      "size": 2404352
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/ck/m2020_surf_rsm_tlmres_1139_1259_v1.bc",
+      "drive_name": "m2020_surf_rsm_tlmres_1139_1259_v1.bc",
+      "drive_id": "1diwSNrb2V2JtAKR3cMqwdLm1_2mTiRuB",
+      "size": 278528
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/ck/m2020_surf_rsm_tlmres_1259_1379_v1.bc",
+      "drive_name": "m2020_surf_rsm_tlmres_1259_1379_v1.bc",
+      "drive_id": "1xJtE2yZduFLEXMMao_I62E1e8Dmd07Xw",
+      "size": 376832
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/ck/m2020_surf_rsm_tlmres_1379_1499_v1.bc",
+      "drive_name": "m2020_surf_rsm_tlmres_1379_1499_v1.bc",
+      "drive_id": "1HDe3Gl91zBWVjbRmipNfO1IxkA5OsivW",
+      "size": 302080
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/ck/m2020_surf_rsm_tlmres_1499_1619_v1.bc",
+      "drive_name": "m2020_surf_rsm_tlmres_1499_1619_v1.bc",
+      "drive_id": "1PNxGVFg7A9CjDvDr0Le-3XifCsflX2VV",
+      "size": 384000
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/ck/m2020_surf_rsm_tlmres_1619_1739_v1.bc",
+      "drive_name": "m2020_surf_rsm_tlmres_1619_1739_v1.bc",
+      "drive_id": "15sgazTH8Zkb5GysPzb7hY4Ie8MFFba1j",
+      "size": 410624
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/ck/m2020_surf_rsm_tlmres_1739_1859_v1.bc",
+      "drive_name": "m2020_surf_rsm_tlmres_1739_1859_v1.bc",
+      "drive_id": "1M_r2frr-3sv4tNVIAOgZBiZMbl5Fxzd4",
+      "size": 394240
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/ck/m2020_surf_rover_tlm_0000_0089_v1.bc",
+      "drive_name": "m2020_surf_rover_tlm_0000_0089_v1.bc",
+      "drive_id": "1BlHxHej4pI-ximlf-BMiTY38Ohgina0o",
+      "size": 134144
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/ck/m2020_surf_rover_tlm_0089_0179_v1.bc",
+      "drive_name": "m2020_surf_rover_tlm_0089_0179_v1.bc",
+      "drive_id": "1ErOvGnfowRlILkOM6yMLP3iGrxpE0zDn",
+      "size": 175104
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/ck/m2020_surf_rover_tlm_0179_0299_v1.bc",
+      "drive_name": "m2020_surf_rover_tlm_0179_0299_v1.bc",
+      "drive_id": "1oUnMooJIeB9mGiIwXlpiIs2i1LRmPQUi",
+      "size": 256000
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/ck/m2020_surf_rover_tlm_0299_0419_v1.bc",
+      "drive_name": "m2020_surf_rover_tlm_0299_0419_v1.bc",
+      "drive_id": "1nAz795un-W5YIRpxuMMqz7mZ1HDDwlrq",
+      "size": 742400
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/ck/m2020_surf_rover_tlm_0419_0539_v1.bc",
+      "drive_name": "m2020_surf_rover_tlm_0419_0539_v1.bc",
+      "drive_id": "1WzaFgxseOomOP0Tn3_2WOWok3Gl6lmMt",
+      "size": 239616
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/ck/m2020_surf_rover_tlm_0539_0659_v1.bc",
+      "drive_name": "m2020_surf_rover_tlm_0539_0659_v1.bc",
+      "drive_id": "1mx4EhSCQJ86xdUK0-f58LnoLrXGllCNu",
+      "size": 292864
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/ck/m2020_surf_rover_tlm_0659_0779_v1.bc",
+      "drive_name": "m2020_surf_rover_tlm_0659_0779_v1.bc",
+      "drive_id": "1qLnA8yJmoti16eEEKg-F5JD4oSxVm8vx",
+      "size": 536576
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/ck/m2020_surf_rover_tlm_0779_0899_v1.bc",
+      "drive_name": "m2020_surf_rover_tlm_0779_0899_v1.bc",
+      "drive_id": "12iKl07HsIUaHy8gOyAMjG1884pQkKXOz",
+      "size": 238592
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/ck/m2020_surf_rover_tlm_0899_1019_v1.bc",
+      "drive_name": "m2020_surf_rover_tlm_0899_1019_v1.bc",
+      "drive_id": "121hYeDKHZtNn_S2eWPIrDQ4seJlXS2dE",
+      "size": 408576
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/ck/m2020_surf_rover_tlm_1019_1139_v1.bc",
+      "drive_name": "m2020_surf_rover_tlm_1019_1139_v1.bc",
+      "drive_id": "1B7qOO9RMrIO-2kqIWBqa8kl5TEr12Tuk",
+      "size": 694272
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/ck/m2020_surf_rover_tlm_1139_1259_v1.bc",
+      "drive_name": "m2020_surf_rover_tlm_1139_1259_v1.bc",
+      "drive_id": "1wxZvLU9W-Ep6DXQLkH-Xo60xtvXzS4es",
+      "size": 451584
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/ck/m2020_surf_rover_tlm_1259_1379_v1.bc",
+      "drive_name": "m2020_surf_rover_tlm_1259_1379_v1.bc",
+      "drive_id": "1qxXUFaOUYLrz6I7aIHlkViTw68OpN9Ib",
+      "size": 691200
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/ck/m2020_surf_rover_tlm_1379_1499_v1.bc",
+      "drive_name": "m2020_surf_rover_tlm_1379_1499_v1.bc",
+      "drive_id": "1Tq8fmNs2prtkYPBMBxkau963f6C79IhV",
+      "size": 319488
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/ck/m2020_surf_rover_tlm_1499_1619_v1.bc",
+      "drive_name": "m2020_surf_rover_tlm_1499_1619_v1.bc",
+      "drive_id": "1kuwTDfNnN4Yv2fMGvPebFjRB_gPtAB7a",
+      "size": 486400
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/ck/m2020_surf_rover_tlm_1619_1739_v1.bc",
+      "drive_name": "m2020_surf_rover_tlm_1619_1739_v1.bc",
+      "drive_id": "1UlScP0dJpoVaXC53dV4OdTQABHUytMP0",
+      "size": 446464
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/ck/m2020_surf_rover_tlm_1739_1859_v1.bc",
+      "drive_name": "m2020_surf_rover_tlm_1739_1859_v1.bc",
+      "drive_id": "1L8orBg0xLKbz208borCX-7k0smERzDWc",
+      "size": 355328
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/FINAL_HANDOVER_SUMMARY.txt",
+      "drive_name": "FINAL_HANDOVER_SUMMARY.txt",
+      "drive_id": "1juQM20YcrW0ZjyBbd40oxWepNvEg4gTU",
+      "size": 2555
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/FINAL_VERIFICATION/27_CORRECTED_FRAME_CK_CROSSCHECK.csv",
+      "drive_name": "27_CORRECTED_FRAME_CK_CROSSCHECK.csv",
+      "drive_id": "1GMMakrKmstf5u71_rkLB1zvvgHkRIw0J",
+      "size": 2925
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/FINAL_VERIFICATION/28_CORRECTED_SPICE_FRAME_INVENTORY.csv",
+      "drive_name": "28_CORRECTED_SPICE_FRAME_INVENTORY.csv",
+      "drive_id": "1ZcirhrknkgMUDycR2UHUvbBKN0oImHwT",
+      "size": 1884
+    },
+    {
+      "local": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/FINAL_VERIFICATION/25_FINAL_SPICE_FRAME_DIAGNOSTIC_SUMMARY.json",
+      "drive_name": "25_FINAL_SPICE_FRAME_DIAGNOSTIC_SUMMARY.json",
+      "drive_id": "1_JxcKeaJnpCOuuFMle0QkVaIKR16ExbT",
+      "size": 377
+    }
+  ],
+  "skipped": [],
+  "errors": [
+    {
+      "file": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/ck/m2020_surf_ra_tlmenc_0539_0659_v1.bc",
+      "error": "<HttpError 403 when requesting https://www.googleapis.com/drive/v3/files?q=%2714QbwGdflDUBYksyIFzKsQHDftDS5cdaZ%27+in+parents+and+name+%3D+%27m2020_surf_ra_tlmenc_0539_0659_v1.bc%27+and+trashed+%3D+false&fields=files%28id%2Cname%2CmimeType%2Csize%29&pageSize=100&alt=json returned \"Quota exceeded for quota metric 'Queries' and limit 'Previous quota: Requests per minute' of service 'drive.googleapis.com' for consumer 'project_number:522309567947'.\". Details: \"[{'message': \"Quota exceeded for quota metric 'Queries' and limit 'Previous quota: Requests per minute' of service 'drive.googleapis.com' for consumer 'project_number:522309567947'.\", 'domain': 'usageLimits', 'reason': 'rateLimitExceeded'}]\">"
+    },
+    {
+      "file": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/ck/m2020_surf_ra_tlmenc_0659_0779_v1.bc",
+      "error": "<HttpError 403 when requesting https://www.googleapis.com/drive/v3/files?q=%2714QbwGdflDUBYksyIFzKsQHDftDS5cdaZ%27+in+parents+and+name+%3D+%27m2020_surf_ra_tlmenc_0659_0779_v1.bc%27+and+trashed+%3D+false&fields=files%28id%2Cname%2CmimeType%2Csize%29&pageSize=100&alt=json returned \"Quota exceeded for quota metric 'Queries' and limit 'Previous quota: Requests per minute' of service 'drive.googleapis.com' for consumer 'project_number:522309567947'.\". Details: \"[{'message': \"Quota exceeded for quota metric 'Queries' and limit 'Previous quota: Requests per minute' of service 'drive.googleapis.com' for consumer 'project_number:522309567947'.\", 'domain': 'usageLimits', 'reason': 'rateLimitExceeded'}]\">"
+    },
+    {
+      "file": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/ck/m2020_surf_ra_tlmenc_0779_0899_v1.bc",
+      "error": "<HttpError 403 when requesting https://www.googleapis.com/upload/drive/v3/files?fields=id%2Cname%2Csize&alt=json&uploadType=resumable returned \"Quota exceeded for quota metric 'Queries' and limit 'Previous quota: Requests per minute' of service 'drive.googleapis.com' for consumer 'project_number:522309567947'.\". Details: \"[{'message': \"Quota exceeded for quota metric 'Queries' and limit 'Previous quota: Requests per minute' of service 'drive.googleapis.com' for consumer 'project_number:522309567947'.\", 'domain': 'usageLimits', 'reason': 'rateLimitExceeded'}]\">"
+    },
+    {
+      "file": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/ck/m2020_surf_ra_tlmenc_0899_1019_v1.bc",
+      "error": "<HttpError 403 when requesting None returned \"Quota exceeded for quota metric 'Queries' and limit 'Previous quota: Requests per minute' of service 'drive.googleapis.com' for consumer 'project_number:522309567947'.\". Details: \"[{'message': \"Quota exceeded for quota metric 'Queries' and limit 'Previous quota: Requests per minute' of service 'drive.googleapis.com' for consumer 'project_number:522309567947'.\", 'domain': 'usageLimits', 'reason': 'rateLimitExceeded'}]\">"
+    },
+    {
+      "file": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/ck/m2020_surf_ra_tlmenc_1019_1139_v1.bc",
+      "error": "<HttpError 403 when requesting https://www.googleapis.com/drive/v3/files?q=%2714QbwGdflDUBYksyIFzKsQHDftDS5cdaZ%27+in+parents+and+name+%3D+%27m2020_surf_ra_tlmenc_1019_1139_v1.bc%27+and+trashed+%3D+false&fields=files%28id%2Cname%2CmimeType%2Csize%29&pageSize=100&alt=json returned \"Quota exceeded for quota metric 'Queries' and limit 'Previous quota: Requests per minute' of service 'drive.googleapis.com' for consumer 'project_number:522309567947'.\". Details: \"[{'message': \"Quota exceeded for quota metric 'Queries' and limit 'Previous quota: Requests per minute' of service 'drive.googleapis.com' for consumer 'project_number:522309567947'.\", 'domain': 'usageLimits', 'reason': 'rateLimitExceeded'}]\">"
+    },
+    {
+      "file": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/ck/m2020_surf_ra_tlmenc_1139_1259_v1.bc",
+      "error": "<HttpError 403 when requesting None returned \"Quota exceeded for quota metric 'Queries' and limit 'Previous quota: Requests per minute' of service 'drive.googleapis.com' for consumer 'project_number:522309567947'.\". Details: \"[{'message': \"Quota exceeded for quota metric 'Queries' and limit 'Previous quota: Requests per minute' of service 'drive.googleapis.com' for consumer 'project_number:522309567947'.\", 'domain': 'usageLimits', 'reason': 'rateLimitExceeded'}]\">"
+    },
+    {
+      "file": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/ck/m2020_surf_ra_tlmenc_1259_1379_v1.bc",
+      "error": "<HttpError 403 when requesting https://www.googleapis.com/drive/v3/files?q=%2714QbwGdflDUBYksyIFzKsQHDftDS5cdaZ%27+in+parents+and+name+%3D+%27m2020_surf_ra_tlmenc_1259_1379_v1.bc%27+and+trashed+%3D+false&fields=files%28id%2Cname%2CmimeType%2Csize%29&pageSize=100&alt=json returned \"Quota exceeded for quota metric 'Queries' and limit 'Previous quota: Requests per minute' of service 'drive.googleapis.com' for consumer 'project_number:522309567947'.\". Details: \"[{'message': \"Quota exceeded for quota metric 'Queries' and limit 'Previous quota: Requests per minute' of service 'drive.googleapis.com' for consumer 'project_number:522309567947'.\", 'domain': 'usageLimits', 'reason': 'rateLimitExceeded'}]\">"
+    },
+    {
+      "file": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/ck/m2020_surf_ra_tlmenc_1379_1499_v1.bc",
+      "error": "<HttpError 403 when requesting https://www.googleapis.com/upload/drive/v3/files?fields=id%2Cname%2Csize&alt=json&uploadType=resumable returned \"Quota exceeded for quota metric 'Queries' and limit 'Previous quota: Requests per minute' of service 'drive.googleapis.com' for consumer 'project_number:522309567947'.\". Details: \"[{'message': \"Quota exceeded for quota metric 'Queries' and limit 'Previous quota: Requests per minute' of service 'drive.googleapis.com' for consumer 'project_number:522309567947'.\", 'domain': 'usageLimits', 'reason': 'rateLimitExceeded'}]\">"
+    },
+    {
+      "file": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/ck/m2020_surf_ra_tlmenc_1499_1619_v1.bc",
+      "error": "<HttpError 403 when requesting https://www.googleapis.com/drive/v3/files?q=%2714QbwGdflDUBYksyIFzKsQHDftDS5cdaZ%27+in+parents+and+name+%3D+%27m2020_surf_ra_tlmenc_1499_1619_v1.bc%27+and+trashed+%3D+false&fields=files%28id%2Cname%2CmimeType%2Csize%29&pageSize=100&alt=json returned \"Quota exceeded for quota metric 'Queries' and limit 'Previous quota: Requests per minute' of service 'drive.googleapis.com' for consumer 'project_number:522309567947'.\". Details: \"[{'message': \"Quota exceeded for quota metric 'Queries' and limit 'Previous quota: Requests per minute' of service 'drive.googleapis.com' for consumer 'project_number:522309567947'.\", 'domain': 'usageLimits', 'reason': 'rateLimitExceeded'}]\">"
+    },
+    {
+      "file": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/ck/m2020_surf_ra_tlmenc_1619_1739_v1.bc",
+      "error": "<HttpError 403 when requesting https://www.googleapis.com/drive/v3/files?q=%2714QbwGdflDUBYksyIFzKsQHDftDS5cdaZ%27+in+parents+and+name+%3D+%27m2020_surf_ra_tlmenc_1619_1739_v1.bc%27+and+trashed+%3D+false&fields=files%28id%2Cname%2CmimeType%2Csize%29&pageSize=100&alt=json returned \"Quota exceeded for quota metric 'Queries' and limit 'Previous quota: Requests per minute' of service 'drive.googleapis.com' for consumer 'project_number:522309567947'.\". Details: \"[{'message': \"Quota exceeded for quota metric 'Queries' and limit 'Previous quota: Requests per minute' of service 'drive.googleapis.com' for consumer 'project_number:522309567947'.\", 'domain': 'usageLimits', 'reason': 'rateLimitExceeded'}]\">"
+    },
+    {
+      "file": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/ck/m2020_surf_ra_tlmenc_1739_1859_v1.bc",
+      "error": "<HttpError 403 when requesting https://www.googleapis.com/drive/v3/files?q=%2714QbwGdflDUBYksyIFzKsQHDftDS5cdaZ%27+in+parents+and+name+%3D+%27m2020_surf_ra_tlmenc_1739_1859_v1.bc%27+and+trashed+%3D+false&fields=files%28id%2Cname%2CmimeType%2Csize%29&pageSize=100&alt=json returned \"Quota exceeded for quota metric 'Queries' and limit 'Previous quota: Requests per minute' of service 'drive.googleapis.com' for consumer 'project_number:522309567947'.\". Details: \"[{'message': \"Quota exceeded for quota metric 'Queries' and limit 'Previous quota: Requests per minute' of service 'drive.googleapis.com' for consumer 'project_number:522309567947'.\", 'domain': 'usageLimits', 'reason': 'rateLimitExceeded'}]\">"
+    },
+    {
+      "file": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/ck/m2020_surf_ra_tlmres_0000_0089_v1.bc",
+      "error": "<HttpError 403 when requesting https://www.googleapis.com/upload/drive/v3/files?fields=id%2Cname%2Csize&alt=json&uploadType=resumable returned \"Quota exceeded for quota metric 'Queries' and limit 'Previous quota: Requests per minute' of service 'drive.googleapis.com' for consumer 'project_number:522309567947'.\". Details: \"[{'message': \"Quota exceeded for quota metric 'Queries' and limit 'Previous quota: Requests per minute' of service 'drive.googleapis.com' for consumer 'project_number:522309567947'.\", 'domain': 'usageLimits', 'reason': 'rateLimitExceeded'}]\">"
+    },
+    {
+      "file": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/ck/m2020_surf_ra_tlmres_0089_0179_v1.bc",
+      "error": "<HttpError 403 when requesting https://www.googleapis.com/drive/v3/files?q=%2714QbwGdflDUBYksyIFzKsQHDftDS5cdaZ%27+in+parents+and+name+%3D+%27m2020_surf_ra_tlmres_0089_0179_v1.bc%27+and+trashed+%3D+false&fields=files%28id%2Cname%2CmimeType%2Csize%29&pageSize=100&alt=json returned \"Quota exceeded for quota metric 'Queries' and limit 'Previous quota: Requests per minute' of service 'drive.googleapis.com' for consumer 'project_number:522309567947'.\". Details: \"[{'message': \"Quota exceeded for quota metric 'Queries' and limit 'Previous quota: Requests per minute' of service 'drive.googleapis.com' for consumer 'project_number:522309567947'.\", 'domain': 'usageLimits', 'reason': 'rateLimitExceeded'}]\">"
+    },
+    {
+      "file": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/ck/m2020_surf_ra_tlmres_0179_0299_v1.bc",
+      "error": "<HttpError 403 when requesting https://www.googleapis.com/drive/v3/files?q=%2714QbwGdflDUBYksyIFzKsQHDftDS5cdaZ%27+in+parents+and+name+%3D+%27m2020_surf_ra_tlmres_0179_0299_v1.bc%27+and+trashed+%3D+false&fields=files%28id%2Cname%2CmimeType%2Csize%29&pageSize=100&alt=json returned \"Quota exceeded for quota metric 'Queries' and limit 'Previous quota: Requests per minute' of service 'drive.googleapis.com' for consumer 'project_number:522309567947'.\". Details: \"[{'message': \"Quota exceeded for quota metric 'Queries' and limit 'Previous quota: Requests per minute' of service 'drive.googleapis.com' for consumer 'project_number:522309567947'.\", 'domain': 'usageLimits', 'reason': 'rateLimitExceeded'}]\">"
+    },
+    {
+      "file": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/ck/m2020_surf_ra_tlmres_0299_0419_v1.bc",
+      "error": "<HttpError 403 when requesting https://www.googleapis.com/drive/v3/files?q=%2714QbwGdflDUBYksyIFzKsQHDftDS5cdaZ%27+in+parents+and+name+%3D+%27m2020_surf_ra_tlmres_0299_0419_v1.bc%27+and+trashed+%3D+false&fields=files%28id%2Cname%2CmimeType%2Csize%29&pageSize=100&alt=json returned \"Quota exceeded for quota metric 'Queries' and limit 'Previous quota: Requests per minute' of service 'drive.googleapis.com' for consumer 'project_number:522309567947'.\". Details: \"[{'message': \"Quota exceeded for quota metric 'Queries' and limit 'Previous quota: Requests per minute' of service 'drive.googleapis.com' for consumer 'project_number:522309567947'.\", 'domain': 'usageLimits', 'reason': 'rateLimitExceeded'}]\">"
+    },
+    {
+      "file": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/ck/m2020_surf_ra_tlmres_0419_0539_v1.bc",
+      "error": "<HttpError 403 when requesting https://www.googleapis.com/drive/v3/files?q=%2714QbwGdflDUBYksyIFzKsQHDftDS5cdaZ%27+in+parents+and+name+%3D+%27m2020_surf_ra_tlmres_0419_0539_v1.bc%27+and+trashed+%3D+false&fields=files%28id%2Cname%2CmimeType%2Csize%29&pageSize=100&alt=json returned \"Quota exceeded for quota metric 'Queries' and limit 'Previous quota: Requests per minute' of service 'drive.googleapis.com' for consumer 'project_number:522309567947'.\". Details: \"[{'message': \"Quota exceeded for quota metric 'Queries' and limit 'Previous quota: Requests per minute' of service 'drive.googleapis.com' for consumer 'project_number:522309567947'.\", 'domain': 'usageLimits', 'reason': 'rateLimitExceeded'}]\">"
+    },
+    {
+      "file": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/ck/m2020_surf_ra_tlmres_0539_0659_v1.bc",
+      "error": "<HttpError 403 when requesting https://www.googleapis.com/drive/v3/files?q=%2714QbwGdflDUBYksyIFzKsQHDftDS5cdaZ%27+in+parents+and+name+%3D+%27m2020_surf_ra_tlmres_0539_0659_v1.bc%27+and+trashed+%3D+false&fields=files%28id%2Cname%2CmimeType%2Csize%29&pageSize=100&alt=json returned \"Quota exceeded for quota metric 'Queries' and limit 'Previous quota: Requests per minute' of service 'drive.googleapis.com' for consumer 'project_number:522309567947'.\". Details: \"[{'message': \"Quota exceeded for quota metric 'Queries' and limit 'Previous quota: Requests per minute' of service 'drive.googleapis.com' for consumer 'project_number:522309567947'.\", 'domain': 'usageLimits', 'reason': 'rateLimitExceeded'}]\">"
+    },
+    {
+      "file": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/ck/m2020_surf_ra_tlmres_0659_0779_v1.bc",
+      "error": "<HttpError 403 when requesting https://www.googleapis.com/upload/drive/v3/files?fields=id%2Cname%2Csize&alt=json&uploadType=resumable returned \"Quota exceeded for quota metric 'Queries' and limit 'Previous quota: Requests per minute' of service 'drive.googleapis.com' for consumer 'project_number:522309567947'.\". Details: \"[{'message': \"Quota exceeded for quota metric 'Queries' and limit 'Previous quota: Requests per minute' of service 'drive.googleapis.com' for consumer 'project_number:522309567947'.\", 'domain': 'usageLimits', 'reason': 'rateLimitExceeded'}]\">"
+    },
+    {
+      "file": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/ck/m2020_surf_ra_tlmres_0779_0899_v1.bc",
+      "error": "<HttpError 403 when requesting https://www.googleapis.com/drive/v3/files?q=%2714QbwGdflDUBYksyIFzKsQHDftDS5cdaZ%27+in+parents+and+name+%3D+%27m2020_surf_ra_tlmres_0779_0899_v1.bc%27+and+trashed+%3D+false&fields=files%28id%2Cname%2CmimeType%2Csize%29&pageSize=100&alt=json returned \"Quota exceeded for quota metric 'Queries' and limit 'Previous quota: Requests per minute' of service 'drive.googleapis.com' for consumer 'project_number:522309567947'.\". Details: \"[{'message': \"Quota exceeded for quota metric 'Queries' and limit 'Previous quota: Requests per minute' of service 'drive.googleapis.com' for consumer 'project_number:522309567947'.\", 'domain': 'usageLimits', 'reason': 'rateLimitExceeded'}]\">"
+    },
+    {
+      "file": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/ck/m2020_surf_ra_tlmres_0899_1019_v1.bc",
+      "error": "<HttpError 403 when requesting https://www.googleapis.com/upload/drive/v3/files?fields=id%2Cname%2Csize&alt=json&uploadType=resumable returned \"Quota exceeded for quota metric 'Queries' and limit 'Previous quota: Requests per minute' of service 'drive.googleapis.com' for consumer 'project_number:522309567947'.\". Details: \"[{'message': \"Quota exceeded for quota metric 'Queries' and limit 'Previous quota: Requests per minute' of service 'drive.googleapis.com' for consumer 'project_number:522309567947'.\", 'domain': 'usageLimits', 'reason': 'rateLimitExceeded'}]\">"
+    },
+    {
+      "file": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/ck/m2020_surf_ra_tlmres_1019_1139_v1.bc",
+      "error": "<HttpError 403 when requesting https://www.googleapis.com/drive/v3/files?q=%2714QbwGdflDUBYksyIFzKsQHDftDS5cdaZ%27+in+parents+and+name+%3D+%27m2020_surf_ra_tlmres_1019_1139_v1.bc%27+and+trashed+%3D+false&fields=files%28id%2Cname%2CmimeType%2Csize%29&pageSize=100&alt=json returned \"Quota exceeded for quota metric 'Queries' and limit 'Previous quota: Requests per minute' of service 'drive.googleapis.com' for consumer 'project_number:522309567947'.\". Details: \"[{'message': \"Quota exceeded for quota metric 'Queries' and limit 'Previous quota: Requests per minute' of service 'drive.googleapis.com' for consumer 'project_number:522309567947'.\", 'domain': 'usageLimits', 'reason': 'rateLimitExceeded'}]\">"
+    },
+    {
+      "file": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/ck/m2020_surf_ra_tlmres_1139_1259_v1.bc",
+      "error": "<HttpError 403 when requesting None returned \"Quota exceeded for quota metric 'Queries' and limit 'Previous quota: Requests per minute' of service 'drive.googleapis.com' for consumer 'project_number:522309567947'.\". Details: \"[{'message': \"Quota exceeded for quota metric 'Queries' and limit 'Previous quota: Requests per minute' of service 'drive.googleapis.com' for consumer 'project_number:522309567947'.\", 'domain': 'usageLimits', 'reason': 'rateLimitExceeded'}]\">"
+    },
+    {
+      "file": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/ck/m2020_surf_ra_tlmres_1499_1619_v1.bc",
+      "error": "<HttpError 403 when requesting https://www.googleapis.com/drive/v3/files?q=%2714QbwGdflDUBYksyIFzKsQHDftDS5cdaZ%27+in+parents+and+name+%3D+%27m2020_surf_ra_tlmres_1499_1619_v1.bc%27+and+trashed+%3D+false&fields=files%28id%2Cname%2CmimeType%2Csize%29&pageSize=100&alt=json returned \"Quota exceeded for quota metric 'Queries' and limit 'Previous quota: Requests per minute' of service 'drive.googleapis.com' for consumer 'project_number:522309567947'.\". Details: \"[{'message': \"Quota exceeded for quota metric 'Queries' and limit 'Previous quota: Requests per minute' of service 'drive.googleapis.com' for consumer 'project_number:522309567947'.\", 'domain': 'usageLimits', 'reason': 'rateLimitExceeded'}]\">"
+    },
+    {
+      "file": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/ck/m2020_surf_ra_tlmres_1739_1859_v1.bc",
+      "error": "<HttpError 403 when requesting https://www.googleapis.com/drive/v3/files?q=%2714QbwGdflDUBYksyIFzKsQHDftDS5cdaZ%27+in+parents+and+name+%3D+%27m2020_surf_ra_tlmres_1739_1859_v1.bc%27+and+trashed+%3D+false&fields=files%28id%2Cname%2CmimeType%2Csize%29&pageSize=100&alt=json returned \"Quota exceeded for quota metric 'Queries' and limit 'Previous quota: Requests per minute' of service 'drive.googleapis.com' for consumer 'project_number:522309567947'.\". Details: \"[{'message': \"Quota exceeded for quota metric 'Queries' and limit 'Previous quota: Requests per minute' of service 'drive.googleapis.com' for consumer 'project_number:522309567947'.\", 'domain': 'usageLimits', 'reason': 'rateLimitExceeded'}]\">"
+    },
+    {
+      "file": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/ck/m2020_surf_rsm_tlmenc_0299_0419_v1.bc",
+      "error": "<HttpError 403 when requesting https://www.googleapis.com/drive/v3/files?q=%2714QbwGdflDUBYksyIFzKsQHDftDS5cdaZ%27+in+parents+and+name+%3D+%27m2020_surf_rsm_tlmenc_0299_0419_v1.bc%27+and+trashed+%3D+false&fields=files%28id%2Cname%2CmimeType%2Csize%29&pageSize=100&alt=json returned \"Quota exceeded for quota metric 'Queries' and limit 'Previous quota: Requests per minute' of service 'drive.googleapis.com' for consumer 'project_number:522309567947'.\". Details: \"[{'message': \"Quota exceeded for quota metric 'Queries' and limit 'Previous quota: Requests per minute' of service 'drive.googleapis.com' for consumer 'project_number:522309567947'.\", 'domain': 'usageLimits', 'reason': 'rateLimitExceeded'}]\">"
+    },
+    {
+      "file": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/ck/m2020_surf_rsm_tlmenc_1739_1859_v1.bc",
+      "error": "<HttpError 403 when requesting https://www.googleapis.com/drive/v3/files?q=%2714QbwGdflDUBYksyIFzKsQHDftDS5cdaZ%27+in+parents+and+name+%3D+%27m2020_surf_rsm_tlmenc_1739_1859_v1.bc%27+and+trashed+%3D+false&fields=files%28id%2Cname%2CmimeType%2Csize%29&pageSize=100&alt=json returned \"Quota exceeded for quota metric 'Queries' and limit 'Previous quota: Requests per minute' of service 'drive.googleapis.com' for consumer 'project_number:522309567947'.\". Details: \"[{'message': \"Quota exceeded for quota metric 'Queries' and limit 'Previous quota: Requests per minute' of service 'drive.googleapis.com' for consumer 'project_number:522309567947'.\", 'domain': 'usageLimits', 'reason': 'rateLimitExceeded'}]\">"
+    },
+    {
+      "file": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/ck/m2020_surf_rsm_tlmres_0179_0299_v1.bc",
+      "error": "<HttpError 403 when requesting None returned \"Quota exceeded for quota metric 'Queries' and limit 'Previous quota: Requests per minute' of service 'drive.googleapis.com' for consumer 'project_number:522309567947'.\". Details: \"[{'message': \"Quota exceeded for quota metric 'Queries' and limit 'Previous quota: Requests per minute' of service 'drive.googleapis.com' for consumer 'project_number:522309567947'.\", 'domain': 'usageLimits', 'reason': 'rateLimitExceeded'}]\">"
+    },
+    {
+      "file": "/content/gdrive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT/FINAL_SCIENTIFIC_CLOSURE/FINAL_SCIENTIFIC_CLOSURE_PACKAGE/FINAL_THREE_STREAM_CLOSURE_20261115_013615/MARS2020_SPICE/ck/m2020_surf_rsm_tlmres_1019_1139_v1.bc",
+      "error": "<HttpError 403 when requesting https://www.googleapis.com/drive/v3/files?q=%2714QbwGdflDUBYksyIFzKsQHDftDS5cdaZ%27+in+parents+and+name+%3D+%27m2020_surf_rsm_tlmres_1019_1139_v1.bc%27+and+trashed+%3D+false&fields=files%28id%2Cname%2CmimeType%2Csize%29&pageSize=100&alt=json returned \"Quota exceeded for quota metric 'Queries' and limit 'Previous quota: Requests per minute' of service 'drive.googleapis.com' for consumer 'project_number:522309567947'.\". Details: \"[{'message': \"Quota exceeded for quota metric 'Queries' and limit 'Previous quota: Requests per minute' of service 'drive.googleapis.com' for consumer 'project_number:522309567947'.\", 'domain': 'usageLimits', 'reason': 'rateLimitExceeded'}]\">"
+    }
+  ]
+}

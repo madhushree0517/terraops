@@ -1,0 +1,81 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.6,
+          18.4
+        ]
+      },
+      "properties": {
+        "schema_version": "1.0",
+        "site_id": "jezero",
+        "name": "Jezero Crater",
+        "body": "Mars",
+        "lat": 18.4,
+        "lon": 77.6,
+        "notes": "approximate reference coordinate, to be confirmed"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -16.500277778,
+          65.500138889
+        ]
+      },
+      "properties": {
+        "schema_version": "1.0",
+        "site_id": "askja",
+        "name": "Askja, Iceland",
+        "body": "Earth",
+        "lat": 65.500138889,
+        "lon": -16.500277778,
+        "notes": "centroid of supplied extent footprint"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -68.500138889,
+          -22.499861111
+        ]
+      },
+      "properties": {
+        "schema_version": "1.0",
+        "site_id": "atacama",
+        "name": "Atacama Desert, Chile",
+        "body": "Earth",
+        "lat": -22.499861111,
+        "lon": -68.500138889,
+        "notes": "centroid of supplied extent footprint"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.499861111,
+          34.500138889
+        ]
+      },
+      "properties": {
+        "schema_version": "1.0",
+        "site_id": "ladakh",
+        "name": "Ladakh, India",
+        "body": "Earth",
+        "lat": 34.500138889,
+        "lon": 77.499861111,
+        "notes": "centroid of supplied extent footprint"
+      }
+    }
+  ]
+}

@@ -1,5 +1,0 @@
-schema_version,site_id,elevation_mean_m,elevation_std_m,slope_mean_deg,slope_p95_deg,roughness_metric,roughness_unit,dem_source,resolution_m
-1.0,jezero,-2500,340,4.2,12.5,0.18,m,PLACEHOLDER_DEM,30
-1.0,atacama,2600,420,3.8,11.0,0.16,m,PLACEHOLDER_DEM,30
-1.0,ladakh,4200,510,5.1,14.2,0.22,m,PLACEHOLDER_DEM,30
-1.0,iceland,650,290,6.0,16.0,0.25,m,PLACEHOLDER_DEM,30

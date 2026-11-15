@@ -1,0 +1,306 @@
+TERRAOPS — FINAL DATA WORKSTREAM HANDOFF
+========================================
+
+Generated: 2026-11-14T17:37:41.801637+00:00
+
+PROJECT
+-------
+Earth–Mars analog temperature data preparation and validation.
+
+1. MARS MEDA DATA
+-----------------
+ATS master dataset:
+- 88,656,007 observations
+- 1,754 represented sols
+- Sol-wise temperature reference generated for five ATS sensors.
+
+TIRS master dataset:
+- 80,882,439 observations
+- 1,751 represented sols
+- Air and ground temperature kept as separate variables.
+- TIRS uncertainty fields aggregated by sol.
+
+Combined source observations:
+- 169,538,446 ATS + TIRS observations.
+
+2. EARTH ANALOG DATA
+--------------------
+Sites:
+- Atacama
+- Iceland
+- Ladakh
+
+Period:
+- July 2024
+
+MODIS daytime valid coverage:
+- Atacama: 24/31 days (77.42%)
+- Iceland: 8/31 days (25.81%)
+- Ladakh: 25/31 days (80.65%)
+
+MODIS nighttime valid coverage:
+- Atacama: 28/31 days (90.32%)
+- Iceland: 8/31 days (25.81%)
+- Ladakh: 23/31 days (74.19%)
+
+POWER T2M:
+- 31/31 days available for each site.
+
+Mean temperatures:
+- Atacama MODIS day: 25.562 C
+- Atacama MODIS night: 3.006 C
+- Atacama POWER T2M: 12.040 C
+
+- Iceland MODIS day: 14.822 C
+- Iceland MODIS night: 2.382 C
+- Iceland POWER T2M: 2.919 C
+
+- Ladakh MODIS day: 36.373 C
+- Ladakh MODIS night: 18.029 C
+- Ladakh POWER T2M: 10.373 C
+
+3. QUALITY CONTROL
+------------------
+- MODIS QA distributions summarized by site and day/night period.
+- MEDA TIRS flags audited for missingness and value distributions.
+- TIRS instrument uncertainty summarized by sol.
+- No observations were removed from the original master datasets.
+
+4. EARTH-MARS COMPARABILITY
+---------------------------
+Two comparison tracks must remain distinct:
+
+A. Surface:
+   MODIS LST versus MEDA TIRS ground temperature.
+
+B. Atmospheric:
+   POWER T2M versus MEDA TIRS air temperature.
+
+Surface and air temperature are not interchangeable.
+
+5. REMAINING SCIENTIFIC VERIFICATION
+------------------------------------
+- Recover and verify original PDS XML labels.
+- Confirm sensor heights, orientations and footprints.
+- Verify Mars solar longitude (Ls) and its units.
+- Establish verified seasonal Mars reference profiles.
+- Verify SCLK interpretation before treating matched bins as exact
+  one-minute coincidences.
+- Confirm MODIS QA semantics using the exact product documentation.
+
+6. SCIENTIFIC LIMITATIONS
+-------------------------
+- Earth data currently represent July 2024, not annual climatology.
+- Iceland has substantially lower MODIS coverage.
+- Sol-wise Mars profiles are not seasonal profiles without verified Ls.
+- Temperature similarity alone does not establish habitat suitability.
+- Radiation, pressure, dust, terrain, water and resources remain
+  separate analogue dimensions.
+
+7. FINAL PROJECT STATUS
+-----------------------
+Temperature data processing: COMPLETED
+Mars sol-wise references: COMPLETED
+Earth site summaries: COMPLETED
+MODIS QC diagnostics: COMPLETED
+TIRS uncertainty summaries: COMPLETED
+Comparability framework: COMPLETED
+Geometry verification: PENDING
+Ls/seasonal verification: PENDING
+Final habitat suitability ranking: NOT CLAIMED
+
+8. OUTPUT LOCATIONS
+-------------------
+Reports:
+/content/drive/MyDrive/TERRAOPS_Research/data/reports/FINAL_WORKSTREAM_AUDIT
+
+Figures:
+/content/drive/MyDrive/TERRAOPS_Research/data/figures/FINAL_WORKSTREAM_AUDIT
+
+This handoff distinguishes completed data processing from pending
+scientific verification. It does not claim that all validation
+questions have been resolved.
+
+
+================================================================================
+CORRECTED PDS VERIFICATION — OFFICIAL MEDA INDEXES
+Generated UTC: 2026-11-14T18:08:20.888908+00:00
+================================================================================
+
+OFFICIAL PDS SOURCES
+--------------------
+ATS index: https://pds-atmospheres.nmsu.edu/data_and_services/atmospheres_data/PERSEVERANCE/logs/MARS2020_MEDA_ATS_Calibrated_DEL11.csv
+TIRS index: https://pds-atmospheres.nmsu.edu/data_and_services/atmospheres_data/PERSEVERANCE/logs/MARS2020_MEDA_TIRS_Calibrated_Del11.csv
+ANC index: https://pds-atmospheres.nmsu.edu/data_and_services/atmospheres_data/PERSEVERANCE/logs/MARS2020_MEDA_Ancillary_Derived_Del11.csv
+
+MARS SOLAR LONGITUDE
+--------------------
+Ls values retrieved from official PDS MEDA calibrated product index.
+Sols with Ls: 1179
+Mars reference sols: 1754
+Ls coverage: 67.218%
+Sols with both ATS and TIRS Ls: 1177
+Seasonal temperature reference: CREATED
+
+GEOMETRY
+--------
+PDS ancillary index retrieved: True
+Geometry-related ANC columns: start_time, stop_time, start_sol_number, stop_sol_number, start_local_mean_solar_time, stop_local_mean_solar_time, start_local_true_solar_time, stop_local_true_solar_time, start_solar_longitude, stop_solar_longitude
+Full dynamic MEDA geometry: NOT VERIFIED
+
+NAIF documents that the Mars 2020 FK does not define frames for the
+majority of instruments and that RSM orientation CK coverage is sparse.
+Therefore full per-observation MEDA pointing and footprint reconstruction
+must not be claimed from the downloaded FK/IK files alone.
+
+HABITAT SUITABILITY RANKING
+---------------------------
+Future work. No final ranking generated.
+
+OUTPUTS
+-------
+35_PDS_INDEX_SCHEMA_AUDIT.csv
+36_PDS_MARS_LS_BY_SOL.csv
+37_MARS_TEMPERATURE_AND_LS_BY_SOL.csv
+38_MARS_SEASONAL_TEMPERATURE_COVERAGE.csv
+39_PDS_ANCILLARY_GEOMETRY_SCHEMA.csv
+40_PDS_ANCILLARY_GEOMETRY_SCHEMA.json
+41_FINAL_GEOMETRY_EVIDENCE_REGISTER.csv
+42_CORRECTED_FINAL_VERIFICATION_STATUS.json
+
+================================================================================
+
+
+
+================================================================================
+FINAL PDS INDEX / MARS Ls / GEOMETRY VERIFICATION UPDATE
+Generated UTC: 2026-11-14T18:11:19.450419+00:00
+================================================================================
+
+PDS INDEX RELEASES SELECTED
+---------------------------
+{
+  "ATS": {
+    "filename": "mars2020_meda_calibrated_ATS.csv",
+    "url": "https://pds-atmospheres.nmsu.edu/data_and_services/atmospheres_data/PERSEVERANCE/logs/mars2020_meda_calibrated_ATS.csv",
+    "rows": 1526,
+    "unique_start_sols": 1526,
+    "max_start_sol": 1619,
+    "valid_Ls_records": 1526
+  },
+  "TIRS": {
+    "filename": "mars2020_meda_calibrated-TIRS.csv",
+    "url": "https://pds-atmospheres.nmsu.edu/data_and_services/atmospheres_data/PERSEVERANCE/logs/mars2020_meda_calibrated-TIRS.csv",
+    "rows": 1496,
+    "unique_start_sols": 1496,
+    "max_start_sol": 1592,
+    "valid_Ls_records": 1496
+  },
+  "ANC": {
+    "filename": "mars2020_meda_derived_ancillary.csv",
+    "url": "https://pds-atmospheres.nmsu.edu/data_and_services/atmospheres_data/PERSEVERANCE/logs/mars2020_meda_derived_ancillary.csv",
+    "rows": 1526,
+    "unique_start_sols": 1526,
+    "max_start_sol": 1619,
+    "valid_Ls_records": 1526
+  }
+}
+
+MARS SOLAR LONGITUDE
+--------------------
+Temperature reference sols: 1754
+Sols with official PDS Ls: 1526
+Missing Ls sols: 228
+Coverage: 87.001%
+
+Full reference Ls verification: False
+
+No Ls values were interpolated or inferred from sol number.
+Only explicit PDS Ls or explicit endpoint solar longitude values
+were assigned to sols.
+
+SEASONAL TEMPERATURE REFERENCE
+------------------------------
+Created: Yes
+Rows: 1754
+Sols with season assignment: 1526
+
+MEDA GEOMETRY
+-------------
+MEDA instrument paper retrieved: False
+ANC index retrieved: True
+Explicit geometry-related ANC index fields: ['start_solar_longitude', 'stop_solar_longitude']
+
+Dynamic sensor pointing: NOT VERIFIED
+Terrain footprint reconstruction: NOT VERIFIED
+
+The ANC index is a product inventory and temporal reference.
+It is not sufficient by itself to verify sensor boresight, field of view,
+rover attitude, or terrain footprint.
+
+These require product-level geometry/ancillary data and validated
+instrument frames and time coverage.
+
+HABITAT SUITABILITY RANKING
+---------------------------
+FUTURE WORK. No ranking has been generated.
+
+================================================================================
+
+
+
+================================================================================
+FINAL CONSOLIDATED RESEARCH STATUS
+Generated UTC: 2026-11-14T18:14:04.650933+00:00
+================================================================================
+
+MARS DATA PROCESSING
+--------------------
+ATS observations: 88,656,007
+TIRS observations: 80,882,439
+ATS sols: 1754
+TIRS sols: 1751
+Integrated ATS/TIRS temperature reference: COMPLETE
+
+EARTH ANALOG ANALYSIS
+---------------------
+Sites: Atacama, Iceland, Ladakh
+Period: July 2024
+Temperature summaries: COMPLETE
+MODIS QC summaries: COMPLETE
+
+MARS SEASONAL VERIFICATION
+--------------------------
+Reference sols: 1754
+Sols with sourced Ls: 1526
+Sols without sourced Ls: 228
+Coverage: 87.001%
+Seasonal temperature reference: CREATED
+Full reference coverage: PARTIAL
+
+GEOMETRY
+--------
+Physical ATS/TIRS mounting: DOCUMENTED
+ANC geometry data availability: DOCUMENTED
+Individual sensor pointing: NOT VERIFIED
+Dynamic rover/RSM attitude: NOT VERIFIED
+Terrain footprint: NOT VERIFIED
+
+HABITAT SUITABILITY RANKING
+---------------------------
+FUTURE WORK
+
+SOURCE INTEGRITY
+----------------
+No unsupported Ls interpolation.
+No unsupported geometry reconstruction.
+No original source datasets modified.
+
+See the following reports:
+62_FINAL_PHYSICAL_GEOMETRY_DOCUMENTATION.csv
+63_FINAL_DYNAMIC_GEOMETRY_LIMITATIONS.csv
+64_FINAL_MARS_LS_COVERAGE_AUDIT.csv
+65_FINAL_RESEARCH_COMPLETION_STATUS.json
+66_ASHWARIYA_FINAL_WORKSTREAM_UPDATE.txt
+
+================================================================================

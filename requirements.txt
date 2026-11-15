@@ -9,3 +9,5 @@ xarray>=2024.10
 h5netcdf>=1.4
 h5py>=3.12
 pytest>=8.0,<9.0
+PyYAML>=6.0,<7.0
+Pillow>=10.0,<14.0

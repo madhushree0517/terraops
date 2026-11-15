@@ -1,0 +1,34 @@
+TERRAOPS — FINAL WORKSTREAM UPDATE
+
+The main data processing and integration workstream is complete.
+
+MARS MEDA DATA
+- ATS: 88,656,007 observations across 1,754 sols.
+- TIRS: 80,882,439 observations across 1,751 sols.
+- Integrated ATS/TIRS per-sol temperature references completed.
+- TIRS uncertainty summaries and matched ATS/TIRS dataset completed.
+
+EARTH ANALOG DATA
+- Atacama, Iceland and Ladakh analysed for July 2024.
+- MODIS day/night surface-temperature summaries completed.
+- POWER near-surface air-temperature summaries completed.
+- MODIS QC and temporal coverage summaries completed.
+
+MARS SEASONAL ANALYSIS
+- Official PDS MEDA Ls fields retrieved.
+- Ls coverage currently: 87.001% of the 1,754-sol temperature reference.
+- 1,526 sols have an Ls reference.
+- 228 sols remain without a sourced Ls value.
+- Seasonal temperature reference generated for the available Ls coverage.
+- Missing Ls values have not been interpolated or guessed.
+
+GEOMETRY DOCUMENTATION
+- General physical mounting of ATS and TIRS documented from the official MEDA archive.
+- ANC geometry data availability documented.
+- Individual sensor pointing, time-varying rover/RSM orientation and terrain footprints remain unverified pending product-level geometry and frame validation.
+
+DELIVERABLES
+The final research handoff ZIP contains the processed summaries, validation reports, figures, PDS index evidence, seasonal reference, geometry documentation and limitations register.
+
+NEXT STAGE
+The core data-processing workstream is complete. The remaining scientific tasks are to recover or validate Ls for the uncovered sols and complete product-level dynamic geometry validation. Habitat suitability ranking remains the next analytical stage.

@@ -1,0 +1,106 @@
+dataset,column,description,unit,data_type
+Earth_temperature_daily_analysis.csv,site,Refer to original dataset documentation,Not specified,
+Earth_temperature_daily_analysis.csv,date,Refer to original dataset documentation,Not specified,
+Earth_temperature_daily_analysis.csv,day_mean_C,Temperature converted to Celsius,°C,
+Earth_temperature_daily_analysis.csv,day_valid_pixels,Refer to original dataset documentation,Not specified,
+Earth_temperature_daily_analysis.csv,night_mean_C,Temperature converted to Celsius,°C,
+Earth_temperature_daily_analysis.csv,night_valid_pixels,Refer to original dataset documentation,Not specified,
+Earth_temperature_daily_analysis.csv,T2M_C,Temperature converted to Celsius,°C,
+Earth_temperature_daily_analysis.csv,_merge,Refer to original dataset documentation,Not specified,
+Earth_temperature_daily_analysis.csv,MODIS_day_available,Refer to original dataset documentation,Not specified,
+Earth_temperature_daily_analysis.csv,MODIS_night_available,Refer to original dataset documentation,Not specified,
+Earth_temperature_daily_analysis.csv,POWER_available,Refer to original dataset documentation,Not specified,
+Earth_temperature_daily_analysis.csv,day_LST_minus_air_C,Temperature converted to Celsius,°C,
+Earth_temperature_daily_analysis.csv,night_LST_minus_air_C,Temperature converted to Celsius,°C,
+Earth_temperature_daily_analysis.csv,day_night_range_C,Temperature converted to Celsius,°C,
+Earth_temperature_summary_July2024.csv,site,Refer to original dataset documentation,Not specified,
+Earth_temperature_summary_July2024.csv,total_days,Refer to original dataset documentation,Not specified,
+Earth_temperature_summary_July2024.csv,MODIS_day_valid_days,Refer to original dataset documentation,Not specified,
+Earth_temperature_summary_July2024.csv,MODIS_day_coverage_pct,Refer to original dataset documentation,Not specified,
+Earth_temperature_summary_July2024.csv,MODIS_day_mean_C,Temperature converted to Celsius,°C,
+Earth_temperature_summary_July2024.csv,MODIS_day_median_C,Temperature converted to Celsius,°C,
+Earth_temperature_summary_July2024.csv,MODIS_day_std_C,Temperature converted to Celsius,°C,
+Earth_temperature_summary_July2024.csv,MODIS_day_min_C,Temperature converted to Celsius,°C,
+Earth_temperature_summary_July2024.csv,MODIS_day_max_C,Temperature converted to Celsius,°C,
+Earth_temperature_summary_July2024.csv,MODIS_night_valid_days,Refer to original dataset documentation,Not specified,
+Earth_temperature_summary_July2024.csv,MODIS_night_coverage_pct,Refer to original dataset documentation,Not specified,
+Earth_temperature_summary_July2024.csv,MODIS_night_mean_C,Temperature converted to Celsius,°C,
+Earth_temperature_summary_July2024.csv,MODIS_night_median_C,Temperature converted to Celsius,°C,
+Earth_temperature_summary_July2024.csv,MODIS_night_std_C,Temperature converted to Celsius,°C,
+Earth_temperature_summary_July2024.csv,MODIS_night_min_C,Temperature converted to Celsius,°C,
+Earth_temperature_summary_July2024.csv,MODIS_night_max_C,Temperature converted to Celsius,°C,
+Earth_temperature_summary_July2024.csv,paired_day_night_days,Refer to original dataset documentation,Not specified,
+Earth_temperature_summary_July2024.csv,mean_day_night_range_C,Temperature converted to Celsius,°C,
+Earth_temperature_summary_July2024.csv,POWER_valid_days,Refer to original dataset documentation,Not specified,
+Earth_temperature_summary_July2024.csv,POWER_mean_T2M_C,Temperature converted to Celsius,°C,
+Earth_temperature_summary_July2024.csv,POWER_min_T2M_C,Temperature converted to Celsius,°C,
+Earth_temperature_summary_July2024.csv,POWER_max_T2M_C,Temperature converted to Celsius,°C,
+MODIS_QC_flag_diagnostics.csv,site,Refer to original dataset documentation,Not specified,
+MODIS_QC_flag_diagnostics.csv,date,Refer to original dataset documentation,Not specified,
+MODIS_QC_flag_diagnostics.csv,period,Refer to original dataset documentation,Not specified,
+MODIS_QC_flag_diagnostics.csv,total_pixels,Refer to original dataset documentation,Not specified,
+MODIS_QC_flag_diagnostics.csv,mandatory_qa_0,Refer to original dataset documentation,Not specified,
+MODIS_QC_flag_diagnostics.csv,mandatory_qa_1,Refer to original dataset documentation,Not specified,
+MODIS_QC_flag_diagnostics.csv,mandatory_qa_2,Refer to original dataset documentation,Not specified,
+MODIS_QC_flag_diagnostics.csv,mandatory_qa_3,Refer to original dataset documentation,Not specified,
+MODIS_QC_flag_diagnostics.csv,data_quality_0,Refer to original dataset documentation,Not specified,
+MODIS_QC_flag_diagnostics.csv,data_quality_1,Refer to original dataset documentation,Not specified,
+MODIS_QC_flag_diagnostics.csv,data_quality_2,Refer to original dataset documentation,Not specified,
+MODIS_QC_flag_diagnostics.csv,data_quality_3,Refer to original dataset documentation,Not specified,
+MODIS_QC_flag_diagnostics.csv,emissivity_error_0,Refer to original dataset documentation,Not specified,
+MODIS_QC_flag_diagnostics.csv,emissivity_error_1,Refer to original dataset documentation,Not specified,
+MODIS_QC_flag_diagnostics.csv,emissivity_error_2,Refer to original dataset documentation,Not specified,
+MODIS_QC_flag_diagnostics.csv,emissivity_error_3,Refer to original dataset documentation,Not specified,
+MODIS_QC_flag_diagnostics.csv,lst_error_0,Refer to original dataset documentation,Not specified,
+MODIS_QC_flag_diagnostics.csv,lst_error_1,Refer to original dataset documentation,Not specified,
+MODIS_QC_flag_diagnostics.csv,lst_error_2,Refer to original dataset documentation,Not specified,
+MODIS_QC_flag_diagnostics.csv,lst_error_3,Refer to original dataset documentation,Not specified,
+Mars_ATS_FULL_MASTER.parquet,SCLK,Spacecraft clock field; exact interpretation requires mission clock documentation,Unverified,double
+Mars_ATS_FULL_MASTER.parquet,LMST,Local Mars time string,Time string,string
+Mars_ATS_FULL_MASTER.parquet,LTST,Local Mars time string,Time string,string
+Mars_ATS_FULL_MASTER.parquet,ATS_LOCAL_TEMP1,MEDA ATS local temperature channel,Source-defined,double
+Mars_ATS_FULL_MASTER.parquet,ATS_LOCAL_TEMP2,MEDA ATS local temperature channel,Source-defined,double
+Mars_ATS_FULL_MASTER.parquet,ATS_LOCAL_TEMP3,MEDA ATS local temperature channel,Source-defined,double
+Mars_ATS_FULL_MASTER.parquet,ATS_LOCAL_TEMP4,MEDA ATS local temperature channel,Source-defined,double
+Mars_ATS_FULL_MASTER.parquet,ATS_LOCAL_TEMP5,MEDA ATS local temperature channel,Source-defined,double
+Mars_ATS_FULL_MASTER.parquet,SOURCE_FILE,Original source product identifier,Text,string
+Mars_ATS_FULL_MASTER.parquet,PRODUCT,Original source product identifier,Text,string
+Mars_ATS_FULL_MASTER.parquet,SOL,Mars mission sol identifier,Sol,int64
+Mars_ATS_FULL_MASTER.parquet,ATS_LOCAL_TEMP1_K,Temperature in Kelvin,K,double
+Mars_ATS_FULL_MASTER.parquet,ATS_LOCAL_TEMP1_C,Temperature converted to Celsius,°C,double
+Mars_ATS_FULL_MASTER.parquet,ATS_LOCAL_TEMP2_K,Temperature in Kelvin,K,double
+Mars_ATS_FULL_MASTER.parquet,ATS_LOCAL_TEMP2_C,Temperature converted to Celsius,°C,double
+Mars_ATS_FULL_MASTER.parquet,ATS_LOCAL_TEMP3_K,Temperature in Kelvin,K,double
+Mars_ATS_FULL_MASTER.parquet,ATS_LOCAL_TEMP3_C,Temperature converted to Celsius,°C,double
+Mars_ATS_FULL_MASTER.parquet,ATS_LOCAL_TEMP4_K,Temperature in Kelvin,K,double
+Mars_ATS_FULL_MASTER.parquet,ATS_LOCAL_TEMP4_C,Temperature converted to Celsius,°C,double
+Mars_ATS_FULL_MASTER.parquet,ATS_LOCAL_TEMP5_K,Temperature in Kelvin,K,double
+Mars_ATS_FULL_MASTER.parquet,ATS_LOCAL_TEMP5_C,Temperature converted to Celsius,°C,double
+Mars_TIRS_FULL_MASTER.parquet,SCLK,Spacecraft clock field; exact interpretation requires mission clock documentation,Unverified,double
+Mars_TIRS_FULL_MASTER.parquet,LMST,Local Mars time string,Time string,string
+Mars_TIRS_FULL_MASTER.parquet,LTST,Local Mars time string,Time string,string
+Mars_TIRS_FULL_MASTER.parquet,DOWNWARD_LW_IRRADIANCE,Radiative measurement,Source-defined,double
+Mars_TIRS_FULL_MASTER.parquet,DOWNWARD_LW_IRRADIANCE_UNCERTAINTY,Measurement uncertainty,Source-defined,double
+Mars_TIRS_FULL_MASTER.parquet,AIR_TEMP,MEDA TIRS temperature measurement,Source-defined,double
+Mars_TIRS_FULL_MASTER.parquet,AIR_TEMP_UNCERTAINTY,Measurement uncertainty,Source-defined,double
+Mars_TIRS_FULL_MASTER.parquet,UPWARD_SW_IRRADIANCE,Radiative measurement,Source-defined,double
+Mars_TIRS_FULL_MASTER.parquet,UPWARD_SW_IRRADIANCE_UNCERTAINTY,Measurement uncertainty,Source-defined,double
+Mars_TIRS_FULL_MASTER.parquet,UPWARD_LW_IRRADIANCE,Radiative measurement,Source-defined,double
+Mars_TIRS_FULL_MASTER.parquet,UPWARD_LW_IRRADIANCE_UNCERTAINTY,Measurement uncertainty,Source-defined,double
+Mars_TIRS_FULL_MASTER.parquet,GROUND_TEMP,MEDA TIRS temperature measurement,Source-defined,double
+Mars_TIRS_FULL_MASTER.parquet,GROUND_TEMP_UNCERTAINTY,Measurement uncertainty,Source-defined,double
+Mars_TIRS_FULL_MASTER.parquet,RSM_HEAD_OUTSIDE_TIRS_UPWARD_LOOKING_FOV,Refer to original dataset documentation,Not specified,int64
+Mars_TIRS_FULL_MASTER.parquet,WHEEL_OUTSIDE_TIRS_DOWNWARD_LOOKING_FOV,Refer to original dataset documentation,Not specified,double
+Mars_TIRS_FULL_MASTER.parquet,SUN_OUTSIDE_TIRS_FOV,Engineering or quality flag; consult official PDS definition,Flag,int64
+Mars_TIRS_FULL_MASTER.parquet,ROVER_LOW_TILT,Engineering or quality flag; consult official PDS definition,Flag,int64
+Mars_TIRS_FULL_MASTER.parquet,TIRS_GROUND_FOOTPRINT_NOT_IN_SHADOW,Refer to original dataset documentation,Not specified,int64
+Mars_TIRS_FULL_MASTER.parquet,ROVER_HGA_OFF,Engineering or quality flag; consult official PDS definition,Flag,double
+Mars_TIRS_FULL_MASTER.parquet,SKYCAM_OFF,Refer to original dataset documentation,Not specified,double
+Mars_TIRS_FULL_MASTER.parquet,ROVER_STILL,Engineering or quality flag; consult official PDS definition,Flag,int64
+Mars_TIRS_FULL_MASTER.parquet,SOURCE_FILE,Original source product identifier,Text,string
+Mars_TIRS_FULL_MASTER.parquet,PRODUCT,Original source product identifier,Text,string
+Mars_TIRS_FULL_MASTER.parquet,SOL,Mars mission sol identifier,Sol,int64
+Mars_TIRS_FULL_MASTER.parquet,AIR_TEMP_K,Temperature in Kelvin,K,double
+Mars_TIRS_FULL_MASTER.parquet,AIR_TEMP_C,Temperature converted to Celsius,°C,double
+Mars_TIRS_FULL_MASTER.parquet,GROUND_TEMP_K,Temperature in Kelvin,K,double
+Mars_TIRS_FULL_MASTER.parquet,GROUND_TEMP_C,Temperature converted to Celsius,°C,double

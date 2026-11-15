@@ -1,0 +1,5 @@
+Season,local_time_bins,eligible_bins,minimum_sols,median_sols,maximum_sols,eligible_percentage
+Northern Autumn,48,48,166,200.0,221,100.0
+Northern Spring,48,48,384,438.5,473,100.0
+Northern Summer,48,48,301,336.5,355,100.0
+Northern Winter,48,48,121,215.0,270,100.0

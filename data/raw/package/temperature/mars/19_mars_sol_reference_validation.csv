@@ -1,0 +1,4 @@
+dataset,rows,unique_sols,first_sol,last_sol,duplicate_sol_rows,missing_sol_values
+ATS,1754,1754,1,1859,0,0
+TIRS,1751,1751,1,1859,0,0
+TIRS uncertainty,1751,1751,1,1859,0,0

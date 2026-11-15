@@ -1,0 +1,6 @@
+item,status,next_action
+Solar elevation / zenith,Not verified,Check official MEDA ancillary products and metadata.
+Solar azimuth,Not verified,Check official MEDA ancillary products and metadata.
+Rover pitch / roll / attitude,Not verified,Locate rover geometry and attitude records.
+MEDA condition flag definitions,Data fractions computed; semantics pending,Verify against official product documentation.
+Irradiance units and viewing geometry,Requires documentation verification,Verify official TIRS product documentation.

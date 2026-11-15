@@ -1,0 +1,6 @@
+Earth_site_measurement,Mars_measurement,physical_quantity,comparison_status,reason,required_caveat
+MODIS daytime LST,MEDA TIRS GROUND_TEMP,Surface temperature,Potentially comparable,"Both represent surface temperature, but retrieval methods, spatial footprints, observation timing and surface properties differ.",Compare harmonized distributions and observation conditions; do not assume identical measurement geometry.
+MODIS nighttime LST,MEDA TIRS GROUND_TEMP,Surface temperature,Potentially comparable,"Both are surface temperature measurements, subject to different local times and sampling conditions.",Nighttime observation timing and coverage must be considered.
+POWER T2M,MEDA TIRS AIR_TEMP,Near-surface air temperature,Potentially comparable,"Both represent atmospheric temperature, but spatial resolution, measurement height and instrument characteristics differ.",Height and temporal aggregation must be harmonized where possible.
+MODIS LST,MEDA TIRS AIR_TEMP,Surface versus air temperature,Not directly comparable,Different physical measurement quantities.,Do not interpret differences as direct climate similarity.
+POWER T2M,MEDA TIRS GROUND_TEMP,Air versus surface temperature,Not directly comparable,Different physical measurement quantities.,Keep atmospheric and surface comparison tracks separate.

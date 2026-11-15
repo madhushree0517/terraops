@@ -7,27 +7,28 @@ from app.utils.terrain import TERRAIN_MATRIX_METRICS
 
 
 def render_team_wordmark() -> None:
-    """Add a pinned team wordmark above Streamlit's sidebar page navigation."""
-    st.markdown(
+    """Place a pinned team wordmark above the sidebar page navigation."""
+    st.sidebar.markdown(
         """<style>
-        section[data-testid="stSidebar"] div[data-testid="stSidebarNav"]::before {
-            content: "COSMIC CATALYSTS";
-            display: block;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            padding: 1.1rem 0.8rem 1.2rem;
-            margin-bottom: 0.35rem;
-            background: #0E1117;
-            border-bottom: 1px solid rgba(115, 221, 208, 0.24);
+        .cosmic-catalysts-wordmark {
+            position: fixed;
+            top: 1.25rem;
+            left: 1.35rem;
+            z-index: 1000000;
+            pointer-events: none;
             color: #73ddd0;
             font-family: "Trebuchet MS", Arial, sans-serif;
             font-size: 0.76rem;
             font-weight: 600;
-            letter-spacing: 0.18em;
+            letter-spacing: 0.16em;
             white-space: nowrap;
+            text-shadow: 0 0 16px rgba(115, 221, 208, 0.18);
         }
-        </style>""",
+        section[data-testid="stSidebar"][aria-expanded="false"] .cosmic-catalysts-wordmark {
+            display: none;
+        }
+        </style>
+        <div class="cosmic-catalysts-wordmark">COSMIC CATALYSTS</div>""",
         unsafe_allow_html=True,
     )
 

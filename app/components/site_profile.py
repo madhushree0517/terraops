@@ -7,9 +7,27 @@ from app.utils.terrain import TERRAIN_MATRIX_METRICS
 
 
 def render_team_wordmark() -> None:
-    """Show the team identity as a quiet, futuristic wordmark above the page title."""
+    """Add a pinned team wordmark above Streamlit's sidebar page navigation."""
     st.markdown(
-        """<div style="margin:0.2rem 0 0.35rem; font-family:'Trebuchet MS',Arial,sans-serif; font-size:0.78rem; font-weight:600; letter-spacing:0.22em; text-transform:uppercase; color:#73ddd0;">COSMIC CATALYSTS</div>""",
+        """<style>
+        section[data-testid="stSidebar"] div[data-testid="stSidebarNav"]::before {
+            content: "COSMIC CATALYSTS";
+            display: block;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 1.1rem 0.8rem 1.2rem;
+            margin-bottom: 0.35rem;
+            background: #0E1117;
+            border-bottom: 1px solid rgba(115, 221, 208, 0.24);
+            color: #73ddd0;
+            font-family: "Trebuchet MS", Arial, sans-serif;
+            font-size: 0.76rem;
+            font-weight: 600;
+            letter-spacing: 0.18em;
+            white-space: nowrap;
+        }
+        </style>""",
         unsafe_allow_html=True,
     )
 

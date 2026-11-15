@@ -34,5 +34,11 @@
       "mars_variable": "TIRS ground temperature",
       "comparison_class": "SURFACE_TEMPERATURE"
     }
-  ]
+  ],
+  "solar_longitude_mapping": {
+    "coverage_percent": 87.001,
+    "mapped_ats_sols": 1526,
+    "total_ats_sols": 1754,
+    "source": "package/temperature/documentation/66_FINAL_WORKSTREAM_UPDATE.txt"
+  }
 }

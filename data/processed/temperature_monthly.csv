@@ -1,3 +1,10 @@
-schema_version,site_id,month,variable_type,temp_min_c,temp_mean_c,temp_max_c,pct_in_envelope,n_valid_obs,n_missing_obs,source,period_start,period_end
-1.0,atacama,7,air_temp,4.89,12.040000000000001,16.8,,31,0,NASA POWER T2M; package/temperature/earth/14_earth_site_temperature_summary.csv,2024-07-01,2024-07-31
-1.0,ladakh,7,air_temp,7.16,10.37258064516129,14.82,,31,0,NASA POWER T2M; package/temperature/earth/14_earth_site_temperature_summary.csv,2024-07-01,2024-07-31
+schema_version,site_id,month,variable_type,temp_min_c,temp_mean_c,temp_max_c,pct_in_envelope,n_valid_obs,n_missing_obs,source,period_start,period_end,source_label,period_of_day
+1.0,atacama,7,air_temp,4.89,12.040000000000001,16.8,,31,0,NASA POWER T2M; package/temperature/earth/14_earth_site_temperature_summary.csv,2024-07-01,2024-07-31,Atacama,daily
+1.0,atacama,7,surface_temp,15.142826086956545,25.561699556451284,36.09376068376071,,24,7,MODIS LST day; package/temperature/earth/14_earth_site_temperature_summary.csv,2024-07-01,2024-07-31,Atacama,day
+1.0,atacama,7,surface_temp,-2.772307692307664,3.0061370573870865,8.880341880341907,,28,3,MODIS LST night; package/temperature/earth/14_earth_site_temperature_summary.csv,2024-07-01,2024-07-31,Atacama,night
+1.0,askja,7,air_temp,0.77,2.9190322580645156,5.46,,31,0,NASA POWER T2M; package/temperature/earth/14_earth_site_temperature_summary.csv,2024-07-01,2024-07-31,Iceland,daily
+1.0,askja,7,surface_temp,6.500588235294151,14.821741465529731,26.668750000000024,,8,23,MODIS LST day; package/temperature/earth/14_earth_site_temperature_summary.csv,2024-07-01,2024-07-31,Iceland,day
+1.0,askja,7,surface_temp,-0.0262499999999796,2.3817085286588395,5.590000000000032,,8,23,MODIS LST night; package/temperature/earth/14_earth_site_temperature_summary.csv,2024-07-01,2024-07-31,Iceland,night
+1.0,ladakh,7,air_temp,7.16,10.37258064516129,14.82,,31,0,NASA POWER T2M; package/temperature/earth/14_earth_site_temperature_summary.csv,2024-07-01,2024-07-31,Ladakh,daily
+1.0,ladakh,7,surface_temp,28.702727272727305,36.372544570701805,41.37570048309182,,25,6,MODIS LST day; package/temperature/earth/14_earth_site_temperature_summary.csv,2024-07-01,2024-07-31,Ladakh,day
+1.0,ladakh,7,surface_temp,11.802265625000029,18.02901196144504,22.88228070175441,,23,8,MODIS LST night; package/temperature/earth/14_earth_site_temperature_summary.csv,2024-07-01,2024-07-31,Ladakh,night

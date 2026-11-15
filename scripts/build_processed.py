@@ -1,5 +1,6 @@
 import json
 import math
+import re
 from pathlib import Path
 from typing import Any
 
@@ -18,7 +19,8 @@ SCHEMA_VERSION = "1.0"
 TEMPERATURE_COLUMNS = [
     "schema_version", "site_id", "month", "variable_type", "temp_min_c",
     "temp_mean_c", "temp_max_c", "pct_in_envelope", "n_valid_obs",
-    "n_missing_obs", "source", "period_start", "period_end",
+    "n_missing_obs", "source", "period_start", "period_end", "source_label",
+    "period_of_day",
 ]
 TERRAIN_METRICS_COLUMNS = [
     "schema_version", "site_id", "metric_name", "value", "value_mean", "value_std",
@@ -646,11 +648,26 @@ def _build_temperature_monthly(raw_dir: Path, processed_dir: Path) -> bool:
     if not source_path.is_file():
         raise FileNotFoundError(f"Preferred Earth summary is missing: {source_path}")
     frame = pd.read_csv(source_path)
-    required = {"site", "period_start", "period_end", "total_calendar_days", "POWER_valid_days", "POWER_T2M_mean_C", "POWER_T2M_min_C", "POWER_T2M_max_C"}
+    required = {
+        "site", "period_start", "period_end", "total_calendar_days", "POWER_valid_days",
+        "POWER_T2M_mean_C", "POWER_T2M_min_C", "POWER_T2M_max_C",
+    }
     missing = sorted(required - set(frame.columns))
     if missing:
         raise ValueError(f"{source_path.name} missing required column(s): {', '.join(missing)}")
-    site_map = {"atacama": "atacama", "ladakh": "ladakh"}
+    site_map = {"atacama": "atacama", "iceland": "askja", "ladakh": "ladakh"}
+    modis_fields = {
+        f"MODIS_{period}_{stat}_C"
+        for period in ("day", "night")
+        for stat in ("mean", "min", "max")
+    } | {f"MODIS_{period}_valid_days" for period in ("day", "night")}
+    modis_present = modis_fields & set(frame.columns)
+    if modis_present and modis_present != modis_fields:
+        missing_modis = sorted(modis_fields - modis_present)
+        raise ValueError(
+            f"{source_path.name} has an incomplete MODIS day/night summary; "
+            f"missing {', '.join(missing_modis)}"
+        )
     output = []
     for row_number, source_row in enumerate(frame.to_dict(orient="records"), start=2):
         site_label = str(source_row["site"]).strip()
@@ -666,30 +683,58 @@ def _build_temperature_monthly(raw_dir: Path, processed_dir: Path) -> bool:
         valid_days = int(source_row["POWER_valid_days"])
         if not (0 <= valid_days <= total_days):
             raise ValueError(f"{source_path.name} row {row_number} valid count is outside 0..total_calendar_days.")
-        output.append({
+        common = {
             "schema_version": SCHEMA_VERSION,
             "site_id": site_id,
             "month": int(start.month),
+            "pct_in_envelope": float("nan"),
+            "period_start": start.date().isoformat(),
+            "period_end": end.date().isoformat(),
+            "source_label": site_label,
+        }
+        relative_source = source_path.relative_to(raw_dir).as_posix()
+        output.append({
+            **common,
             "variable_type": "air_temp",
             "temp_min_c": source_row["POWER_T2M_min_C"],
             "temp_mean_c": source_row["POWER_T2M_mean_C"],
             "temp_max_c": source_row["POWER_T2M_max_C"],
-            "pct_in_envelope": float("nan"),
             "n_valid_obs": valid_days,
             "n_missing_obs": total_days - valid_days,
-            "source": f"NASA POWER T2M; {source_path.relative_to(raw_dir).as_posix()}",
-            "period_start": start.date().isoformat(),
-            "period_end": end.date().isoformat(),
+            "source": f"NASA POWER T2M; {relative_source}",
+            "period_of_day": "daily",
         })
-        _log(f"TRANSFORM {site_label!r}->{site_id}: copy explicit POWER T2M monthly min/mean/max in Celsius; n_valid_obs={valid_days}; n_missing_obs={total_days-valid_days}; period={start.date()}..{end.date()}.")
-    _log("OMIT MODIS day/night monthly rows: source explicitly separates day and night, but contract lacks a period-of-day field and no aggregation rule is stated.")
-    _log("KEEP pct_in_envelope as NaN: this air_temp file is not paired with the surface_temp envelope.")
+        if modis_present:
+            for period in ("day", "night"):
+                modis_valid = int(source_row[f"MODIS_{period}_valid_days"])
+                if not 0 <= modis_valid <= total_days:
+                    raise ValueError(
+                        f"{source_path.name} row {row_number} has invalid MODIS {period} valid-day count."
+                    )
+                output.append({
+                    **common,
+                    "variable_type": "surface_temp",
+                    "temp_min_c": source_row[f"MODIS_{period}_min_C"],
+                    "temp_mean_c": source_row[f"MODIS_{period}_mean_C"],
+                    "temp_max_c": source_row[f"MODIS_{period}_max_C"],
+                    "n_valid_obs": modis_valid,
+                    "n_missing_obs": total_days - modis_valid,
+                    "source": f"MODIS LST {period}; {relative_source}",
+                    "period_of_day": period,
+                })
+        _log(
+            f"TRANSFORM {site_label!r}->{site_id}: preserved source_label; copied POWER daily "
+            f"and separate MODIS day/night values where supplied; POWER valid={valid_days}; "
+            f"period={start.date()}..{end.date()}."
+        )
+    _log("KEEP MODIS day/night measurements separate; no day/night aggregate was computed.")
+    _log("KEEP pct_in_envelope as NaN: no single monthly envelope percentage is supplied by this source.")
     if not output:
         _log("SKIP temperature_monthly.csv: no explicitly mapped sites remain.")
         return False
     processed_dir.mkdir(parents=True, exist_ok=True)
     pd.DataFrame(output, columns=TEMPERATURE_COLUMNS).to_csv(processed_dir / "temperature_monthly.csv", index=False, na_rep="")
-    _log(f"WROTE temperature_monthly.csv: {len(output)} NASA POWER air_temp monthly rows.")
+    _log(f"WROTE temperature_monthly.csv: {len(output)} separate temperature-series rows.")
     return True
 
 
@@ -729,6 +774,26 @@ def _build_mars_temperature_envelope(raw_dir: Path, processed_dir: Path) -> bool
         "notes": "Season-specific TIRS GROUND_TEMP P05-P95 intervals copied from the final recalculated surface-temperature comparison. No single global min/max is asserted; Earth comparisons are exploratory and not a direct matched-site experiment.",
         "seasonal_envelopes": envelope_rows,
     }
+    ls_coverage_path = raw_dir / "package" / "temperature" / "documentation" / "66_FINAL_WORKSTREAM_UPDATE.txt"
+    if ls_coverage_path.is_file():
+        ls_text = ls_coverage_path.read_text(encoding="utf-8", errors="replace")
+        coverage_match = re.search(
+            r"Ls coverage currently:\s*([0-9.]+)% of the ([0-9,]+)-sol temperature reference\.\s*"
+            r"- ([0-9,]+) sols have an Ls reference\.",
+            ls_text,
+        )
+        if coverage_match:
+            envelope["solar_longitude_mapping"] = {
+                "coverage_percent": float(coverage_match.group(1)),
+                "mapped_ats_sols": int(coverage_match.group(3).replace(",", "")),
+                "total_ats_sols": int(coverage_match.group(2).replace(",", "")),
+                "source": ls_coverage_path.relative_to(raw_dir).as_posix(),
+            }
+            _log(
+                "COPY official ATS Ls mapping coverage: "
+                f"{coverage_match.group(1)}%; "
+                f"{coverage_match.group(3)} of {coverage_match.group(2)} sols."
+            )
     processed_dir.mkdir(parents=True, exist_ok=True)
     with (processed_dir / "mars_temperature_envelope.json").open("w", encoding="utf-8") as destination:
         json.dump(envelope, destination, indent=2, ensure_ascii=False)
@@ -738,6 +803,22 @@ def _build_mars_temperature_envelope(raw_dir: Path, processed_dir: Path) -> bool
 
 
 def _build_analogy_gaps(raw_dir: Path, processed_dir: Path) -> bool:
+    reviewed_path = raw_dir.parent / "sample" / "analogy_gaps.json"
+    if reviewed_path.is_file():
+        with reviewed_path.open(encoding="utf-8") as source:
+            reviewed_items = json.load(source)
+        if not isinstance(reviewed_items, list):
+            raise ValueError(f"{reviewed_path.name} must contain a JSON list.")
+        processed_dir.mkdir(parents=True, exist_ok=True)
+        with (processed_dir / "analogy_gaps.json").open("w", encoding="utf-8") as destination:
+            json.dump(reviewed_items, destination, indent=2, ensure_ascii=False)
+            destination.write("\n")
+        _log(
+            f"WROTE analogy_gaps.json: copied {len(reviewed_items)} reviewed entries "
+            "without dropping fields or changing decisions/text."
+        )
+        return True
+
     source_path = raw_dir / "package" / "temperature" / "validation" / "FINAL_REVISED_SCIENTIFIC_LIMITATIONS_REGISTER.csv"
     if not source_path.is_file():
         _log(f"SKIP analogy_gaps.json: limitations register not found at {source_path.relative_to(raw_dir)}.")

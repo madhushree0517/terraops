@@ -83,7 +83,7 @@ Slope preview images are written under `data/processed/previews/` only for sites
 
 ## `temperature_monthly.csv`
 
-One record per site, month, and variable type. `month` is 1-12; `variable_type` is `surface_temp` or `air_temp`.
+One record per site, month, variable type, and period of day. `month` is 1-12; `variable_type` is `surface_temp` or `air_temp`. Daytime and nighttime surface temperatures remain separate; they are not averaged together.
 
 | Column | Meaning |
 | --- | --- |
@@ -100,14 +100,18 @@ One record per site, month, and variable type. `month` is 1-12; `variable_type` 
 | `source` | Dataset or processing source. |
 | `period_start` | Start of the observation period (ISO date or documented label). |
 | `period_end` | End of the observation period (ISO date or documented label). |
+| `source_label` | Original site label from the source row, retained when a confirmed alias maps to a canonical `site_id` (for example `Iceland` to `askja`). |
+| `period_of_day` | `daily` for daily air-temperature summaries, or `day` / `night` for separate surface-temperature summaries. Older contract rows without this field load as `daily`; no aggregation is inferred. |
 
 ## `mars_temperature_envelope.json`
 
 JSON object with `schema_version` (`1.0`), `variable_type` (`surface_temp` or `air_temp`), `source` and `notes`. A single-envelope object uses numeric `min_c` and `max_c` in Celsius. If only season-specific thresholds are supported, `min_c` and `max_c` remain null and `seasonal_envelopes` contains objects with `season`, `min_c`, and `max_c` from the cited source. Do not collapse season-specific ranges into a single range without an approved interpretation.
 
+The optional `solar_longitude_mapping` object records ATS `coverage_percent`, `mapped_ats_sols`, `total_ats_sols`, and the source handoff. This describes coverage of solar-longitude mapping only; it is not the share of temperature observations analysed.
+
 ## `analogy_gaps.json`
 
-JSON list of objects, each with `schema_version` (`1.0`), `factor` (limitation or condition), `can_rehearse_on_earth` (boolean or null), and `explanation` (scope and caveats). A null decision is allowed only with `review_status: "draft, pending engineering review"`. This file records limitations; it does not assert that Earth reproduces Mars.
+JSON list of objects. Every object must retain `schema_version` (`1.0`), `factor`, `can_rehearse_on_earth` (boolean or null), and `explanation`. Additional source fields, including `limits` if present, must be preserved rather than discarded. Explicit `true` and `false` decisions are reviewed decisions; `null` is pending review. A true decision applies only to the named aspect and does not assert that Earth reproduces Mars. The processed build uses the reviewed `data/sample/analogy_gaps.json` when present, preserving each entry's exact field values and wording.
 
 ## `datasets_catalogue.csv`
 

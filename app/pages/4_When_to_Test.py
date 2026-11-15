@@ -82,6 +82,14 @@ st.dataframe(
 )
 band_kind = ", ".join(sorted(_label(kind) for kind in mars_types if kind))
 st.caption(f"Mars bands are {band_kind}." if band_kind else "Mars band type is not stated.")
+ls_mapping = envelope.get("solar_longitude_mapping")
+if isinstance(ls_mapping, dict):
+    st.caption(
+        "Official Ls mapping covers "
+        f"{float(ls_mapping['coverage_percent']):.1f}% "
+        f"({int(ls_mapping['mapped_ats_sols']):,} of {int(ls_mapping['total_ats_sols']):,} ATS sols). "
+        "This is Ls mapping coverage, not the share of temperature observations analysed."
+    )
 
 earth_sites = sites.loc[sites["body"] == "Earth"].copy()
 earth_site_ids = earth_sites["site_id"].astype(str).tolist()
@@ -109,7 +117,13 @@ if sites_with_data:
             table_rows.append(
                 {
                     "Site": site_names.get(site_id, site_id),
+                    "Source label": row["source_label"] or site_names.get(site_id, site_id),
                     "Month": _month_label(row),
+                    "Period": {
+                        "daily": "Daily",
+                        "day": "Daytime",
+                        "night": "Nighttime",
+                    }.get(row["period_of_day"], "Not specified"),
                     "Temperature type": _label(str(row["variable_type"])),
                     "Min (°C)": _number(row["temp_min_c"]),
                     "Mean (°C)": _number(row["temp_mean_c"]),
@@ -134,6 +148,7 @@ if sites_with_data:
 
 blocked_messages: dict[str, list[str]] = {}
 compatible_site_ids = []
+match_percentage_displayed = False
 for site_id in sites_with_data:
     site_name = site_names.get(site_id, site_id)
     earth_types = sorted(selected_rows[site_id]["variable_type"].dropna().astype(str).unique())
@@ -163,6 +178,7 @@ if partial_site_ids:
         for _, row in selected_rows[site_id].iterrows():
             share = pd.to_numeric(pd.Series([row["pct_in_envelope"]]), errors="coerce").iloc[0]
             if pd.notna(share):
+                match_percentage_displayed = True
                 partial_rows.append(
                     {
                         "Site": site_names.get(site_id, site_id),
@@ -178,6 +194,7 @@ if eligible_site_ids:
     chart_rows = annotate_low_data(
         temperatures.loc[temperatures["site_id"].astype(str).isin(eligible_site_ids)].copy()
     )
+    match_percentage_displayed = match_percentage_displayed or chart_rows["pct_in_envelope"].notna().any()
     st.subheader("Monthly comparison with Mars bands")
     st.caption(
         "Values are the supplied share of observations inside the Mars band, with missing values "
@@ -271,7 +288,8 @@ if blocked_messages or sites_without_data:
             "supplied percentage cannot be assigned to one season."
         )
 
-st.caption(
-    "A high match percentage does not prove thermal equivalence. Mars seasons are defined "
-    "by solar longitude (Ls) and are not mapped to Earth calendar months."
-)
+if match_percentage_displayed:
+    st.caption(
+        "A high match percentage does not prove thermal equivalence. Mars seasons are defined "
+        "by solar longitude (Ls) and are not mapped to Earth calendar months."
+    )

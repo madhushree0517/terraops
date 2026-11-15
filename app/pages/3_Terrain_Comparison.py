@@ -1,9 +1,9 @@
 import html
 
 import pandas as pd
-import plotly.graph_objects as go
 import streamlit as st
 
+from app.components.chart_helpers import slope_histogram_chart
 from app.components.site_profile import render_page_banner
 from app.utils.config import get_data_file_source
 from app.utils.loaders import load_slope_histograms, load_terrain_metrics
@@ -42,39 +42,6 @@ st.write(
 
 def _plain(text: str) -> str:
     return text.replace(" (unit unconfirmed)", "")
-
-
-def _slope_chart(histograms: pd.DataFrame) -> go.Figure:
-    figure = go.Figure()
-    for site_id, site_rows in histograms.groupby("site_id", sort=False):
-        figure.add_trace(
-            go.Bar(
-                x=site_rows["bin_start"],
-                y=site_rows["share"],
-                width=1,
-                name=str(site_id).title(),
-                hovertemplate=(
-                    "%{x:.0f} to %{customdata:.0f}"
-                    "<br>Share of valid pixels: %{y:.2%}<extra>%{fullData.name}</extra>"
-                ),
-                customdata=site_rows["bin_end"],
-            )
-        )
-    figure.update_layout(
-        barmode="overlay",
-        xaxis_title="Slope value (unit unconfirmed)",
-        yaxis_title="Share of valid slope pixels",
-        legend_title="Site",
-    )
-    for threshold in (10, 17, 24):
-        figure.add_vline(
-            x=threshold,
-            line_dash="dash",
-            line_color="#263746",
-            annotation_text=str(threshold),
-            annotation_position="top",
-        )
-    return figure
 
 
 def _table_html(rows: list[dict], site_ids: list[str]) -> str:
@@ -145,7 +112,7 @@ except Exception as error:
 
 if not histograms.empty:
     st.subheader("Slope distribution")
-    st.plotly_chart(_slope_chart(histograms), width="stretch")
+    st.plotly_chart(slope_histogram_chart(histograms), width="stretch")
 
 if visible_rows:
     st.subheader("Comparison")

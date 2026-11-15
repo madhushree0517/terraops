@@ -7,7 +7,7 @@ from pyproj import Transformer
 from rasterio.transform import from_origin
 from shapely.geometry import Polygon, mapping
 
-from scripts.build_processed import _build_sites, build_processed
+from scripts.build_processed import _build_analogy_gaps, _build_sites, build_processed
 from app.utils.loaders import (
     load_analogy_gaps,
     load_mars_temperature_envelope,
@@ -46,14 +46,22 @@ def test_build_processed_creates_only_clear_outputs_and_preserves_missing(tmp_pa
 
     pd.DataFrame(
         {
-            "site": ["Atacama", "Unmapped candidate", " Ladakh"],
-            "period_start": ["2024-07-01"] * 3,
-            "period_end": ["2024-07-31"] * 3,
-            "total_calendar_days": [31] * 3,
-            "POWER_valid_days": [31, 31, 30],
-            "POWER_T2M_mean_C": [12.0, 4.0, 10.0],
-            "POWER_T2M_min_C": [4.0, 1.0, 7.0],
-            "POWER_T2M_max_C": [17.0, 6.0, 15.0],
+            "site": ["Atacama", "Unmapped candidate", " Ladakh", "Iceland"],
+            "period_start": ["2024-07-01"] * 4,
+            "period_end": ["2024-07-31"] * 4,
+            "total_calendar_days": [31] * 4,
+            "POWER_valid_days": [31, 31, 30, 31],
+            "POWER_T2M_mean_C": [12.0, 4.0, 10.0, 2.9],
+            "POWER_T2M_min_C": [4.0, 1.0, 7.0, 0.7],
+            "POWER_T2M_max_C": [17.0, 6.0, 15.0, 5.5],
+            "MODIS_day_valid_days": [24, 0, 25, 8],
+            "MODIS_day_mean_C": [25.5, float("nan"), 36.3, 14.8],
+            "MODIS_day_min_C": [15.1, float("nan"), 28.7, 6.5],
+            "MODIS_day_max_C": [36.1, float("nan"), 41.4, 26.7],
+            "MODIS_night_valid_days": [28, 0, 23, 8],
+            "MODIS_night_mean_C": [3.0, float("nan"), 18.0, 2.4],
+            "MODIS_night_min_C": [-2.8, float("nan"), 11.8, -0.03],
+            "MODIS_night_max_C": [8.9, float("nan"), 22.9, 5.6],
         }
     ).to_csv(temp_earth / "14_earth_site_temperature_summary.csv", index=False)
 
@@ -196,6 +204,13 @@ def test_build_processed_creates_only_clear_outputs_and_preserves_missing(tmp_pa
             {"topic": "Geometry", "status": "Pending", "finding": "Not verified", "next_action": "Review product geometry"},
         ]
     ).to_csv(limitations_path, index=False)
+    documentation = package / "temperature" / "documentation"
+    documentation.mkdir(parents=True, exist_ok=True)
+    (documentation / "66_FINAL_WORKSTREAM_UPDATE.txt").write_text(
+        "Ls coverage currently: 87.001% of the 1,754-sol temperature reference.\n"
+        "- 1,526 sols have an Ls reference.\n",
+        encoding="utf-8",
+    )
 
     results = build_processed(raw_dir, processed_dir)
     log = capsys.readouterr().out
@@ -230,7 +245,16 @@ def test_build_processed_creates_only_clear_outputs_and_preserves_missing(tmp_pa
     assert pd.isna(modis_catalogue["citation"])
     assert pd.isna(modis_catalogue["licence"])
     assert "Unmapped candidate" in log and "no approved canonical site_id mapping" in log
-    assert "OMIT MODIS day/night" in log
+    assert "'Iceland'->askja" in log
+    assert "KEEP MODIS day/night measurements separate" in log
+    askja_modis = temperatures.loc[
+        (temperatures["site_id"] == "askja")
+        & (temperatures["variable_type"] == "surface_temp")
+    ].set_index("period_of_day")
+    assert set(askja_modis.index) == {"day", "night"}
+    assert askja_modis["source_label"].eq("Iceland").all()
+    assert askja_modis["n_valid_obs"].to_dict() == {"day": 8, "night": 8}
+    assert askja_modis["n_missing_obs"].to_dict() == {"day": 23, "night": 23}
     assert set(terrain_metrics["site_id"]) == {"jezero", "atacama", "ladakh", "askja"}
     expected_metrics = {
         "slope_p90_deg",
@@ -290,6 +314,12 @@ def test_build_processed_creates_only_clear_outputs_and_preserves_missing(tmp_pa
     assert len(envelope["seasonal_envelopes"]) == 4
     assert envelope["variable_type"] == "surface_temp"
     assert envelope["seasonal_envelopes"][0]["mars_variable"] == "TIRS ground temperature"
+    assert envelope["solar_longitude_mapping"] == {
+        "coverage_percent": 87.001,
+        "mapped_ats_sols": 1526,
+        "total_ats_sols": 1754,
+        "source": "package/temperature/documentation/66_FINAL_WORKSTREAM_UPDATE.txt",
+    }
     assert all(item["can_rehearse_on_earth"] is None for item in analogy_gaps)
     assert all(item["review_status"] == "draft, pending engineering review" for item in analogy_gaps)
     assert results["temperature_monthly.csv"] == "built"
@@ -334,6 +364,37 @@ def test_processed_builder_requires_raw_directory(tmp_path):
         assert "Raw data directory" in str(error)
     else:
         raise AssertionError("Expected a missing raw directory to fail clearly")
+
+
+def test_analogy_builder_copies_reviewed_file_without_rewriting_fields(tmp_path):
+    raw_dir = tmp_path / "data" / "raw"
+    sample_dir = raw_dir.parent / "sample"
+    processed_dir = raw_dir.parent / "processed"
+    raw_dir.mkdir(parents=True)
+    sample_dir.mkdir()
+    reviewed = [
+        {
+            "schema_version": "1.0",
+            "factor": "Terrain mobility",
+            "can_rehearse_on_earth": True,
+            "explanation": "Relative difficulty only; exact caveat retained.",
+            "limits": "30 m DEM cannot resolve small hazards.",
+        },
+        {
+            "schema_version": "1.0",
+            "factor": "Pending item",
+            "can_rehearse_on_earth": None,
+            "explanation": "No decision recorded.",
+        },
+    ]
+    (sample_dir / "analogy_gaps.json").write_text(
+        json.dumps(reviewed), encoding="utf-8"
+    )
+
+    assert _build_analogy_gaps(raw_dir, processed_dir)
+
+    copied = json.loads((processed_dir / "analogy_gaps.json").read_text(encoding="utf-8"))
+    assert copied == reviewed
 
 
 def test_site_builder_leaves_coordinates_pending_when_extent_sources_are_absent(tmp_path):

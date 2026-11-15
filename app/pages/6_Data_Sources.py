@@ -7,8 +7,10 @@ from app.utils.loaders import (
     get_data_quality_summary,
     load_datasets_catalogue,
     load_mars_temperature_envelope,
+    load_sites,
     load_temperature_monthly,
 )
+from app.utils.location import build_location_consistency
 
 
 st.set_page_config(page_title="Data Sources | TERRAOPS", layout="wide")
@@ -31,7 +33,7 @@ st.dataframe(
             {
                 "Contract file": filename,
                 "Active source": (
-                    "processed (draft, pending review)"
+                    "processed (reviewed decisions)"
                     if filename == "analogy_gaps.json" and source == "processed"
                     else status_labels[source]
                 ),
@@ -60,45 +62,92 @@ try:
         "Copernicus DEM": "Earth",
     }
     catalogue["body"] = catalogue["dataset_name"].map(body_by_dataset).fillna("Unspecified")
-    catalogue_display = catalogue.copy()
-    for column in catalogue_display.columns:
-        catalogue_display[column] = catalogue_display[column].map(
-            lambda value: (
-                "not documented"
-                if pd.isna(value) or not str(value).strip()
-                else value
-            )
-        )
     body_filter = st.selectbox("Filter datasets by body", ["All", "Mars", "Earth", "Unspecified"])
     visible_catalogue = (
-        catalogue_display
+        catalogue
         if body_filter == "All"
-        else catalogue_display.loc[catalogue["body"] == body_filter]
+        else catalogue.loc[catalogue["body"] == body_filter]
     )
+    catalogue_columns = [
+        "body",
+        "dataset_name",
+        "source",
+        "url",
+        "file_format",
+        "spatial_resolution",
+        "temporal_resolution",
+        "observation_period",
+        "units",
+        "crs",
+        "citation",
+        "licence",
+    ]
+    catalogue_display = visible_catalogue[catalogue_columns].copy()
+    for column in catalogue_display.columns:
+        if column == "url":
+            catalogue_display[column] = catalogue_display[column].map(
+                lambda value: None if pd.isna(value) or not str(value).strip() else str(value)
+            )
+        else:
+            catalogue_display[column] = catalogue_display[column].map(
+                lambda value: (
+                    "not documented"
+                    if pd.isna(value) or not str(value).strip()
+                    else value
+                )
+            )
     st.dataframe(
-        visible_catalogue[
-            [
-                "body",
-                "dataset_name",
-                "source",
-                "spatial_resolution",
-                "observation_period",
-                "units",
-                "crs",
-                "limitations",
-                "citation",
-                "licence",
-            ]
-        ],
+        catalogue_display,
         hide_index=True,
         width="stretch",
+        column_config={
+            "body": "Body",
+            "dataset_name": "Dataset",
+            "source": "Provider",
+            "url": st.column_config.LinkColumn("URL", display_text="Open source"),
+            "file_format": "Format",
+            "spatial_resolution": "Spatial resolution",
+            "temporal_resolution": "Temporal resolution",
+            "observation_period": "Observation period",
+            "units": "Units",
+            "crs": "CRS",
+            "citation": "Citation",
+            "licence": "Licence",
+        },
     )
-    st.caption(
-        "Body labels are assigned from the exact catalogue dataset names; catalogue rows "
-        "and metadata are otherwise shown as loaded."
-    )
+    for _, row in visible_catalogue.iterrows():
+        with st.expander(str(row["dataset_name"]), expanded=False):
+            limitation = row.get("limitations")
+            st.write(
+                "Not documented."
+                if pd.isna(limitation) or not str(limitation).strip()
+                else str(limitation)
+            )
 except Exception as error:
     st.error(f"Could not load the dataset catalogue: {error}")
+
+st.subheader("Location consistency")
+try:
+    location_table = build_location_consistency(load_sites())
+    st.dataframe(location_table, hide_index=True, width="stretch")
+    warning_rows = location_table.loc[
+        location_table["Finding"].str.startswith("Warning:")
+    ]
+    for site_name in warning_rows["Site"].drop_duplicates():
+        site_rows = warning_rows.loc[warning_rows["Site"] == site_name]
+        details = "; ".join(
+            f"{row['Location source']}: {row['Distance from terrain centroid (km)']} km"
+            for _, row in site_rows.iterrows()
+        )
+        st.warning(
+            f"{site_name}: {details}. These coordinates remain distinct; no location has been selected."
+        )
+    st.caption(
+        "Earth temperature CSVs do not state extraction coordinates. The Iceland-to-Askja "
+        "mapping follows team identity confirmation and is not a coordinate-distance validation."
+    )
+except FileNotFoundError:
+    st.info("Site location data are not available for a consistency check.")
 
 st.subheader("Temperature compatibility")
 try:
@@ -153,17 +202,3 @@ try:
 except Exception as error:
     st.error(f"Could not build the data-quality summary: {error}")
 
-st.subheader("Dataset provenance")
-try:
-    if catalogue_display.empty:
-        st.info("No dataset provenance records are available.")
-    else:
-        st.dataframe(
-            catalogue_display[
-                ["dataset_name", "source", "url", "citation", "licence", "limitations"]
-            ],
-            hide_index=True,
-            width="stretch",
-        )
-except NameError:
-    st.info("No dataset provenance records are available.")

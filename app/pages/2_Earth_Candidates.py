@@ -34,8 +34,19 @@ try:
     if not site_ids:
         st.info("No sites are available in the active data source.")
     else:
-        if "earth_selected_site" not in st.session_state or st.session_state["earth_selected_site"] not in site_ids:
-            st.session_state["earth_selected_site"] = site_ids[0]
+        tier_values = terrain_metrics["tier"].astype("string").fillna("").str.strip()
+        terrain_site_ids = set(
+            terrain_metrics.loc[terrain_metrics["value"].notna() & tier_values.ne(""), "site_id"]
+            .astype(str)
+        )
+        first_site_with_terrain = next(
+            (site_id for site_id in site_ids if site_id in terrain_site_ids), site_ids[0]
+        )
+        if not st.session_state.get("earth_site_default_initialized"):
+            st.session_state["earth_selected_site"] = first_site_with_terrain
+            st.session_state["earth_site_default_initialized"] = True
+        elif st.session_state.get("earth_selected_site") not in site_ids:
+            st.session_state["earth_selected_site"] = first_site_with_terrain
         clicked_site = render_site_map(
             earth_sites,
             height=420,

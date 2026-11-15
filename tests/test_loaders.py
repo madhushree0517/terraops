@@ -1,12 +1,16 @@
+import json
+
 import pandas as pd
 import pytest
 
 from app.utils import config
 from app.utils.loaders import (
     get_data_quality_summary,
+    load_analogy_gaps,
     load_slope_histograms,
     load_terrain_metrics,
     load_terrain_parameters,
+    load_temperature_monthly,
 )
 from app.utils.validation import (
     DataContractError,
@@ -123,6 +127,45 @@ def test_slope_histogram_loader_checks_totals_and_share_normalization(tmp_path):
 
     assert histogram["pixel_count"].sum() == 4
     assert histogram["share"].sum() == 1
+
+
+def test_temperature_loader_preserves_source_label_and_period_of_day(tmp_path):
+    pd.DataFrame(
+        [
+            {
+                "schema_version": "1.0", "site_id": "askja", "month": 7,
+                "variable_type": "surface_temp", "temp_min_c": 6.5,
+                "temp_mean_c": 14.8, "temp_max_c": 26.7,
+                "pct_in_envelope": float("nan"), "n_valid_obs": 8,
+                "n_missing_obs": 23, "source": "MODIS day", "period_start": "2024-07-01",
+                "period_end": "2024-07-31", "source_label": "Iceland",
+                "period_of_day": "day",
+            }
+        ]
+    ).to_csv(tmp_path / "temperature_monthly.csv", index=False)
+
+    temperatures = load_temperature_monthly(tmp_path)
+
+    assert temperatures.loc[0, "site_id"] == "askja"
+    assert temperatures.loc[0, "source_label"] == "Iceland"
+    assert temperatures.loc[0, "period_of_day"] == "day"
+    assert temperatures.loc[0, "n_valid_obs"] == 8
+    assert temperatures.loc[0, "n_missing_obs"] == 23
+
+
+def test_temperature_loader_rejects_unknown_period_of_day(tmp_path):
+    row = {
+        "schema_version": "1.0", "site_id": "askja", "month": 7,
+        "variable_type": "surface_temp", "temp_min_c": 1, "temp_mean_c": 2,
+        "temp_max_c": 3, "pct_in_envelope": float("nan"), "n_valid_obs": 1,
+        "n_missing_obs": 30, "source": "fixture", "period_start": "2024-07-01",
+        "period_end": "2024-07-31", "source_label": "Iceland",
+        "period_of_day": "combined",
+    }
+    pd.DataFrame([row]).to_csv(tmp_path / "temperature_monthly.csv", index=False)
+
+    with pytest.raises(DataContractError, match="period_of_day must be daily, day, or night"):
+        load_temperature_monthly(tmp_path)
 
 
 def test_missing_column_raises_clear_error(tmp_path):
@@ -276,6 +319,27 @@ def test_data_quality_summary_accepts_draft_analogy_decisions(tmp_path):
 
     assert decision["missing_count"] == 1
     assert decision["row_count"] == 1
+
+
+def test_analogy_loader_preserves_extra_fields_and_pending_null_decisions(tmp_path):
+    items = [
+        {
+            "schema_version": "1.0",
+            "factor": "Aspect",
+            "can_rehearse_on_earth": True,
+            "explanation": "Exact source explanation.",
+            "limits": "Exact source limits.",
+        },
+        {
+            "schema_version": "1.0",
+            "factor": "Unresolved aspect",
+            "can_rehearse_on_earth": None,
+            "explanation": "No decision recorded.",
+        },
+    ]
+    (tmp_path / "analogy_gaps.json").write_text(json.dumps(items), encoding="utf-8")
+
+    assert load_analogy_gaps(tmp_path) == items
 
 
 def test_per_file_source_prefers_processed_then_falls_back_to_sample(tmp_path, monkeypatch):

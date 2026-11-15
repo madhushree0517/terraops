@@ -10,7 +10,7 @@ The package includes `README_TERRAOPS.md`, `Earth_Data_Methodology.md`, `Mars_ME
 
 ### Final handoff and status notes
 
-`66_FINAL_WORKSTREAM_UPDATE.txt` states ATS 88,656,007 observations/1,754 sols; TIRS 80,882,439 observations/1,751 sols; and 1,526 of 1,754 temperature-reference sols with sourced Ls (87.001%), with 228 unresolved. `TERRAOPS_FINAL_RESEARCH_HANDOFF.txt` contains earlier Ls figures (1,179/1,754, 67.218%) and, in later embedded verification sections, ATS 1,526 Ls records and TIRS 1,496 Ls records. Its later final consolidated status again says 1,526 of 1,754 sols and 87.001%. These figures refer to different instrument/index stages and are retained as stated, not reconciled by inference.
+`66_FINAL_WORKSTREAM_UPDATE.txt` states ATS 88,656,007 observations/1,754 sols; TIRS 80,882,439 observations/1,751 sols; and current official Ls mapping for 1,526 of 1,754 ATS sols (87.0%), with 228 unresolved. This is coverage of Ls mapping, not the share of temperature observations analysed. `TERRAOPS_FINAL_RESEARCH_HANDOFF.txt` contains an earlier, superseded figure of 1,179/1,754 (67.2%); later embedded verification and final consolidated sections report the current 1,526 ATS Ls records. The separate 1,496 TIRS index count is a different instrument/index stage and is not the ATS coverage denominator.
 
 Both copies of `FINAL_HANDOVER_SUMMARY.txt` have the same SHA-256 `CC61ECD68763F05DC6BCAC337AA85B2E985AA119635ADE8F937B9721B4ED67CB`; they are identical. That handover reports 113 SPICE kernels loaded, 52 text-declared frame IDs recognized, 84 CK files and 15 CK object IDs, but explicitly says MEDA/TIRS-specific frames/time coverage were not established. `FINAL_THREE_STREAM_CLOSURE_REPORT.md` instead marks all three closure streams `Scientific pass: NO`, flags MEDA polarity for context review, Earth–Mars comparison as exploratory scope-limited, and SPICE geometry `ERROR_OR_DOWNLOAD_BLOCKED` with `SpiceTYPEMISMATCH()`.
 
@@ -37,7 +37,7 @@ New_Terrain _metrics slope values are quoted exactly from its raw QGIS output:
 | Askja | Copernicus GLO30 named in older Terrain_metrics input; reprojected base TIFF present | 29.99818936288092 × 29.998189339968448 map units | EPSG:32727 area of use excludes Askja at about 65°N; suspect and skipped by builder |
 | Atacama | Copernicus GLO30 named in older Terrain_metrics input; reprojected base TIFF present | 29.680407648073597 × 29.680407671745545 m | EPSG:32719; CRS area of use contains site |
 | Ladakh | Copernicus GLO30 named in older Terrain_metrics input; reprojected base TIFF present | 28.294190637152262 × 28.294190652337008 m | EPSG:32643; CRS area of use contains site |
-| Iceland | No Iceland-named terrain/DEM raster; Askja is a separate raw label | Not available | Not available |
+| Iceland | No separate Iceland terrain/DEM raster; the Earth temperature source label is confirmed as Askja | Not available | Not available |
 | Jezero | No DEM/slope/roughness raster; Jezero extent is invalid under EPSG:4326 | Not available | Not valid geographic extent |
 
 The preferred reprojected TIFF rows below are inventory samples from a top-left 1024×1024 window (or overview where present), not whole-raster or extent statistics:

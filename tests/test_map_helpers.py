@@ -170,6 +170,102 @@ def test_earth_candidate_page_shows_downsampled_slope_preview(tmp_path, monkeypa
     assert len(app.warning) + len(app.info) == 0
 
 
+def test_earth_candidates_default_to_first_site_with_terrain_and_explain_missing_site(
+    tmp_path, monkeypatch
+):
+    data_root = tmp_path / "data"
+    processed = data_root / "processed"
+    sample = data_root / "sample"
+    processed.mkdir(parents=True)
+    sample.mkdir(parents=True)
+    features = []
+    for site_id, name, latitude, longitude in (
+        ("askja", "Askja, Iceland", 65.5, -16.5),
+        ("atacama", "Atacama Desert, Chile", -22.5, -68.5),
+    ):
+        features.append(
+            {
+                "type": "Feature",
+                "geometry": {"type": "Point", "coordinates": [longitude, latitude]},
+                "properties": {
+                    "schema_version": "1.0", "site_id": site_id, "name": name,
+                    "body": "Earth", "lat": latitude, "lon": longitude, "notes": "",
+                },
+            }
+        )
+    (processed / "sites.geojson").write_text(
+        json.dumps({"type": "FeatureCollection", "features": features}), encoding="utf-8"
+    )
+    rows = []
+    for metric_name, value, unit in (
+        ("pct_area_slope_gt24", 4.61, "%"),
+        ("pct_area_slope_gt17", 10.12, "%"),
+        ("slope_p90_deg", 17.12, ""),
+    ):
+        row = {column: float("nan") for column in TERRAIN_METRICS_COLUMNS}
+        row.update(
+            {
+                "schema_version": "1.0", "site_id": "atacama", "metric_name": metric_name,
+                "value": value, "metric_unit": unit, "tier": "B", "dem_source": "Test DEM",
+                "availability_note": "",
+            }
+        )
+        rows.append(row)
+    missing = {column: float("nan") for column in TERRAIN_METRICS_COLUMNS}
+    missing.update(
+        {
+            "schema_version": "1.0", "site_id": "askja", "metric_name": "slope_p90_deg",
+            "value": float("nan"), "metric_unit": "", "tier": "",
+            "availability_note": "Terrain metrics pending CRS review: fixture CRS review.",
+        }
+    )
+    rows.append(missing)
+    pd.DataFrame(rows, columns=TERRAIN_METRICS_COLUMNS).to_csv(
+        processed / "terrain_metrics.csv", index=False
+    )
+    temperature_rows = []
+    for variable_type, period, valid, minimum, mean, maximum in (
+        ("air_temp", "daily", 31, 0, 1, 2),
+        ("surface_temp", "day", 8, 6.5, 14.8, 26.7),
+        ("surface_temp", "night", 8, -0.03, 2.4, 5.6),
+    ):
+        temperature_rows.append(
+            {
+                "schema_version": "1.0", "site_id": "askja", "month": 7,
+                "variable_type": variable_type, "temp_min_c": minimum,
+                "temp_mean_c": mean, "temp_max_c": maximum,
+                "pct_in_envelope": float("nan"), "n_valid_obs": valid,
+                "n_missing_obs": 31 - valid, "source": "fixture",
+                "period_start": "2024-07-01", "period_end": "2024-07-31",
+                "source_label": "Iceland", "period_of_day": period,
+            }
+        )
+    pd.DataFrame(temperature_rows).to_csv(processed / "temperature_monthly.csv", index=False)
+    monkeypatch.setattr(config, "DATA_ROOT", data_root)
+    page = Path(__file__).resolve().parents[1] / "app" / "pages" / "2_Earth_Candidates.py"
+
+    app = AppTest.from_file(str(page)).run()
+
+    assert not app.exception
+    assert not app.error, [element.value for element in app.error]
+    assert app.selectbox[0].value == "atacama"
+    assert {metric.label for metric in app.metric} == {
+        "Area steeper than 24 degrees", "Area steeper than 17 degrees", "Slope P90",
+    }
+    app.selectbox[0].select("askja").run()
+    assert not app.exception
+    assert any(
+        markdown.value == "Terrain data not yet included: fixture CRS review."
+        for markdown in app.markdown
+    )
+    assert not app.metric
+    low_data_captions = [caption.value for caption in app.caption if "Low data: MODIS" in caption.value]
+    assert low_data_captions == [
+        "Low data: MODIS daytime, 8 of 31 valid July days.",
+        "Low data: MODIS nighttime, 8 of 31 valid July days.",
+    ]
+
+
 def test_mars_reference_page_is_one_card_and_one_sentence_without_imagery():
     page = Path(__file__).resolve().parents[1] / "app" / "pages" / "1_Mars_Reference.py"
     assets = page.parents[1].parent / "assets" / "mars"

@@ -64,6 +64,7 @@ def _key_metrics(site_terrain: pd.DataFrame) -> list[tuple[str, str]]:
     metrics = []
     for metric_name, label, formatted in (
         ("pct_area_slope_gt24", "Area steeper than 24 degrees", "{:.1f}%"),
+        ("pct_area_slope_gt17", "Area steeper than 17 degrees", "{:.1f}%"),
         ("slope_p90_deg", "Slope P90", "{:.1f}"),
     ):
         rows = site_terrain.loc[site_terrain["metric_name"] == metric_name]
@@ -82,7 +83,7 @@ def render_site_card(
     terrain_metrics: pd.DataFrame,
     temperatures: pd.DataFrame,
 ) -> None:
-    """Short card: name, coordinates, up to two key metrics, data sources. Empty parts are hidden."""
+    """Short card: name, coordinates, up to three key metrics, data sources."""
     with st.container(border=True):
         st.subheader(str(site["name"]))
         latitude = pd.to_numeric(pd.Series([site.get("lat")]), errors="coerce").iloc[0]
@@ -97,6 +98,21 @@ def render_site_card(
             st.caption(note_text[0].upper() + note_text[1:])
 
         site_terrain = terrain_metrics.loc[terrain_metrics["site_id"] == site["site_id"]]
+        valued_terrain = site_terrain.loc[
+            site_terrain["value"].notna()
+            & site_terrain["tier"].astype("string").fillna("").str.strip().ne("")
+        ]
+        if valued_terrain.empty:
+            notes = (
+                site_terrain["availability_note"].dropna().astype(str).str.strip()
+                if "availability_note" in site_terrain
+                else pd.Series(dtype=str)
+            )
+            reason = notes[notes.ne("")].iloc[0] if not notes[notes.ne("")].empty else "source data is unavailable"
+            for prefix in ("Terrain metrics pending CRS review:", "Terrain metrics pending:"):
+                reason = reason.removeprefix(prefix).strip()
+            st.write(f"Terrain data not yet included: {reason}")
+
         key_metrics = _key_metrics(site_terrain)
         if key_metrics:
             for column, (label, value) in zip(st.columns(len(key_metrics)), key_metrics):
@@ -104,7 +120,6 @@ def render_site_card(
             st.caption("Slope unit is not yet confirmed, so slope values are provisional.")
 
         sources = []
-        valued_terrain = site_terrain.loc[site_terrain["value"].notna()]
         if not valued_terrain.empty:
             sources.extend(
                 str(value) for value in valued_terrain["dem_source"].dropna().unique() if str(value).strip()
@@ -117,3 +132,16 @@ def render_site_card(
         if sources:
             names = [source.rsplit("/", 1)[-1] for source in sources]
             st.caption("Data sources: " + "; ".join(dict.fromkeys(names)))
+        low_modis_rows = site_temperatures.loc[
+            (site_temperatures["variable_type"] == "surface_temp")
+            & site_temperatures["period_of_day"].isin({"day", "night"})
+        ]
+        for _, row in low_modis_rows.iterrows():
+            valid = pd.to_numeric(pd.Series([row["n_valid_obs"]]), errors="coerce").iloc[0]
+            missing = pd.to_numeric(pd.Series([row["n_missing_obs"]]), errors="coerce").iloc[0]
+            expected = valid + missing
+            if pd.notna(expected) and expected > 0 and valid < expected / 2:
+                period = "daytime" if row["period_of_day"] == "day" else "nighttime"
+                st.caption(
+                    f"Low data: MODIS {period}, {int(valid)} of {int(expected)} valid July days."
+                )

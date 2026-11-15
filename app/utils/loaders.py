@@ -72,6 +72,8 @@ TEMPERATURE_COLUMNS = (
     "source",
     "period_start",
     "period_end",
+    "source_label",
+    "period_of_day",
 )
 ENVELOPE_KEYS = ("schema_version", "variable_type", "min_c", "max_c", "source", "notes")
 CATALOGUE_COLUMNS = (
@@ -276,7 +278,19 @@ def load_slope_preview(site_id: str, data_dir: str | Path | None = None) -> dict
 
 def load_temperature_monthly(data_dir: str | Path | None = None) -> pd.DataFrame:
     filename = "temperature_monthly.csv"
-    frame = _read_csv(filename, TEMPERATURE_COLUMNS, data_dir)
+    frame = _read_csv(filename, TEMPERATURE_COLUMNS[:13], data_dir)
+    if "source_label" not in frame:
+        frame["source_label"] = ""
+    if "period_of_day" not in frame:
+        frame["period_of_day"] = "daily"
+    frame["source_label"] = frame["source_label"].fillna("").astype(str)
+    frame["period_of_day"] = frame["period_of_day"].fillna("daily").astype(str)
+    invalid_periods = sorted(set(frame["period_of_day"]) - {"daily", "day", "night"})
+    if invalid_periods:
+        raise DataContractError(
+            f"{filename} period_of_day must be daily, day, or night; "
+            f"found {', '.join(invalid_periods)}."
+        )
     validate_months(frame, filename)
     validate_variable_types(frame, filename)
     validate_numeric_columns(
@@ -317,6 +331,28 @@ def load_mars_temperature_envelope(data_dir: str | Path | None = None) -> dict:
             raise DataContractError(f"{filename} seasonal_envelopes[{index}] must be an object.")
         require_json_keys(item, ("season", "min_c", "max_c"), f"{filename} seasonal_envelopes[{index}]")
         validate_numeric_columns(pd.DataFrame([item]), ("min_c", "max_c"), f"{filename} seasonal_envelopes[{index}]")
+    ls_mapping = data.get("solar_longitude_mapping")
+    if ls_mapping is not None:
+        if not isinstance(ls_mapping, dict):
+            raise DataContractError(f"{filename} solar_longitude_mapping must be an object.")
+        require_json_keys(
+            ls_mapping,
+            ("coverage_percent", "mapped_ats_sols", "total_ats_sols", "source"),
+            f"{filename} solar_longitude_mapping",
+        )
+        validate_numeric_columns(
+            pd.DataFrame([ls_mapping]),
+            ("coverage_percent", "mapped_ats_sols", "total_ats_sols"),
+            f"{filename} solar_longitude_mapping",
+        )
+        if not 0 <= float(ls_mapping["coverage_percent"]) <= 100:
+            raise DataContractError(f"{filename} solar longitude coverage must be in [0, 100].")
+        if (
+            float(ls_mapping["mapped_ats_sols"]) < 0
+            or float(ls_mapping["total_ats_sols"]) <= 0
+            or float(ls_mapping["mapped_ats_sols"]) > float(ls_mapping["total_ats_sols"])
+        ):
+            raise DataContractError(f"{filename} solar longitude sol counts are invalid.")
     return data
 
 
@@ -339,11 +375,11 @@ def load_analogy_gaps(data_dir: str | Path | None = None) -> list[dict]:
             raise DataContractError(
                 f"{filename} item {index} is missing required key(s): can_rehearse_on_earth."
             )
-        if item["can_rehearse_on_earth"] is None and item.get("review_status") == "draft, pending engineering review":
-            continue
-        if not isinstance(item["can_rehearse_on_earth"], bool):
+        if item["can_rehearse_on_earth"] is not None and not isinstance(
+            item["can_rehearse_on_earth"], bool
+        ):
             raise DataContractError(
-                f"{filename} item {index} can_rehearse_on_earth must be boolean, or null with draft review_status."
+                f"{filename} item {index} can_rehearse_on_earth must be boolean or null."
             )
     return data
 

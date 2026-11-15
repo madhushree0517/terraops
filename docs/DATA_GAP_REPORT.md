@@ -4,7 +4,7 @@
 
 The current inventory found 79 files in `data/raw/`; one JSON manifest was initially routed to the GeoJSON reader, and the inventory script has since been corrected to treat JSON manifests as JSON. No `.crdownload` files were found. There is no `.docx` or `Mobility_Parameter_Definition.pptx` in the workspace/raw package. Preferred handoffs now exist under `package/temperature/documentation/`, Earth/Mars/validation subfolders. Raw files have not been changed.
 
-The site catalogue uses `jezero`, `askja`, `atacama`, and `ladakh`. An unmatched Earth temperature source label is excluded rather than mapped to a terrain site. The `site_boundaries.gpkg` layer is empty (0 features); individual `Extent_*.gpkg` files provide rectangular footprints, not validated field boundaries. Jezero's extent is tagged EPSG:4326 but has coordinates x=0..1865 and y=-1495..0, so it is invalid as a geographic site geometry.
+The site catalogue uses `jezero`, `askja`, `atacama`, and `ladakh`. The team confirmed that the Earth temperature source label `Iceland` is Askja; the processed temperature output maps it to `site_id=askja` and preserves `source_label=Iceland`. The Earth temperature CSVs do not state extraction coordinates, so this mapping is based on the team's identity confirmation and is not independently coordinate-validated. The `site_boundaries.gpkg` layer is empty (0 features); individual `Extent_*.gpkg` files provide rectangular footprints, not validated field boundaries. Jezero's extent is tagged EPSG:4326 but has coordinates x=0..1865 and y=-1495..0, so it is invalid as a geographic site geometry.
 
 ## Contract Mapping
 
@@ -58,18 +58,34 @@ Preferred source: `package/temperature/earth/14_earth_site_temperature_summary.c
 | Contract field | Candidate source | Gap / qualification |
 | --- | --- | --- |
 | `schema_version` | Build constant `1.0` | Set by the converter. |
-| `site_id` | Daily CSV `site` | `Atacama`→`atacama` and `Ladakh`→`ladakh` are direct. The unmatched source label is excluded because no canonical site mapping is documented. |
+| `site_id` | Earth summary `site` | `Atacama`→`atacama`, `Iceland`→`askja` (team-confirmed), and `Ladakh`→`ladakh`. Original labels are preserved in `source_label`. |
 | `month` | Preferred Earth summary `period_start` / `period_end` | Numeric month is explicitly derived as `7`; period is July 2024. Mars `SOL`/`mars_sol` is not an Earth calendar month. |
-| `variable_type` | `T2M_C`; MODIS `day_mean_C`, `night_mean_C`; TIRS/ATS fields | `T2M_C` maps to `air_temp`; MODIS day/night maps to surface conditions but aggregation into the one monthly `surface_temp` row is not defined. TIRS AIR_TEMP and GROUND_TEMP are distinct; ATS has five distinct channels. |
-| `temp_min_c`, `temp_mean_c`, `temp_max_c` | `POWER_T2M_min_C`, `POWER_T2M_mean_C`, `POWER_T2M_max_C` | Explicit 2 m near-surface air temperature in Celsius; day/night MODIS values remain separate and are not collapsed. |
+| `variable_type` | `POWER_T2M_*`; `MODIS_day_*`, `MODIS_night_*` | POWER maps to `air_temp`; MODIS day and night map to separate `surface_temp` records with `period_of_day=day` or `night`. TIRS AIR_TEMP and GROUND_TEMP are distinct; ATS has five distinct channels. |
+| `temp_min_c`, `temp_mean_c`, `temp_max_c` | POWER and MODIS summary fields | Values are copied from their corresponding source fields in Celsius. Day/night MODIS values remain separate; no aggregate is computed. |
 | `pct_in_envelope` | Final recalculated MODIS/TIRS surface comparison exists | Not copied into POWER air-temperature rows: they are `air_temp`, while the available envelope is `surface_temp`. No air-temperature envelope is supplied. |
-| `n_valid_obs`, `n_missing_obs` | Daily values and their missingness | Derivable per variable/month; POWER has 31 valid days for each raw label. MODIS valid days are Atacama day/night 24/28, Iceland 8/8, Ladakh 25/23; corresponding missing days out of 31 are 7/3, 23/23, and 6/8. |
+| `n_valid_obs`, `n_missing_obs` | Daily values and their missingness | POWER counts and MODIS counts are retained per series. Askja/Iceland MODIS day and night each have 8 valid of 31 days (23 missing); both are low data. |
 | `source` | Dataset/source registry and inventory | POWER source identified; MODIS source identified. |
 | `period_start`, `period_end` | Summary/audit | `2024-07-01` to `2024-07-31`. |
+| `source_label`, `period_of_day` | Original `site` and MODIS field names | Original site label is retained; `daily`, `day`, and `night` prevent conflating incompatible or separate series. |
 
-**Result:** `temperature_monthly.csv` is built only for `air_temp`, Atacama and Ladakh from the preferred temperature-folder summary. It preserves missing values and leaves `pct_in_envelope` NaN. The unmatched source label is logged as dropped. MODIS day/night and Mars rows are not aggregated into calendar-month rows.
+**Result:** `temperature_monthly.csv` contains the separate POWER daily air-temperature and MODIS day/night surface-temperature series for the confirmed sites Atacama, Askja, and Ladakh. Missing values remain blank and `pct_in_envelope` remains NaN. Source labels and day/night periods are retained; MODIS day/night are never averaged together.
 
-Only month `7` (July 2024) is present; no records support months `1–6` or `8–12`. The builder emits `n_valid_obs=31`, `n_missing_obs=0` for Atacama and Ladakh POWER T2M. It drops 31 unmatched source-label rows pending identity confirmation. MODIS valid-day counts remain in the source audit but are not emitted as contract temperature observation counts because the contract's single monthly surface-temperature aggregation rule is unspecified.
+Only month `7` (July 2024) is present; no records support months `1–6` or `8–12`. The source temperature CSVs contain no latitude/longitude coordinates, so source-series locations cannot be compared to terrain centroids directly. The team-supplied Atacama MODIS analysis coordinate and other note coordinate are therefore listed separately below and neither is selected as canonical.
+
+### Location consistency
+
+Distances use the WGS84 geodesic from each supplied terrain extent centroid. Earth temperature source CSVs do not contain site coordinates. The two Atacama note coordinates below were provided in the team request; those coordinate statements were not found in the Earth temperature CSVs or searched package notes. No coordinate is selected or substituted.
+
+| Site | Location reference | Latitude, longitude | Distance from terrain extent centroid | Finding |
+| --- | --- | --- | ---: | --- |
+| Atacama | Supplied terrain extent centroid | -22.499861, -68.500139 | Reference | Extent centroid, not a validated field boundary. |
+| Atacama | MODIS analysis coordinate (team-supplied) | -24.60, -69.90 | 273.0 km | More than 20 km; keep distinct pending owner confirmation. |
+| Atacama | Other note coordinate (team-supplied) | -22.91, -68.20 | 54.9 km | More than 20 km; keep distinct pending owner confirmation. |
+| Askja | Supplied terrain extent centroid | 65.500139, -16.500278 | Reference | Earth temperature files do not state the extraction coordinate. |
+| Ladakh | Supplied terrain extent centroid | 34.500139, 77.499861 | Reference | Earth temperature files do not state the extraction coordinate. |
+| Jezero | Supplied extent | Not usable under its EPSG:4326 label | Not available | Invalid extent; the point in `sites.geojson` is an approximate reference only. |
+
+The two Atacama note coordinates are 255.1 km apart. The MODIS coordinate is 273.0 km from the extent centroid and the other note coordinate is 54.9 km from it; both exceed the 20 km review threshold. The Earth CSVs do not establish which coordinate was used to extract the series, so no choice is made. For Askja, the Iceland-to-Askja identity was confirmed by the team; because the source temperature files have no coordinates, a coordinate-distance check cannot be reported.
 
 ### `mars_temperature_envelope.json`
 
@@ -83,9 +99,9 @@ Preferred source: `temperature/validation/handover/05_EARTH_MARS_FINAL_RECALCULA
 
 Potential inputs: methodology, comparison-validity and limitations notes.
 
-Source: `temperature/validation/FINAL_REVISED_SCIENTIFIC_LIMITATIONS_REGISTER.csv`. Each register row becomes a draft factor/explanation; the boolean remains null because the register does not make rehearsal decisions.
+Source of reviewed decisions: `data/sample/analogy_gaps.json`. Its exact entry keys are `schema_version`, `factor`, `can_rehearse_on_earth`, and `explanation`; the limits are preserved in the explanation text. Explicit booleans are reviewed decisions; null remains pending. The builder copies every field and the exact decision/explanation text without rewriting. The raw limitations register remains a fallback only when the reviewed file is absent.
 
-**Result:** built with `review_status: "draft, pending engineering review"`; the loader accepts null decisions only under this draft state.
+**Result:** processed output preserves the reviewed file's fields and wording. It does not add a reviewer name or infer a decision for null entries.
 
 ### `datasets_catalogue.csv`
 
@@ -109,6 +125,6 @@ The builder creates processed `sites.geojson`, `terrain_metrics.csv`, `temperatu
 ## Questions for owners
 
 - **Arya — terrain/GIS files:** Are the supplied `Extent_*.gpkg` rectangles approved site analysis areas or raster crops only? EPSG:32727's declared area excludes Askja near 65°N; is that CRS assignment intentional? What are the slope value units/algorithm, roughness definition/window/unit, vertical datum and DEM source resolution? Can you provide Jezero geographic geometry and Jezero slope/roughness rasters? Why is Jezero's extent tagged EPSG:4326 while its coordinates are 0..1865 and -1495..0?
-- **Hitaeshi — MEDA/Mars temperature:** Confirm the recalculated seasonal P05/P95 table is the approved `surface_temp` envelope for TIRS GROUND_TEMP. Is an ATS/TIRS AIR_TEMP seasonal envelope available for comparison with POWER T2M? Which Ls coverage is authoritative (66 update: 1,526/1,754; handoff includes 1,179/1,754 and TIRS index 1,496)? Please provide matched-parquet definitions and confirm ATS channel/height, SCLK correlation, flag semantics and uncertainty handling.
-- **Mankani — Earth temperature:** Is Iceland the same field site as Askja, or are they distinct? What rule should aggregate MODIS day and night to monthly surface temperature, if any? Confirm the valid-observation denominator for `pct_in_envelope`, Earth site coordinates/CRS and source-product resolution. Is July-only monthly output intended for the app?
+- **Hitaeshi — MEDA/Mars temperature:** The current official PDS Ls mapping covers 1,526 of 1,754 ATS sols (87.0%). This is Ls mapping coverage, not the share of temperature observations analysed. The earlier 1,179/1,754 (67.2%) figure is superseded; the 1,496 TIRS index count is a different instrument/index stage. Please provide matched-parquet definitions and confirm ATS channel/height, SCLK correlation, flag semantics and uncertainty handling.
+- **Mankani — Earth temperature:** Iceland is confirmed as Askja. MODIS day and night remain separate; no aggregation is performed. Please provide the site extraction coordinates/CRS for each temperature series and confirm source-product resolution and the valid-observation denominator for any future `pct_in_envelope` values.
 - **Dataset source/licensing owner:** Please provide formal citations/licences and source-product CRS/resolution/format metadata, including whether the local derived rasters can represent source-product metadata.

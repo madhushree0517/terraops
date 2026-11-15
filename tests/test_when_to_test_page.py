@@ -17,7 +17,7 @@ SEASONS = (
 
 
 def _write_sites(path, site_ids=("atacama", "ladakh")):
-    names = {"atacama": "Atacama Desert", "ladakh": "Ladakh"}
+    names = {"atacama": "Atacama Desert", "ladakh": "Ladakh", "askja": "Askja"}
     features = []
     for index, site_id in enumerate(site_ids):
         features.append(
@@ -46,6 +46,12 @@ def _write_envelope(path):
         "max_c": None,
         "source": "test recalculated comparison",
         "notes": "season-specific test bands",
+        "solar_longitude_mapping": {
+            "coverage_percent": 87.001,
+            "mapped_ats_sols": 1526,
+            "total_ats_sols": 1754,
+            "source": "current official Ls mapping handoff",
+        },
         "seasonal_envelopes": [
             {
                 "season": season,
@@ -127,6 +133,7 @@ def test_one_month_air_temperature_mismatch_shows_error_and_no_charts(tmp_path, 
         element.value for element in [*app.warning, *app.info, *app.error]
     )
     assert len(app.get("plotly_chart")) == 0
+    assert "A high match percentage does not prove thermal equivalence." not in visible
     observations = app.dataframe[1].value
     assert list(observations["Site"]) == ["Atacama Desert"]
     assert observations.loc[0, "Month"] == "July 2024"
@@ -150,6 +157,9 @@ def test_compatible_full_year_shows_charts_and_low_data_best_month(tmp_path, mon
         for element in [*app.markdown, *app.caption, *app.subheader, *app.info]
     )
     assert "Monthly comparison with Mars bands" in rendered
+    assert "Official Ls mapping covers 87.0% (1,526 of 1,754 ATS sols)." in rendered
+    assert "not the share of temperature observations analysed" in rendered
+    assert "A high match percentage does not prove thermal equivalence." in rendered
     assert "no season key" in rendered
     assert "pct_in_envelope" not in rendered
     assert "Atacama Desert: December (2024-12-01 to 2024-12-31), 60%" in rendered
@@ -172,6 +182,7 @@ def test_missing_percentages_do_not_become_zero_or_best_month(tmp_path, monkeypa
         for element in [*app.markdown, *app.info, *app.subheader]
     )
     assert "the supplied share is missing for all months; no best month can be identified" in rendered
+    assert "A high match percentage does not prove thermal equivalence." not in rendered
 
 
 def test_compatible_single_month_shows_supplied_share_and_no_blocked_expander(tmp_path, monkeypatch):
@@ -187,3 +198,39 @@ def test_compatible_single_month_shows_supplied_share_and_no_blocked_expander(tm
     assert "Only July 2024 available, so no best-season recommendation can be made." in "\n".join(
         element.value for element in app.markdown
     )
+    rendered = "\n".join(element.value for element in [*app.markdown, *app.caption])
+    assert "A high match percentage does not prove thermal equivalence." in rendered
+
+
+def test_askja_modis_day_and_night_rows_are_flagged_low_data(tmp_path, monkeypatch):
+    _prepare_workspace(tmp_path, monkeypatch, "surface_temp", [7])
+    sample_sites = tmp_path / "data" / "sample" / "sites.geojson"
+    _write_sites(sample_sites, site_ids=("askja",))
+    askja_rows = []
+    for period, mean in (("day", 14.8217414655), ("night", 2.3817085287)):
+        askja_rows.append(
+            {
+                "schema_version": "1.0", "site_id": "askja", "month": 7,
+                "variable_type": "surface_temp", "temp_min_c": 0.0,
+                "temp_mean_c": mean, "temp_max_c": 26.0,
+                "pct_in_envelope": float("nan"), "n_valid_obs": 8,
+                "n_missing_obs": 23, "source": "MODIS fixture",
+                "period_start": "2024-07-01", "period_end": "2024-07-31",
+                "source_label": "Iceland", "period_of_day": period,
+            }
+        )
+    pd.DataFrame(askja_rows).to_csv(
+        tmp_path / "data" / "processed" / "temperature_monthly.csv", index=False
+    )
+
+    app = AppTest.from_file(str(PAGE_PATH)).run()
+
+    assert not app.exception
+    observations = app.dataframe[1].value
+    assert set(observations["Site"]) == {"Askja"}
+    assert set(observations["Source label"]) == {"Iceland"}
+    assert set(observations["Period"]) == {"Daytime", "Nighttime"}
+    assert observations["Data quality"].eq("low data").all()
+    assert observations["Valid observations"].eq(8).all()
+    rendered = "\n".join(element.value for element in [*app.markdown, *app.caption])
+    assert "A high match percentage does not prove thermal equivalence." not in rendered

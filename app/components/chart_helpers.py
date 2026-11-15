@@ -8,6 +8,51 @@ def terrain_metric_chart(terrain: pd.DataFrame, metric: str) -> go.Figure:
     return px.bar(terrain, x="site_id", y=metric, title=metric.replace("_", " ").title())
 
 
+def slope_histogram_chart(histograms: pd.DataFrame) -> go.Figure:
+    """Create readable, translucent site overlays with draft threshold markers."""
+    colors = {
+        "atacama": "#4CC9F0",
+        "ladakh": "#FFB000",
+        "askja": "#7AE582",
+        "jezero": "#FF6B9A",
+    }
+    fallback_colors = ("#B8A1FF", "#F4A261", "#80ED99", "#FF8FA3")
+    figure = go.Figure()
+    for index, (site_id, site_rows) in enumerate(histograms.groupby("site_id", sort=False)):
+        site_key = str(site_id).casefold()
+        color = colors.get(site_key, fallback_colors[index % len(fallback_colors)])
+        figure.add_trace(
+            go.Bar(
+                x=site_rows["bin_start"],
+                y=site_rows["share"],
+                width=1,
+                name=str(site_id).title(),
+                marker={"color": color, "opacity": 0.55},
+                hovertemplate=(
+                    "%{x:.0f} to %{customdata:.0f}"
+                    "<br>Share of valid pixels: %{y:.2%}<extra>%{fullData.name}</extra>"
+                ),
+                customdata=site_rows["bin_end"],
+            )
+        )
+    figure.update_layout(
+        barmode="overlay",
+        xaxis_title="Slope value (unit unconfirmed)",
+        yaxis_title="Share of valid pixels",
+        legend_title="Site",
+    )
+    for threshold in (10, 17, 24):
+        figure.add_vline(
+            x=threshold,
+            line_dash="dash",
+            line_color="#E8EDF2",
+            annotation_text=str(threshold),
+            annotation_position="top",
+            annotation_font_color="#FFFFFF",
+        )
+    return figure
+
+
 def terrain_parameter_chart(
     terrain: pd.DataFrame,
     sites: pd.DataFrame,

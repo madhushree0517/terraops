@@ -12,7 +12,19 @@ from app.utils.loaders import CATALOGUE_COLUMNS
 ROOT = Path(__file__).resolve().parents[1]
 
 
-def test_analogy_page_keeps_draft_entries_pending(tmp_path, monkeypatch):
+def test_reviewed_analogy_source_has_exact_four_keys_and_no_synthetic_reviewer():
+    source = json.loads((ROOT / "data" / "sample" / "analogy_gaps.json").read_text(encoding="utf-8"))
+
+    expected_keys = {
+        "schema_version", "factor", "can_rehearse_on_earth", "explanation",
+    }
+    assert source
+    assert all(set(entry) == expected_keys for entry in source)
+    assert all(isinstance(entry["can_rehearse_on_earth"], bool) for entry in source)
+    assert all("reviewer" not in entry for entry in source)
+
+
+def test_analogy_page_groups_decisions_and_preserves_explanations_and_limits(tmp_path, monkeypatch):
     data_root = tmp_path / "data"
     processed_dir = data_root / "processed"
     processed_dir.mkdir(parents=True)
@@ -20,38 +32,24 @@ def test_analogy_page_keeps_draft_entries_pending(tmp_path, monkeypatch):
     gaps = [
         {
             "schema_version": "1.0",
-            "factor": "MODIS QA interpretation",
-            "can_rehearse_on_earth": None,
-            "review_status": "draft, pending engineering review",
-            "explanation": "Review product QA semantics.",
+            "factor": "Terrain mobility",
+            "can_rehearse_on_earth": True,
+            "explanation": "Relative difficulty only; the 30 m DEM cannot resolve small hazards.",
+            "limits": "Not absolute passability.",
         },
         {
             "schema_version": "1.0",
-            "factor": "MEDA geometry",
-            "can_rehearse_on_earth": None,
-            "review_status": "draft, pending engineering review",
-            "explanation": "Verify instrument geometry.",
+            "factor": "Wheel sinkage",
+            "can_rehearse_on_earth": False,
+            "explanation": "Needs an offload rig because normal load differs.",
+            "limits": "Earth-gravity measurements do not transfer.",
         },
         {
             "schema_version": "1.0",
-            "factor": "Martian seasonal reference",
+            "factor": "Dust adhesion",
             "can_rehearse_on_earth": None,
-            "review_status": "draft, pending engineering review",
-            "explanation": "Review Ls coverage.",
-        },
-        {
-            "schema_version": "1.0",
-            "factor": "ATS-TIRS time alignment",
-            "can_rehearse_on_earth": None,
-            "review_status": "draft, pending engineering review",
-            "explanation": "The file was not found in the Google Drive search. Verify clock alignment.",
-        },
-        {
-            "schema_version": "1.0",
-            "factor": "Temperature threshold",
-            "can_rehearse_on_earth": None,
-            "review_status": "draft, pending engineering review",
-            "explanation": "The previously used 293 K threshold is a chosen screening threshold, not a verified instrument operating limit.",
+            "explanation": "Review required; no decision recorded.",
+            "limits": "Mars dust behavior is not represented.",
         },
     ]
     (processed_dir / "analogy_gaps.json").write_text(json.dumps(gaps), encoding="utf-8")
@@ -64,28 +62,20 @@ def test_analogy_page_keeps_draft_entries_pending(tmp_path, monkeypatch):
         element.value
         for element in [*app.markdown, *app.subheader, *app.info, *app.caption]
     )
-    assert "Mission-relevant analogy gaps" in rendered
-    assert "Reduced gravity" in rendered
-    assert "Earth gravity is about 2.6 times Mars, so sinkage and traction differ." in rendered
-    assert "Thin CO2 atmosphere" in rendered
-    assert "Radiation" in rendered
-    assert "Regolith and soil properties" in rendered
-    assert "Dust adhesion" in rendered
-    assert "Thermal environment" in rendered
-    assert "Similar temperatures do not mean equivalent thermal conditions." in rendered
-    assert "Navigation and communication latency" in rendered
-    assert "Status: pending review" in rendered
-    assert "Can-rehearse decision" not in rendered
-    assert [caption.value for caption in app.caption].count("Status: pending review") == 7
-    assert "MODIS QA interpretation" in rendered
-    assert "MEDA geometry" in rendered
-    assert "Martian seasonal reference" in rendered
-    assert "ATS-TIRS time alignment" in rendered
-    assert len(app.get("expander")) == 1
-    team_notes = app.get("expander")[0]
-    assert team_notes.label == "Data and method notes (for the team)"
-    assert team_notes.proto.expanded is False
-    assert "not absolute passability on Mars" in rendered
+    assert [element.value for element in app.subheader] == [
+        "Can be rehearsed on Earth",
+        "Needs simulation or other testing",
+        "Pending review",
+    ]
+    assert "Relative difficulty only; the 30 m DEM cannot resolve small hazards." in rendered
+    assert "Not absolute passability." in rendered
+    assert "Needs an offload rig because normal load differs." in rendered
+    assert "Earth-gravity measurements do not transfer." in rendered
+    assert "Review required; no decision recorded." in rendered
+    assert "Mars dust behavior is not represented." in rendered
+    assert "does not mean Earth reproduces Mars" in rendered
+    assert "reviewer" not in rendered.casefold()
+    assert not app.get("expander")
     assert not app.warning
 
 
@@ -155,11 +145,81 @@ def test_data_sources_catalogue_filter_and_per_file_status(tmp_path, monkeypatch
     assert not app.exception
     catalogue_table = app.dataframe[1].value
     assert set(catalogue_table["dataset_name"]) == {"Mars MEDA TIRS"}
+    assert "url" in catalogue_table.columns
+    assert "https://example.test/mars" in catalogue_table["url"].tolist()
     assert "citation" in catalogue_table.columns
     assert "licence" in catalogue_table.columns
+    assert "limitations" not in catalogue_table.columns
     assert catalogue_table["spatial_resolution"].iloc[0] == "not documented"
+    limitation_expander = next(
+        expander for expander in app.get("expander") if expander.label == "Mars MEDA TIRS"
+    )
+    assert limitation_expander.proto.expanded is False
+    assert "Thermal channels are distinct." in "\n".join(
+        element.value for element in limitation_expander.markdown
+    )
     status_text = " ".join(str(value) for value in status_table.to_numpy().flatten())
-    assert "processed (draft, pending review)" in status_text
+    assert "processed (reviewed decisions)" in status_text
+
+
+def test_data_sources_location_consistency_shows_distances_without_selecting_coordinate(
+    tmp_path, monkeypatch
+):
+    data_root = tmp_path / "data"
+    processed_dir = data_root / "processed"
+    sample_dir = data_root / "sample"
+    processed_dir.mkdir(parents=True)
+    sample_dir.mkdir()
+    sites = []
+    for site_id, name, body, latitude, longitude in (
+        ("jezero", "Jezero Crater", "Mars", 18.4, 77.6),
+        ("askja", "Askja, Iceland", "Earth", 65.500138889, -16.500277778),
+        ("atacama", "Atacama Desert, Chile", "Earth", -22.499861111, -68.500138889),
+        ("ladakh", "Ladakh, India", "Earth", 34.500138889, 77.499861111),
+    ):
+        sites.append(
+            {
+                "type": "Feature",
+                "geometry": {"type": "Point", "coordinates": [longitude, latitude]},
+                "properties": {
+                    "schema_version": "1.0", "site_id": site_id, "name": name,
+                    "body": body, "lat": latitude, "lon": longitude, "notes": "",
+                },
+            }
+        )
+    (processed_dir / "sites.geojson").write_text(
+        json.dumps({"type": "FeatureCollection", "features": sites}), encoding="utf-8"
+    )
+    pd.DataFrame(
+        [
+            {
+                "schema_version": "1.0", "dataset_name": "Test", "source": "Test",
+                "url": "", "file_format": "CSV", "spatial_resolution": "",
+                "temporal_resolution": "Monthly", "observation_period": "July 2024",
+                "units": "Celsius", "crs": "", "limitations": "",
+                "citation": "", "licence": "",
+            }
+        ],
+        columns=CATALOGUE_COLUMNS,
+    ).to_csv(processed_dir / "datasets_catalogue.csv", index=False)
+    (processed_dir / "analogy_gaps.json").write_text("[]", encoding="utf-8")
+    monkeypatch.setattr(config, "DATA_ROOT", data_root)
+
+    app = AppTest.from_file(str(ROOT / "app" / "pages" / "6_Data_Sources.py")).run()
+
+    assert not app.exception
+    location_table = next(
+        frame.value for frame in app.dataframe if "Location source" in frame.value.columns
+    )
+    atacama = location_table.loc[
+        (location_table["Site"] == "Atacama")
+        & location_table["Location source"].str.contains("MODIS analysis")
+    ].iloc[0]
+    assert atacama["Distance from terrain centroid (km)"] == "273.0"
+    assert atacama["Finding"].startswith("Warning:")
+    assert location_table["Coordinates (lat, lon)"].eq("Not stated in source files").any()
+    warnings = "\n".join(element.value for element in app.warning)
+    assert "Atacama" in warnings and "273.0 km" in warnings and "no location has been selected" in warnings
 
 
 def test_data_sources_sample_compatibility_is_warning(tmp_path, monkeypatch):
@@ -223,17 +283,14 @@ def test_home_demo_path_contains_all_requested_links():
     assert safeguards.count("\n- ") + 1 == 3
     rendered = "\n".join(element.label for element in app.get("page_link"))
     for step in (
-        "Open the app",
-        "Select Mars",
-        "Select Jezero",
-        "Select rover mobility",
-        "View the terrain reference",
-        "View the Earth candidates",
-        "Compare terrain",
-        "Read the band matrix",
-        "Open When-to-Test",
-        "View the temperature bands",
-        "Open the Analogy Gap Detector",
-        "View the final recommendation and limitations",
+        "Review the Jezero reference",
+        "Explore Earth candidate sites",
+        "Compare terrain measures",
+        "Review seasonal temperature coverage",
+        "Review mission analogy gaps",
+        "Check dataset sources and limitations",
     ):
         assert step in rendered
+    assert all(text not in rendered for text in ("Select Mars", "Select Jezero", "Select rover mobility"))
+    assert len(app.get("page_link")) == 6
+    assert "The tool is scoped to Mars rover mobility, with Jezero as the reference." in intro

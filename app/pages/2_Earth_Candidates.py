@@ -17,7 +17,12 @@ from app.components.map_helpers import (
     render_site_detail_map,
     render_site_map,
 )
-from app.components.site_profile import load_profile_terrain_metrics, render_next_step, render_page_banner
+from app.components.site_profile import (
+    load_profile_terrain_metrics,
+    render_next_step,
+    render_page_banner,
+    render_team_wordmark,
+)
 from app.utils.config import DATA_ROOT, get_data_file_source
 from app.utils.loaders import (
     load_site_extents,
@@ -28,6 +33,7 @@ from app.utils.loaders import (
 
 
 st.set_page_config(page_title="Earth Candidates | TERRAOPS", layout="wide")
+render_team_wordmark()
 st.title("Earth Candidates")
 st.caption(
     "How to use this page: choose a site from the map or selector, then inspect its footprint and terrain measurements. "

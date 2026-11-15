@@ -12,7 +12,7 @@ import pandas as pd
 import plotly.graph_objects as go
 import streamlit as st
 
-from app.components.site_profile import render_next_step, render_page_banner
+from app.components.site_profile import render_next_step, render_page_banner, render_team_wordmark
 from app.utils.config import DATA_ROOT, get_data_file_source
 from app.utils.loaders import (
     load_daily_surface_temperature_matches,
@@ -83,6 +83,7 @@ def _temperature_coordinate_caption(sites: pd.DataFrame, selected_site_ids: list
 
 
 st.set_page_config(page_title="When to Test | TERRAOPS", layout="wide")
+render_team_wordmark()
 st.title("When to Test")
 st.caption(
     "How to use this page: select a Mars season and Earth day or night surface readings. "

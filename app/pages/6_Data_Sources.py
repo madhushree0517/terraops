@@ -8,7 +8,7 @@ if str(REPO_ROOT) not in sys.path:
 
 import pandas as pd
 import streamlit as st
-from app.components.site_profile import render_next_step
+from app.components.site_profile import render_next_step, render_team_wordmark
 
 from app.utils.config import get_contract_file_statuses
 from app.utils.loaders import (
@@ -23,6 +23,7 @@ from app.utils.location import build_location_consistency
 
 
 st.set_page_config(page_title="Data Sources | TERRAOPS", layout="wide")
+render_team_wordmark()
 st.title("Data Sources")
 st.caption("How to use this page: check which contract files are loaded, inspect source and location notes, then review missing-value and temperature-compatibility details.")
 file_statuses = get_contract_file_statuses()

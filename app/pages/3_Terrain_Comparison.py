@@ -12,7 +12,7 @@ import pandas as pd
 import streamlit as st
 
 from app.components.chart_helpers import terrain_slope_distribution_chart
-from app.components.site_profile import render_next_step, render_page_banner
+from app.components.site_profile import render_next_step, render_page_banner, render_team_wordmark
 from app.utils.config import get_data_file_source
 from app.utils.loaders import load_slope_histograms, load_terrain_metrics
 from app.utils.terrain import (
@@ -37,6 +37,7 @@ GRAVITY_STATEMENT = (
 )
 
 st.set_page_config(page_title="Terrain Comparison | TERRAOPS", layout="wide")
+render_team_wordmark()
 st.title("Terrain Comparison")
 st.caption(
     "How to use this page: choose sites with available terrain data, then switch between their slope distributions and the share above a slope value. "

@@ -6,6 +6,14 @@ from app.utils.loaders import load_terrain_metrics
 from app.utils.terrain import TERRAIN_MATRIX_METRICS
 
 
+def render_team_wordmark() -> None:
+    """Show the team identity as a quiet, futuristic wordmark above the page title."""
+    st.markdown(
+        """<div style="margin:0.2rem 0 0.35rem; font-family:'Trebuchet MS',Arial,sans-serif; font-size:0.78rem; font-weight:600; letter-spacing:0.22em; text-transform:uppercase; color:#73ddd0;">COSMIC CATALYSTS</div>""",
+        unsafe_allow_html=True,
+    )
+
+
 def load_profile_terrain_metrics() -> pd.DataFrame:
     try:
         return load_terrain_metrics()

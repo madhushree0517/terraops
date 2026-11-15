@@ -9,12 +9,18 @@ if str(REPO_ROOT) not in sys.path:
 import pandas as pd
 import streamlit as st
 
-from app.components.site_profile import load_profile_terrain_metrics, render_next_step, render_page_banner
+from app.components.site_profile import (
+    load_profile_terrain_metrics,
+    render_next_step,
+    render_page_banner,
+    render_team_wordmark,
+)
 from app.utils.config import DATA_ROOT, get_data_file_source
 from app.utils.loaders import load_sites
 
 
 st.set_page_config(page_title="Mars Reference | TERRAOPS", layout="wide")
+render_team_wordmark()
 st.title("Mars Reference")
 st.caption(
     "How to use this page: review Jezero's reference location and imagery, then inspect its data status. "

@@ -11,11 +11,12 @@ import json
 import pandas as pd
 import streamlit as st
 
-from app.components.site_profile import render_page_banner
+from app.components.site_profile import render_page_banner, render_team_wordmark
 from app.utils.config import DATA_ROOT, get_contract_file_statuses
 
 
 st.set_page_config(page_title="TERRAOPS", page_icon="🌍", layout="wide")
+render_team_wordmark()
 st.title("TERRAOPS")
 st.caption(
     "How to use this page: review the findings so far, keep the scientific safeguards in mind, then follow the guided demo."

@@ -8,12 +8,13 @@ if str(REPO_ROOT) not in sys.path:
 
 import streamlit as st
 
-from app.components.site_profile import render_next_step, render_page_banner
+from app.components.site_profile import render_next_step, render_page_banner, render_team_wordmark
 from app.utils.config import get_data_file_source
 from app.utils.loaders import load_analogy_gaps
 
 
 st.set_page_config(page_title="Analogy Gap Detector | TERRAOPS", layout="wide")
+render_team_wordmark()
 st.title("Analogy Gap Detector")
 st.caption(
     "How to use this page: filter the reviewed analogy decisions, then open a factor to read what can be rehearsed and what remains different."

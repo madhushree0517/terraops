@@ -1,0 +1,10 @@
+-r requirements.txt
+
+# Raster, vector, and scientific array processing for the offline data builder.
+rasterio>=1.4,<2.0
+pyogrio>=0.10,<1.0
+xarray>=2024.10,<2027.0
+h5py>=3.12,<4.0
+h5netcdf>=1.4,<2.0
+netCDF4>=1.7,<2.0
+pyarrow>=18.0,<25.0

@@ -9,7 +9,7 @@ from app.utils.terrain import TERRAIN_MATRIX_METRICS
 def render_team_wordmark() -> None:
     """Place a pinned team wordmark above the sidebar page navigation."""
     st.sidebar.markdown(
-        '<div style="position:fixed;top:1.25rem;left:1.35rem;z-index:1000000;pointer-events:none;color:#73ddd0;font-family:Trebuchet MS,Arial,sans-serif;font-size:0.76rem;font-weight:600;letter-spacing:0.16em;white-space:nowrap;text-shadow:0 0 16px rgba(115,221,208,0.18)">COSMIC CATALYSTS</div>',
+        '<div style="position:fixed;top:1.25rem;left:1.35rem;z-index:1000000;pointer-events:none;color:#73ddd0;font-family:Trebuchet MS,Arial,sans-serif;font-size:0.76rem;font-weight:600;letter-spacing:0.16em;white-space:nowrap;text-shadow:0 0 16px rgba(115,221,208,0.18)">COSMIC CATALYST</div>',
         unsafe_allow_html=True,
     )
 

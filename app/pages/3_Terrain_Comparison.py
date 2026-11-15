@@ -3,8 +3,8 @@ import html
 import pandas as pd
 import streamlit as st
 
-from app.components.chart_helpers import slope_histogram_chart
-from app.components.site_profile import render_page_banner
+from app.components.chart_helpers import terrain_slope_distribution_chart
+from app.components.site_profile import render_next_step, render_page_banner
 from app.utils.config import get_data_file_source
 from app.utils.loaders import load_slope_histograms, load_terrain_metrics
 from app.utils.terrain import (
@@ -16,10 +16,8 @@ from app.utils.terrain import (
     band_text,
     build_resolution_panel,
     build_terrain_matrix,
-    collect_terrain_footnotes,
     display_cell_value,
     load_terrain_band_config,
-    not_yet_included_line,
     site_summary_lines,
     split_matrix,
 )
@@ -32,6 +30,10 @@ GRAVITY_STATEMENT = (
 
 st.set_page_config(page_title="Terrain Comparison | TERRAOPS", layout="wide")
 st.title("Terrain Comparison")
+st.caption(
+    "How to use this page: choose sites with available terrain data, then switch between their slope distributions and the share above a slope value. "
+    "Use the table to inspect each measure; missing inputs remain unavailable."
+)
 source = get_data_file_source("terrain_metrics.csv")
 render_page_banner(GRAVITY_STATEMENT, {"terrain_metrics.csv": source})
 st.write(
@@ -60,7 +62,7 @@ def _table_html(rows: list[dict], site_ids: list[str]) -> str:
             colors.add(cell["color"])
             color_class = f"bg-{cell['color'].removeprefix('#')}"
             if cell["tier"] == "not available":
-                cells.append(f"<td class='{color_class}'>not available</td>")
+                cells.append(f"<td class='{color_class}'>—</td>")
                 continue
             value = html.escape(display_cell_value(metric["metric_name"], cell))
             band = html.escape(band_text(cell))
@@ -95,44 +97,136 @@ def _table_html(rows: list[dict], site_ids: list[str]) -> str:
     )
 
 
+def _draft_band_descriptions(band_config: dict) -> list[str]:
+    definition = band_config.get("metrics", {}).get("pct_area_slope_gt24", {})
+    unit = str(definition.get("unit", ""))
+    descriptions = []
+    for band in definition.get("bands", []):
+        label = str(band.get("label", "")).capitalize()
+        lower = band.get("lower")
+        upper = band.get("upper")
+        lower_symbol = "≥" if band.get("lower_inclusive", True) else ">"
+        if lower is None and upper is not None:
+            expression = f"< {upper:g}{unit}"
+        elif lower is not None and upper is None:
+            expression = f"{lower_symbol} {lower:g}{unit}"
+        elif lower is not None and upper is not None:
+            expression = f"{lower:g}–{upper:g}{unit}"
+        else:
+            expression = "threshold unavailable"
+        if label:
+            descriptions.append(f"{label}: {expression}")
+    return descriptions
+
+
 if source == "missing":
-    st.info("Terrain data has not been loaded.")
+    st.info("Terrain comparison cannot be shown yet.")
     st.stop()
 
 try:
     terrain = load_terrain_metrics()
     band_config = load_terrain_band_config()
-    matrix = build_terrain_matrix(terrain, band_config)
-    visible_rows, unmeasured_labels, site_ids = split_matrix(matrix)
+    full_matrix = build_terrain_matrix(terrain, band_config)
+    site_labels = dict(TERRAIN_SITES)
     histograms = load_slope_histograms()
-    footnotes, _, _ = collect_terrain_footnotes(matrix)
+    available_histogram_sites = set(histograms["site_id"].astype(str)) if not histograms.empty else set()
+    valued_metrics = terrain["value"].notna() & terrain["tier"].astype("string").fillna("").str.strip().ne("")
+    available_metric_sites = set(terrain.loc[valued_metrics, "site_id"].astype(str))
+    site_options = [
+        site_id for site_id, _ in TERRAIN_SITES
+        if site_id in available_histogram_sites and site_id in available_metric_sites
+    ]
+    usable_site_ids = set(site_options)
+    selected_sites = st.multiselect(
+        "Sites to compare",
+        options=site_options,
+        default=site_options,
+        format_func=lambda site_id: site_labels[site_id],
+        help="Only sites with usable terrain measurements are listed.",
+    )
+    matrix = [
+        {**metric, "cells": {site_id: metric["cells"][site_id] for site_id in selected_sites}}
+        for metric in full_matrix
+    ]
+    visible_rows, _, site_ids = split_matrix(matrix)
 except Exception as error:
     st.error(f"Could not build the terrain comparison: {error}")
     st.stop()
 
+histograms = histograms.loc[histograms["site_id"].astype(str).isin(selected_sites)]
 if not histograms.empty:
     st.subheader("Slope distribution")
-    st.plotly_chart(slope_histogram_chart(histograms), width="stretch")
+    chart_mode = st.radio(
+        "Slope chart",
+        options=("Distribution", "Share steeper than"),
+        horizontal=True,
+        label_visibility="collapsed",
+    )
+    figure = terrain_slope_distribution_chart(histograms, mode=chart_mode)
+    st.plotly_chart(figure, width="stretch")
+    st.caption(
+        "Distribution shows the share of valid pixels in each slope bin; Share steeper than accumulates bins at or above each x value. "
+        "Vertical markers label the 10, 17, and 24 slope-value cutoffs."
+    )
+    maximum_bin = pd.to_numeric(histograms["bin_end"], errors="coerce").max()
+    if pd.notna(maximum_bin):
+        threshold = st.slider(
+            "Slope threshold",
+            min_value=0,
+            max_value=max(0, int(maximum_bin)),
+            value=0,
+            step=1,
+        )
+        threshold_rows = []
+        for site_id, group in histograms.groupby("site_id", sort=False):
+            share = pd.to_numeric(group["share"], errors="coerce")
+            bin_start = pd.to_numeric(group["bin_start"], errors="coerce")
+            valid = share.notna() & bin_start.notna()
+            if not valid.any():
+                threshold_rows.append({"Site": site_labels.get(site_id, str(site_id)), "Share at/above threshold": "not computed"})
+                continue
+            area_share = float(share.loc[valid & bin_start.ge(threshold)].sum()) * 100
+            threshold_rows.append(
+                {"Site": site_labels.get(site_id, str(site_id)), "Share at/above threshold": f"{area_share:.2f}%"}
+            )
+        st.dataframe(pd.DataFrame(threshold_rows), hide_index=True, width="stretch")
+        st.caption("Shares are approximate because slopes are grouped in steps of 1.")
+elif selected_sites:
+    st.info("No slope histogram values are available for the selected sites.")
 
 if visible_rows:
     st.subheader("Comparison")
     st.markdown(_table_html(visible_rows, site_ids), unsafe_allow_html=True)
+    csv_rows = []
+    for metric in visible_rows:
+        record = {"Measure": metric["label"]}
+        for site_id in site_ids:
+            cell = metric["cells"][site_id]
+            if cell["tier"] == "not available" or cell["value"] == "data pending":
+                value = None
+            elif cell["number"] is not None:
+                value = cell["number"]
+            else:
+                value = cell["value"]
+            record[site_labels[site_id]] = value
+        csv_rows.append(record)
+    csv_table = pd.DataFrame(csv_rows)
+    st.download_button(
+        "Download comparison table",
+        data=csv_table.to_csv(index=False, na_rep=""),
+        file_name="terraops_terrain_comparison.csv",
+        mime="text/csv",
+    )
     st.caption(
-        "Bands are draft v0.1, pending engineering review, and the slope unit is not yet "
-        "confirmed, so slope thresholds are provisional."
+        "Each cell reports a measure for that site; a dash marks a missing measurement. Color bands are draft v0.1."
+    )
+    st.caption(
+        f"Bands ({band_config['status']}), based on the configured share of area above the slope cutoff: "
+        + "; ".join(_draft_band_descriptions(band_config))
+        + ". They describe constraint bands, not site suitability."
     )
 else:
-    st.write("No terrain values are available yet.")
-
-missing_line = not_yet_included_line(terrain, matrix)
-if missing_line:
-    st.write(missing_line)
-
-if unmeasured_labels:
-    with st.expander("What we cannot measure yet"):
-        st.write("Needs rover-scale data (about 2 m or finer):")
-        for label in unmeasured_labels:
-            st.write(f"- {label}")
+    st.write("Select at least one site with usable terrain measurements to show a comparison.")
 
 summary_lines = site_summary_lines(matrix, site_ids)
 if summary_lines:
@@ -154,8 +248,13 @@ tiers_shown = ", ".join(
 with st.expander("About these results"):
     st.markdown(
         "**What the values cover.** Earth gravity is about 2.6 times Mars. Values summarize the "
-        "whole supplied raster extent, not a validated site boundary. This is a comparison aid, "
+        "whole terrain footprint, not a validated site boundary. This is a comparison aid, "
         "not a prediction of mission success; no composite score or ranking is calculated."
+    )
+    st.markdown(
+        f"**Draft bands.** {band_config['status']}. For the configured share of area above the slope cutoff: "
+        + "; ".join(_draft_band_descriptions(band_config))
+        + ". These are comparison bands, not a site ranking."
     )
     st.markdown(
         "**Tiers.** Tier A: measurable at rover scale (about 2 m or finer terrain data). "
@@ -164,16 +263,22 @@ with st.expander("About these results"):
         f"Tier of the values shown: {tiers_shown}."
     )
     st.markdown(
-        "**Slope unit.** The source notes give no unit for the slope rasters. The 90th-percentile "
-        "values fall between each raster's reported mean and maximum, which is consistent with "
-        "those statistics but does not confirm degrees. Degree-based thresholds stay provisional "
-        "until the unit is confirmed."
+        "The slope unit has not been confirmed with the data provider, so the cutoffs are provisional."
     )
     st.markdown(
         "**Bands.** Colour bands exist only for measures with a draft threshold; other cells show "
         "the value alone. Roughness has no thresholds, so its values are for ordering only. "
-        "Missing values are unavailable, not zero."
+        "Missing measurements remain blank."
     )
+    excluded_sites = [
+        label for site_id, label in TERRAIN_SITES
+        if site_id not in usable_site_ids
+    ]
+    if excluded_sites:
+        excluded_text = " and ".join(excluded_sites)
+        st.markdown(
+            f"{excluded_text} are not part of this comparison because no usable terrain data is available for them yet."
+        )
     roughness_rows = terrain.loc[
         (terrain["metric_name"] == "roughness") & terrain["value"].notna()
     ]
@@ -185,9 +290,6 @@ with st.expander("About these results"):
             f"{'not documented' if pd.isna(method) else method}, window "
             f"{'not documented' if pd.isna(window) else window}"
         )
-    if footnotes:
-        st.markdown("**Source notes**")
-        st.markdown("\n".join(f"{index}. {note}" for index, note in enumerate(footnotes, start=1)))
     site_labels = {label for site_id, label in TERRAIN_SITES if site_id in site_ids}
     resolution_rows = [
         row
@@ -206,8 +308,11 @@ with st.expander("About these results"):
             }
         )
         st.dataframe(resolution, hide_index=True, width="stretch")
+        st.caption("This table shows map resolution and whether its values were adjusted to the common baseline.")
         st.markdown(
             "Raster values were computed at native resolution, not resampled to the "
             f"{band_config['baseline_m']:g} m common baseline, so they are not "
             "baseline-normalized comparisons."
         )
+
+render_next_step("pages/4_When_to_Test.py", "Next step: When to Test")

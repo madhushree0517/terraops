@@ -13,7 +13,7 @@ TERRAIN_SITES = (
     ("askja", "Askja"),
 )
 TERRAIN_MATRIX_METRICS = (
-    ("slope_p90_deg", "Slope P90 (unit unconfirmed)", "unit unconfirmed"),
+    ("slope_p90_deg", "Slope P90", ""),
     ("pct_area_slope_gt10", "Area with slope >10 degrees", "%"),
     ("pct_area_slope_gt17", "Area with slope >17 degrees", "%"),
     ("pct_area_slope_gt24", "Area with slope >24 degrees", "%"),
@@ -130,8 +130,6 @@ def _format_metric_value(metric_name: str, value: Any) -> str:
     numeric_value = float(value)
     if metric_name.startswith("pct_area_") or metric_name == "rock_cover_cfa_pct":
         return f"{numeric_value:.2f}%"
-    if metric_name == "slope_p90_deg":
-        return f"{numeric_value:.2f} (unit unconfirmed)"
     return f"{numeric_value:.2f}"
 
 
@@ -225,6 +223,8 @@ def collect_terrain_footnotes(
     footnote_numbers: dict[str, int] = {}
     for metric in matrix:
         for site_id, _ in TERRAIN_SITES:
+            if site_id not in metric["cells"]:
+                continue
             note = metric["cells"][site_id].get("note", "")
             if note and note not in footnote_numbers:
                 footnotes.append(note)
@@ -232,6 +232,8 @@ def collect_terrain_footnotes(
 
     site_note_numbers = {}
     for site_id, _ in TERRAIN_SITES:
+        if not any(site_id in metric["cells"] for metric in matrix):
+            continue
         notes = [
             metric["cells"][site_id].get("note", "")
             for metric in matrix
@@ -264,7 +266,10 @@ def split_matrix(
     site_ids = [
         site_id
         for site_id, _ in TERRAIN_SITES
-        if any(cell_has_value(metric["cells"][site_id]) for metric in matrix)
+        if any(
+            site_id in metric["cells"] and cell_has_value(metric["cells"][site_id])
+            for metric in matrix
+        )
     ]
     return visible, unmeasured, site_ids
 

@@ -1,0 +1,2 @@
+schema_version,dataset_name,source,url,file_format,spatial_resolution,temporal_resolution,observation_period,units,crs,limitations,citation,licence
+1.0,Test dataset,Test,,CSV,,Daily,July 2024,Celsius,,,,

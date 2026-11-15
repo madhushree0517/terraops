@@ -1,0 +1,1 @@
+{"type": "FeatureCollection", "features": [{"type": "Feature", "geometry": {"type": "Point", "coordinates": [-68.5, -22.5]}, "properties": {"schema_version": "1.0", "site_id": "atacama", "name": "Atacama Desert, Chile", "body": "Earth", "lat": -22.5, "lon": -68.5, "notes": "centroid of supplied extent footprint"}}]}

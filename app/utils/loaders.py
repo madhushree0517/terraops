@@ -249,7 +249,8 @@ def load_slope_preview(site_id: str, data_dir: str | Path | None = None) -> dict
     columns = (
         "site_id", "image_path", "source_file", "crs", "extent_left", "extent_bottom",
         "extent_right", "extent_top", "pixel_size_x", "pixel_size_y", "pixel_size_unit",
-        "preview_width", "preview_height",
+        "preview_width", "preview_height", "bounds_west", "bounds_south", "bounds_east",
+        "bounds_north", "slope_min", "slope_max",
     )
     if data_dir is None:
         try:
@@ -274,6 +275,24 @@ def load_slope_preview(site_id: str, data_dir: str | Path | None = None) -> dict
     metadata["image_path"] = image_path.name
     metadata["image_bytes"] = image_path.read_bytes()
     return metadata
+
+
+def load_site_extents(data_dir: str | Path | None = None) -> gpd.GeoDataFrame:
+    """Read the builder-produced Earth footprint layer, if present."""
+    from app.utils.config import DATA_ROOT
+
+    artifact_dir = Path(data_dir) if data_dir is not None else DATA_ROOT / "processed"
+    path = artifact_dir / "site_extents.geojson"
+    if not path.is_file():
+        return gpd.GeoDataFrame(
+            columns=("site_id", "name", "source_file", "notes", "geometry"),
+            geometry="geometry",
+            crs="EPSG:4326",
+        )
+    extents = gpd.read_file(path)
+    if extents.crs is not None and extents.crs.to_string() != "EPSG:4326":
+        extents = extents.to_crs("EPSG:4326")
+    return extents
 
 
 def load_temperature_monthly(data_dir: str | Path | None = None) -> pd.DataFrame:
@@ -305,6 +324,38 @@ def load_temperature_monthly(data_dir: str | Path | None = None) -> pd.DataFrame
         ),
         filename,
     )
+    return frame
+
+
+def load_daily_surface_temperature_matches(
+    data_dir: str | Path | None = None,
+) -> pd.DataFrame:
+    """Load optional builder output; an absent artifact means no daily match was computed."""
+    columns = (
+        "site_id", "period_of_day", "season", "earth_variable", "mars_variable",
+        "share_in_band_pct", "n_matching_days", "n_valid_days", "source",
+    )
+    if data_dir is None:
+        from app.utils.config import DATA_ROOT
+
+        artifact_dir = DATA_ROOT / "processed"
+    else:
+        artifact_dir = Path(data_dir)
+    path = artifact_dir / "earth_surface_temperature_matches.csv"
+    if not path.is_file():
+        return pd.DataFrame(columns=columns)
+    frame = pd.read_csv(path)
+    require_columns(frame, columns, path.name)
+    validate_numeric_columns(
+        frame,
+        ("share_in_band_pct", "n_matching_days", "n_valid_days"),
+        path.name,
+    )
+    numeric_share = pd.to_numeric(frame["share_in_band_pct"], errors="coerce")
+    if (numeric_share.dropna().lt(0) | numeric_share.dropna().gt(100)).any():
+        raise DataContractError(f"{path.name} share_in_band_pct must be in [0, 100].")
+    if not frame["period_of_day"].isin({"day", "night"}).all():
+        raise DataContractError(f"{path.name} period_of_day must be day or night.")
     return frame
 
 

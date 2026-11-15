@@ -84,3 +84,20 @@ def annotate_low_data(frame: pd.DataFrame) -> pd.DataFrame:
             flags.append("")
     result["data_flag"] = flags
     return result
+
+
+def range_gap_to_envelope(
+    earth_min: object, earth_max: object, mars_min: object, mars_max: object
+) -> tuple[float | None, bool | None]:
+    """Return the nearest separation in Celsius and whether the ranges overlap."""
+    values = pd.to_numeric(pd.Series([earth_min, earth_max, mars_min, mars_max]), errors="coerce")
+    if values.isna().any():
+        return None, None
+    e_min, e_max, m_min, m_max = (float(value) for value in values)
+    if e_min > e_max or m_min > m_max:
+        return None, None
+    if e_min <= m_max and m_min <= e_max:
+        return 0.0, True
+    if e_min > m_max:
+        return e_min - m_max, False
+    return m_min - e_max, False

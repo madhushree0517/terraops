@@ -7,7 +7,12 @@ from pyproj import Transformer
 from rasterio.transform import from_origin
 from shapely.geometry import Polygon, mapping
 
-from scripts.build_processed import _build_analogy_gaps, _build_sites, build_processed
+from scripts.build_processed import (
+    _build_analogy_gaps,
+    _build_daily_surface_temperature_matches,
+    _build_sites,
+    build_processed,
+)
 from app.utils.loaders import (
     load_analogy_gaps,
     load_mars_temperature_envelope,
@@ -220,6 +225,7 @@ def test_build_processed_creates_only_clear_outputs_and_preserves_missing(tmp_pa
     terrain_metrics = load_terrain_metrics(processed_dir)
     histograms = pd.read_csv(processed_dir / "slope_histograms.csv")
     preview_metadata = pd.read_csv(processed_dir / "slope_preview_metadata.csv")
+    site_extents = gpd.read_file(processed_dir / "site_extents.geojson")
     envelope = load_mars_temperature_envelope(processed_dir)
     analogy_gaps = load_analogy_gaps(processed_dir)
 
@@ -324,6 +330,7 @@ def test_build_processed_creates_only_clear_outputs_and_preserves_missing(tmp_pa
     assert all(item["review_status"] == "draft, pending engineering review" for item in analogy_gaps)
     assert results["temperature_monthly.csv"] == "built"
     assert results["sites.geojson"] == "built"
+    assert results["site_extents.geojson"] == "built"
     assert results["datasets_catalogue.csv"] == "built"
     assert results["terrain_metrics.csv"] == "built"
     assert results["mars_temperature_envelope.json"] == "built"
@@ -335,7 +342,14 @@ def test_build_processed_creates_only_clear_outputs_and_preserves_missing(tmp_pa
         assert site_histogram["pixel_count"].sum() == expected_valid
         assert np.isclose(site_histogram["share"].sum(), 1.0)
     assert set(preview_metadata["site_id"]) == {"atacama", "ladakh"}
+    assert set(site_extents["site_id"]) == {"askja", "atacama", "ladakh"}
+    assert site_extents.crs.to_epsg() == 4326
+    assert site_extents.geometry.is_valid.all()
     assert preview_metadata["preview_width"].le(800).all()
+    assert set(("bounds_west", "bounds_south", "bounds_east", "bounds_north")).issubset(
+        preview_metadata.columns
+    )
+    assert preview_metadata[["bounds_west", "bounds_south", "bounds_east", "bounds_north"]].notna().all().all()
     for image_path in (processed_dir / preview_metadata["image_path"]).tolist():
         assert image_path.is_file()
     assert set(sites["site_id"]) == {"jezero", "askja", "atacama", "ladakh"}
@@ -413,3 +427,36 @@ def test_site_builder_leaves_coordinates_pending_when_extent_sources_are_absent(
     jezero = sites.loc[sites["site_id"] == "jezero"].iloc[0]
     assert jezero["lat"] == 18.4
     assert jezero["lon"] == 77.6
+
+
+def test_daily_surface_match_builder_counts_only_valid_pixels_and_preserves_missing(tmp_path):
+    raw = tmp_path / "raw"
+    package = raw / "package"
+    processed = tmp_path / "processed"
+    package.mkdir(parents=True)
+    processed.mkdir()
+    pd.DataFrame([
+        {"site": "Atacama", "day_mean_C": 5, "day_valid_pixels": 3,
+         "night_mean_C": np.nan, "night_valid_pixels": 0},
+        {"site": "Atacama", "day_mean_C": 15, "day_valid_pixels": 4,
+         "night_mean_C": np.nan, "night_valid_pixels": 0},
+        {"site": "Atacama", "day_mean_C": np.nan, "day_valid_pixels": 0,
+         "night_mean_C": np.nan, "night_valid_pixels": 0},
+    ]).to_csv(package / "Earth_temperature_daily_analysis.csv", index=False)
+    pd.DataFrame([{"site_id": "atacama", "source_label": "Atacama"}]).to_csv(
+        processed / "temperature_monthly.csv", index=False
+    )
+    (processed / "mars_temperature_envelope.json").write_text(json.dumps({
+        "variable_type": "surface_temp",
+        "seasonal_envelopes": [{"season": "Test band", "min_c": 0, "max_c": 10}],
+    }))
+
+    assert _build_daily_surface_temperature_matches(raw, processed)
+    matches = pd.read_csv(processed / "earth_surface_temperature_matches.csv")
+    day = matches.loc[matches["period_of_day"] == "day"].iloc[0]
+    night = matches.loc[matches["period_of_day"] == "night"].iloc[0]
+    assert day["share_in_band_pct"] == 50
+    assert day["n_matching_days"] == 1
+    assert day["n_valid_days"] == 2
+    assert pd.isna(night["share_in_band_pct"])
+    assert pd.isna(night["n_valid_days"])

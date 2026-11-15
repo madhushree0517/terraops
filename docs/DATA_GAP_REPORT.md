@@ -87,6 +87,8 @@ Distances use the WGS84 geodesic from each supplied terrain extent centroid. Ear
 
 The two Atacama note coordinates are 255.1 km apart. The MODIS coordinate is 273.0 km from the extent centroid and the other note coordinate is 54.9 km from it; both exceed the 20 km review threshold. The Earth CSVs do not establish which coordinate was used to extract the series, so no choice is made. For Askja, the Iceland-to-Askja identity was confirmed by the team; because the source temperature files have no coordinates, a coordinate-distance check cannot be reported.
 
+**Agreed approach:** terrain footprint is the reference; footprint-based temperature extraction pending. Arya confirmed this in the project chat. This reference applies to both terrain and temperature.
+
 ### `mars_temperature_envelope.json`
 
 Potential inputs: preferred `temperature/validation/handover/05_EARTH_MARS_FINAL_RECALCULATED_TABLE.csv`; supporting TIRS parquet schema and season documentation.

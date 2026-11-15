@@ -1,4 +1,5 @@
 import json
+import re
 from pathlib import Path
 
 import pandas as pd
@@ -62,11 +63,10 @@ def test_analogy_page_groups_decisions_and_preserves_explanations_and_limits(tmp
         element.value
         for element in [*app.markdown, *app.subheader, *app.info, *app.caption]
     )
-    assert [element.value for element in app.subheader] == [
-        "Can be rehearsed on Earth",
-        "Needs simulation or other testing",
-        "Pending review",
-    ]
+    assert {element.label for element in app.get("expander")} == {
+        "Terrain mobility", "Wheel sinkage", "Dust adhesion",
+    }
+    assert any("2 factors reviewed: 1 can be rehearsed on Earth, 1 need simulation or other testing." in element.value for element in app.markdown)
     assert "Relative difficulty only; the 30 m DEM cannot resolve small hazards." in rendered
     assert "Not absolute passability." in rendered
     assert "Needs an offload rig because normal load differs." in rendered
@@ -75,7 +75,7 @@ def test_analogy_page_groups_decisions_and_preserves_explanations_and_limits(tmp
     assert "Mars dust behavior is not represented." in rendered
     assert "does not mean Earth reproduces Mars" in rendered
     assert "reviewer" not in rendered.casefold()
-    assert not app.get("expander")
+    assert all(not expander.proto.expanded for expander in app.get("expander"))
     assert not app.warning
 
 
@@ -209,7 +209,14 @@ def test_data_sources_location_consistency_shows_distances_without_selecting_coo
 
     assert not app.exception
     location_table = next(
-        frame.value for frame in app.dataframe if "Location source" in frame.value.columns
+        frame.value for frame in app.dataframe
+        if "Location source" in frame.value.columns
+    )
+    assert location_table["Finding"].str.startswith("Warning:").all()
+    full_table = next(
+        frame.value for expander in app.get("expander")
+        if expander.label == "Show full location consistency table"
+        for frame in expander.dataframe if "Location source" in frame.value.columns
     )
     atacama = location_table.loc[
         (location_table["Site"] == "Atacama")
@@ -217,7 +224,7 @@ def test_data_sources_location_consistency_shows_distances_without_selecting_coo
     ].iloc[0]
     assert atacama["Distance from terrain centroid (km)"] == "273.0"
     assert atacama["Finding"].startswith("Warning:")
-    assert location_table["Coordinates (lat, lon)"].eq("Not stated in source files").any()
+    assert full_table["Coordinates (lat, lon)"].eq("Not stated in source files").any()
     warnings = "\n".join(element.value for element in app.warning)
     assert "Atacama" in warnings and "273.0 km" in warnings and "no location has been selected" in warnings
 
@@ -270,6 +277,11 @@ def test_data_sources_sample_compatibility_is_warning(tmp_path, monkeypatch):
     assert "not a physical validation" in warnings
     assert "air_temp" in warnings
     assert "surface_temp" in warnings
+    assert any(
+        "Agreed approach: terrain footprint is the reference; footprint-based temperature extraction pending"
+        in element.value
+        for element in app.caption
+    )
 
 
 def test_home_demo_path_contains_all_requested_links():
@@ -278,19 +290,62 @@ def test_home_demo_path_contains_all_requested_links():
     assert not app.exception
     intro = app.markdown[0].value
     assert intro.count(".") == 2
-    assert len(app.warning) + len(app.info) <= 1
+    assert len(app.warning) + len(app.info) <= 2
     safeguards = next(element.value for element in app.markdown if "Compare only compatible" in element.value)
-    assert safeguards.count("\n- ") + 1 == 3
+    assert safeguards.count("\n- ") + 1 == 4
     rendered = "\n".join(element.label for element in app.get("page_link"))
     for step in (
-        "Review the Jezero reference",
-        "Explore Earth candidate sites",
-        "Compare terrain measures",
-        "Review seasonal temperature coverage",
-        "Review mission analogy gaps",
-        "Check dataset sources and limitations",
+        "Open this step",
+        "Finish with the analogy gaps",
+        "Inspect sources and data quality",
     ):
         assert step in rendered
     assert all(text not in rendered for text in ("Select Mars", "Select Jezero", "Select rover mobility"))
-    assert len(app.get("page_link")) == 6
+    assert len(app.get("page_link")) == 7
     assert "The tool is scoped to Mars rover mobility, with Jezero as the reference." in intro
+    assert "What is ready" not in "\n".join(
+        element.value for element in [*app.subheader, *app.markdown, *app.caption]
+    )
+
+
+def _rendered_copy(app):
+    parts = []
+    for name in (
+        "title", "header", "subheader", "markdown", "caption", "info",
+        "warning", "error", "success", "page_link", "metric", "selectbox",
+        "multiselect", "checkbox", "slider", "radio", "segmented_control",
+    ):
+        for element in app.get(name):
+            for field in ("value", "label", "help"):
+                value = getattr(element, field, None)
+                if value is not None:
+                    parts.append(str(value))
+    for frame in app.dataframe:
+        parts.append(frame.value.to_string())
+    for expander in app.get("expander"):
+        parts.extend(element.value for element in expander.markdown)
+        parts.extend(element.value for element in expander.caption)
+    return "\n".join(parts)
+
+
+def test_user_pages_avoid_file_format_words_except_data_sources():
+    pages = (
+        ROOT / "app" / "Home.py",
+        ROOT / "app" / "pages" / "1_Mars_Reference.py",
+        ROOT / "app" / "pages" / "2_Earth_Candidates.py",
+        ROOT / "app" / "pages" / "3_Terrain_Comparison.py",
+        ROOT / "app" / "pages" / "4_When_to_Test.py",
+        ROOT / "app" / "pages" / "5_Analogy_Gap_Detector.py",
+    )
+    for page in pages:
+        app = AppTest.from_file(str(page)).run()
+        assert not app.exception, page.name
+        visible = _rendered_copy(app)
+        immutable_explanation = (
+            "Already in the repo file. Earth field sites do not reproduce the Martian "
+            "atmospheric pressure (about 0.6 percent of Earth sea level)."
+        )
+        if page.name == "5_Analogy_Gap_Detector.py":
+            assert immutable_explanation in visible
+            visible = visible.replace(immutable_explanation, "")
+        assert re.search(r"\b(?:csv|files?)\b", visible, flags=re.IGNORECASE) is None, page.name

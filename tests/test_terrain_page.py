@@ -78,6 +78,8 @@ def terrain_app(tmp_path, monkeypatch):
         [
             {"site_id": "atacama", "bin_start": 0, "bin_end": 1, "pixel_count": 1, "share": 0.25},
             {"site_id": "atacama", "bin_start": 1, "bin_end": 2, "pixel_count": 3, "share": 0.75},
+            {"site_id": "ladakh", "bin_start": 0, "bin_end": 1, "pixel_count": 2, "share": 0.5},
+            {"site_id": "ladakh", "bin_start": 1, "bin_end": 2, "pixel_count": 2, "share": 0.5},
         ]
     ).to_csv(processed_dir / "slope_histograms.csv", index=False)
     monkeypatch.setattr(config, "DATA_ROOT", data_root)
@@ -126,25 +128,16 @@ def test_only_metrics_and_sites_with_values_are_table_rows_and_columns(terrain_a
     assert "62.7%" in table_html and "high constraint" in table_html
 
 
-def test_not_yet_included_line_lists_missing_sites_from_loaded_data(terrain_app):
-    text = _text(terrain_app)
-
-    assert (
-        "Not yet included: Jezero (no terrain raster supplied) and "
-        "Askja (raster coordinate system under review)."
-    ) in text
-
-
-def test_unmeasured_metrics_are_listed_once_in_collapsed_expander(terrain_app):
-    expanders = {expander.label: expander for expander in terrain_app.get("expander")}
-
-    cannot = expanders["What we cannot measure yet"]
-    assert cannot.proto.expanded is False
-    body = "\n".join(element.value for element in cannot.markdown)
-    assert "Needs rover-scale data (about 2 m or finer)" in body
-    for label in ("Rock cover CFA", "Area with steps >20 cm", "Material class"):
-        assert label in body
-    assert _text(terrain_app).count("Rock cover CFA") == 1
+def test_terrain_body_hides_missing_sites_and_measurements(terrain_app):
+    text = _text(terrain_app) + "\n" + "\n".join(
+        frame.value.to_string() for frame in terrain_app.dataframe
+    )
+    assert "Not yet included" not in text
+    assert "data pending" not in text.casefold()
+    assert "not available" not in text.casefold()
+    assert "no terrain raster" not in text.casefold()
+    assert "unit unconfirmed" not in text.casefold()
+    assert not any(expander.label == "What we cannot measure yet" for expander in terrain_app.get("expander"))
 
 
 def test_plain_language_lines_have_no_ranking_or_score(terrain_app):
@@ -174,13 +167,14 @@ def test_limitations_live_in_the_about_expander(terrain_app):
 
     assert "Tier A" in about and "Tier B" in about
     assert "not how suitable a site is" in about
-    assert "does not confirm degrees" in about
+    assert "The slope unit has not been confirmed with the data provider, so the cutoffs are provisional." in about
     assert "not a validated site boundary" in about
     assert "native resolution" in about
     outside = _text(app).replace(about, "")
     assert "Tier A" not in outside
     assert "validated site boundary" not in outside
-    assert "does not confirm degrees" not in outside
+    assert "The slope unit has not been confirmed" not in outside
+    assert "Jezero and Askja are not part of this comparison because no usable terrain data is available for them yet." in about
     resolution = app.get("expander")[-1].dataframe[0].value
     assert list(resolution.columns) == [
         "Site", "Native resolution", "Common baseline", "Terrain source", "Status",
@@ -204,5 +198,5 @@ def test_table_hidden_when_no_values_exist(tmp_path, monkeypatch):
 
     assert not app.exception
     assert not any("terrain-matrix" in m.value for m in app.markdown)
-    assert "No terrain values are available yet." in _text(app)
+    assert "Select at least one site with usable terrain measurements to show a comparison." in _text(app)
     assert len(app.get("plotly_chart")) == 0

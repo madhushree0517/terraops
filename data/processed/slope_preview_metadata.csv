@@ -1,3 +1,3 @@
-site_id,image_path,source_file,crs,extent_left,extent_bottom,extent_right,extent_top,pixel_size_x,pixel_size_y,pixel_size_unit,preview_width,preview_height
-atacama,previews/atacama_slope.png,large/terrain/Atacama_Reprojected_slope.tif,EPSG:32719,499985.6638,7456154.0104,603214.1216,7567188.4155,29.680407648073597,29.680407671745545,metre,800,860
-ladakh,previews/ladakh_slope.png,large/terrain/Ladakh_Reprojected_slope.tif,EPSG:32643,682503.1086,3763966.6632,777090.5879,3877171.72,28.294190637152262,28.294190652337008,metre,800,957
+site_id,image_path,source_file,crs,extent_left,extent_bottom,extent_right,extent_top,pixel_size_x,pixel_size_y,pixel_size_unit,preview_width,preview_height,bounds_west,bounds_south,bounds_east,bounds_north,slope_min,slope_max
+atacama,previews/atacama_slope.png,large/terrain/Atacama_Reprojected_slope.tif,EPSG:32719,499985.6638,7456154.0104,603214.1216,7567188.4155,29.680407648073597,29.680407671745545,metre,800,860,-69.00013989361484,-23.002946944758673,-67.99288961523662,-21.99681331404922,0.0,89.35779571533203
+ladakh,previews/ladakh_slope.png,large/terrain/Ladakh_Reprojected_slope.tif,EPSG:32643,682503.1086,3763966.6632,777090.5879,3877171.72,28.294190637152262,28.294190652337008,metre,800,957,76.97612017647599,33.9797530113587,78.03603605568861,35.020739530500556,0.0,89.5184326171875

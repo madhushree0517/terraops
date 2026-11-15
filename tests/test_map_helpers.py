@@ -7,12 +7,18 @@ import numpy as np
 import rasterio
 from rasterio.transform import from_origin
 from streamlit.testing.v1 import AppTest
-from shapely.geometry import Point
+from shapely.geometry import Point, Polygon
+from PIL import Image
 
-from app.components.map_helpers import build_site_map, filter_sites_by_body
+from app.components.map_helpers import build_site_detail_map, build_site_map, filter_sites_by_body
 from app.components.site_profile import build_terrain_profile_table
 from app.utils import config
-from app.utils.loaders import TERRAIN_METRICS_COLUMNS, load_sites, load_slope_preview
+from app.utils.loaders import (
+    TERRAIN_METRICS_COLUMNS,
+    load_site_extents,
+    load_sites,
+    load_slope_preview,
+)
 
 
 def test_mars_map_has_marker_without_earth_basemap():
@@ -134,6 +140,8 @@ def test_earth_candidate_page_shows_downsampled_slope_preview(tmp_path, monkeypa
         "extent_left": 1, "extent_bottom": 2, "extent_right": 3, "extent_top": 4,
         "pixel_size_x": 30, "pixel_size_y": 30, "pixel_size_unit": "metre",
         "preview_width": 2, "preview_height": 2,
+        "bounds_west": -69, "bounds_south": -23, "bounds_east": -68, "bounds_north": -22,
+        "slope_min": 0, "slope_max": 89,
     }
     pd.DataFrame([metadata_row]).to_csv(processed / "slope_preview_metadata.csv", index=False)
     preview_dir = processed / "previews"
@@ -154,10 +162,7 @@ def test_earth_candidate_page_shows_downsampled_slope_preview(tmp_path, monkeypa
     assert preview is not None
     assert preview["preview_width"] <= 800
     assert preview["image_bytes"].startswith(b"\x89PNG")
-    assert any(
-        "Preview of the supplied raster extent, downsampled; not a validated site boundary." in caption.value
-        for caption in app.caption
-    )
+    assert any(element.label == "Show slope overlay" and element.value for element in app.checkbox)
     assert not app.dataframe
     assert not app.metric
     page_text = "\n".join(
@@ -165,7 +170,6 @@ def test_earth_candidate_page_shows_downsampled_slope_preview(tmp_path, monkeypa
     )
     assert "Atacama Desert, Chile" in page_text
     assert "Coordinates: -22.5000\u00b0, -68.5000\u00b0" in page_text
-    assert "Data sources: fixture" in page_text
     assert "data pending" not in page_text and "None" not in page_text
     assert len(app.warning) + len(app.info) == 0
 
@@ -250,40 +254,102 @@ def test_earth_candidates_default_to_first_site_with_terrain_and_explain_missing
     assert not app.error, [element.value for element in app.error]
     assert app.selectbox[0].value == "atacama"
     assert {metric.label for metric in app.metric} == {
-        "Area steeper than 24 degrees", "Area steeper than 17 degrees", "Slope P90",
+        "Slope P90", "Area above 24°", "Roughness",
     }
     app.selectbox[0].select("askja").run()
     assert not app.exception
     assert any(
-        markdown.value == "Terrain data not yet included: fixture CRS review."
+        markdown.value == "Terrain measurements are not available yet: the terrain measurements need coordinate-system review."
         for markdown in app.markdown
     )
     assert not app.metric
-    low_data_captions = [caption.value for caption in app.caption if "Low data: MODIS" in caption.value]
-    assert low_data_captions == [
-        "Low data: MODIS daytime, 8 of 31 valid July days.",
-        "Low data: MODIS nighttime, 8 of 31 valid July days.",
-    ]
 
 
-def test_mars_reference_page_is_one_card_and_one_sentence_without_imagery():
+def test_selecting_atacama_then_ladakh_changes_footprint_bounds_and_values(tmp_path, monkeypatch):
+    data_root = tmp_path / "data"
+    processed = data_root / "processed"
+    (data_root / "sample").mkdir(parents=True)
+    processed.mkdir()
+    site_specs = (
+        ("atacama", "Atacama Desert, Chile", -22.5, -68.5, (-69.0, -23.0, -68.0, -22.0), (17.12, 4.61, 14.05)),
+        ("ladakh", "Ladakh, India", 34.5, 77.5, (77.0, 34.0, 78.0, 35.0), (42.86, 62.73, 50.12)),
+    )
+    site_features = []
+    extent_features = []
+    terrain_rows = []
+    histogram_rows = []
+    for site_id, name, latitude, longitude, (west, south, east, north), values in site_specs:
+        site_features.append({
+            "type": "Feature", "geometry": {"type": "Point", "coordinates": [longitude, latitude]},
+            "properties": {
+                "schema_version": "1.0", "site_id": site_id, "name": name, "body": "Earth",
+                "lat": latitude, "lon": longitude, "notes": "supplied extent centroid",
+            },
+        })
+        extent_features.append({
+            "type": "Feature",
+            "geometry": Polygon([(west, south), (east, south), (east, north), (west, north)]).__geo_interface__,
+            "properties": {"site_id": site_id, "name": name},
+        })
+        for metric_name, value, unit in zip(
+            ("slope_p90_deg", "pct_area_slope_gt24", "roughness"), values, ("", "%", "")
+        ):
+            row = {column: float("nan") for column in TERRAIN_METRICS_COLUMNS}
+            row.update({
+                "schema_version": "1.0", "site_id": site_id, "metric_name": metric_name,
+                "value": value, "metric_unit": unit, "tier": "B", "availability_note": "",
+            })
+            terrain_rows.append(row)
+        histogram_rows.extend([
+            {"site_id": site_id, "bin_start": 0, "bin_end": 1, "pixel_count": 1, "share": 0.25},
+            {"site_id": site_id, "bin_start": 1, "bin_end": 2, "pixel_count": 3, "share": 0.75},
+        ])
+    (processed / "sites.geojson").write_text(
+        json.dumps({"type": "FeatureCollection", "features": site_features}), encoding="utf-8"
+    )
+    (processed / "site_extents.geojson").write_text(
+        json.dumps({"type": "FeatureCollection", "features": extent_features}), encoding="utf-8"
+    )
+    pd.DataFrame(terrain_rows, columns=TERRAIN_METRICS_COLUMNS).to_csv(
+        processed / "terrain_metrics.csv", index=False
+    )
+    pd.DataFrame(histogram_rows).to_csv(processed / "slope_histograms.csv", index=False)
+    monkeypatch.setattr(config, "DATA_ROOT", data_root)
+    page = Path(__file__).resolve().parents[1] / "app" / "pages" / "2_Earth_Candidates.py"
+    app = AppTest.from_file(str(page)).run()
+    assert not app.exception
+    assert app.selectbox[0].value == "atacama"
+    atacama_bounds = load_site_extents(processed).set_index("site_id").loc["atacama"].geometry.bounds
+    atacama_values = [metric.value for metric in app.metric]
+
+    app.selectbox[0].select("ladakh").run()
+    assert not app.exception
+    assert app.selectbox[0].value == "ladakh"
+    ladakh_bounds = load_site_extents(processed).set_index("site_id").loc["ladakh"].geometry.bounds
+    ladakh_values = [metric.value for metric in app.metric]
+    assert atacama_bounds != ladakh_bounds
+    assert atacama_values != ladakh_values
+
+
+def test_mars_reference_page_shows_image_and_no_credit_line_without_credit_file():
     page = Path(__file__).resolve().parents[1] / "app" / "pages" / "1_Mars_Reference.py"
     assets = page.parents[1].parent / "assets" / "mars"
-    has_images = assets.is_dir() and any(
-        path.suffix.casefold() in {".png", ".jpg", ".jpeg", ".webp"} for path in assets.glob("*")
-    )
+    assert any(path.suffix.casefold() in {".jpg", ".png"} for path in assets.glob("*"))
+    assert not (assets / "CREDITS.txt").exists()
 
     app = AppTest.from_file(str(page)).run()
 
     assert not app.exception
     text = "\n".join(element.value for element in [*app.markdown, *app.caption, *app.subheader])
     assert "Jezero" in text
-    assert "Coordinates: 18.4000\u00b0, 77.6000\u00b0" in text
+    assert "Jezero Crater, Mars" in text
+    assert "Approximate coordinate: 18.4000° latitude, 77.6000° longitude" in text
+    assert "credit pending" not in text.casefold()
+    assert "Jezero terrain information is not available yet." in text
+    assert not any("credit" in element.value.casefold() for element in app.caption)
     assert not app.dataframe
-    assert "data pending" not in text
-    if not has_images:
-        assert "No Mars imagery or basemap is included yet" in text
-        assert "Imagery and MEDA measurements" not in text
+    assert "Mars imagery has not been added yet." not in text
+    assert app.get("expander")[0].proto.expanded is False
 
 
 def test_jezero_coordinates_are_labeled_approximate_reference():
@@ -322,7 +388,29 @@ def test_site_marker_tooltips_contain_site_names():
     assert "Askja, Iceland" in html
 
 
-def test_site_profile_terrain_table_is_vertical_and_unit_labelled():
+def test_site_detail_map_uses_only_selected_site_footprint_and_overlay():
+    site = gpd.GeoDataFrame(
+        {"site_id": ["atacama"], "name": ["Atacama"], "body": ["Earth"], "lat": [-22.5], "lon": [-68.5]},
+        geometry=[Polygon([(-69, -23), (-68, -23), (-68, -22), (-69, -22)])],
+        crs="EPSG:4326",
+    ).iloc[0]
+    image = Image.new("RGBA", (2, 2), (255, 0, 0, 255))
+    import io
+    stream = io.BytesIO()
+    image.save(stream, format="PNG")
+    detail = build_site_detail_map(
+        site,
+        site.geometry,
+        preview_bytes=stream.getvalue(),
+        preview_bounds=[[-23, -69], [-22, -68]],
+    )
+    html = detail.get_root().render()
+    assert "imageOverlay" in html
+    assert "fitBounds" in html
+    assert "Atacama" in html
+
+
+def test_site_profile_terrain_table_uses_plain_slope_labels():
     atacama = pd.DataFrame(
         [
             {
@@ -343,11 +431,9 @@ def test_site_profile_terrain_table_is_vertical_and_unit_labelled():
     profile = build_terrain_profile_table(atacama)
 
     assert profile.columns.tolist() == ["Parameter", "Value", "Tier"]
-    assert "Slope P90 (unit unconfirmed)" in profile["Parameter"].tolist()
+    assert "Slope P90" in profile["Parameter"].tolist()
     assert "Rock cover CFA" in profile["Parameter"].tolist()
-    assert profile.loc[profile["Parameter"] == "Slope P90 (unit unconfirmed)", "Value"].iloc[0] == (
-        "17.12 (unit unconfirmed)"
-    )
+    assert profile.loc[profile["Parameter"] == "Slope P90", "Value"].iloc[0] == "17.12"
     assert profile.loc[profile["Parameter"] == "Rock cover CFA", "Value"].iloc[0] == "data pending"
     assert profile.loc[profile["Parameter"] == "Rock cover CFA", "Tier"].iloc[0] == "not available"
     assert "-2500" not in profile.to_string()

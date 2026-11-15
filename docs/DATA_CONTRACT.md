@@ -20,6 +20,10 @@ GeoJSON `FeatureCollection`, one point feature per site. Required feature proper
 
 Required sites are Jezero, Askja, Atacama, and Ladakh. Askja, Atacama, and Ladakh coordinates are centroids of the supplied extent footprints; these are not verified field boundaries. Jezero retains an approximate reference coordinate pending confirmation.
 
+## `site_extents.geojson` map artifact
+
+The processed builder writes the supplied Askja, Atacama, and Ladakh extent geometries to `data/processed/site_extents.geojson`, reprojected to EPSG:4326. Each feature retains the site ID, display name, and source extent filename. These are supplied extent footprints, not verified field boundaries; the Earth Candidates page uses them only for map framing and outlines.
+
 ## Legacy `terrain_parameters.csv`
 
 This legacy wide format is retained for compatibility with the standalone loader only. Current app pages do not load or display it; use `terrain_metrics.csv` for terrain presentation.
@@ -57,7 +61,7 @@ All raster values describe the whole supplied raster extent unless `statistics_s
 
 `slope_histograms.csv` contains one row per site and 1-unit slope-value bin (`site_id`, `bin_start`, `bin_end`, `pixel_count`, `share`). The builder reads raster blocks and excludes nodata and non-finite pixels; shares are fractions of valid pixels per site and sum to 1. Slope units remain unconfirmed, so bins are numerical value intervals and are not asserted to be degrees.
 
-Slope preview images are written under `data/processed/previews/` only for sites that pass the builder's existing CRS and extent checks. `slope_preview_metadata.csv` records the source file, CRS, full raster extent, native pixel size/unit, and preview dimensions. Preview pixels are downsampled and are for visual context only, not a validated site boundary or analysis result.
+Slope preview images are written under `data/processed/previews/` only for sites that pass the builder's existing CRS and extent checks. `slope_preview_metadata.csv` records the source file, source CRS, full raster extent, native pixel size/unit, preview dimensions, and preview bounds (`bounds_west`, `bounds_south`, `bounds_east`, `bounds_north`) in EPSG:4326. Preview pixels are downsampled and reprojected for map overlay; they are for visual context only, not a validated site boundary or analysis result.
 
 | Column | Meaning |
 | --- | --- |
@@ -108,6 +112,21 @@ One record per site, month, variable type, and period of day. `month` is 1-12; `
 JSON object with `schema_version` (`1.0`), `variable_type` (`surface_temp` or `air_temp`), `source` and `notes`. A single-envelope object uses numeric `min_c` and `max_c` in Celsius. If only season-specific thresholds are supported, `min_c` and `max_c` remain null and `seasonal_envelopes` contains objects with `season`, `min_c`, and `max_c` from the cited source. Do not collapse season-specific ranges into a single range without an approved interpretation.
 
 The optional `solar_longitude_mapping` object records ATS `coverage_percent`, `mapped_ats_sols`, `total_ats_sols`, and the source handoff. This describes coverage of solar-longitude mapping only; it is not the share of temperature observations analysed.
+
+## `earth_surface_temperature_matches.csv`
+
+Optional builder output derived from `data/raw/package/Earth_temperature_daily_analysis.csv`, the processed Earth site crosswalk, and the processed Mars seasonal bands. Each row is one Earth site, day/night period, and Mars season. A daily value is valid only when its mean and valid-pixel count are present and the count is positive. The share is the percentage of valid daily surface means within the inclusive Mars band bounds. If a comparison has no valid days, its share, matching-day count, and valid-day count remain missing; missing is not zero.
+
+| Column | Meaning |
+| --- | --- |
+| `site_id` | Canonical Earth site identifier. |
+| `period_of_day` | `day` or `night`; periods are not combined. |
+| `season` | Mars seasonal band label from the processed envelope. |
+| `earth_variable`, `mars_variable` | Measurement descriptions carried into the comparison. |
+| `share_in_band_pct` | Share of valid Earth daily means inside the selected Mars band's inclusive bounds. |
+| `n_matching_days` | Number of valid daily means inside the band. |
+| `n_valid_days` | Number of daily means with a positive valid-pixel count. |
+| `source` | Relative path of the source daily file. |
 
 ## `analogy_gaps.json`
 

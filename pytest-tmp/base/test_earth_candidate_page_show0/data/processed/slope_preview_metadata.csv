@@ -1,0 +1,2 @@
+site_id,image_path,source_file,crs,extent_left,extent_bottom,extent_right,extent_top,pixel_size_x,pixel_size_y,pixel_size_unit,preview_width,preview_height,bounds_west,bounds_south,bounds_east,bounds_north
+atacama,previews/atacama_slope.png,large/terrain/Atacama_Reprojected_slope.tif,EPSG:32719,1,2,3,4,30,30,metre,2,2,-69,-23,-68,-22

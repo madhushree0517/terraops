@@ -1,0 +1,7 @@
+schema_version,site_id,metric_name,value,value_mean,value_std,value_min,value_max,n_valid_pixels,metric_unit,tier,baseline_m,dem_source,native_resolution_m,computed_at_baseline,roughness_metric,roughness_window,availability_note,source_file,crs,resolution_x,resolution_y,resolution_unit,statistics_scope
+1.0,atacama,slope_p90_deg,17.12,,,,,,,B,,,,,,,,,,,,,
+1.0,atacama,pct_area_slope_gt24,4.61,,,,,,%,B,,,,,,,,,,,,,
+1.0,atacama,roughness,14.05,,,,,,,B,,,,,,,,,,,,,
+1.0,ladakh,slope_p90_deg,42.86,,,,,,,B,,,,,,,,,,,,,
+1.0,ladakh,pct_area_slope_gt24,62.73,,,,,,%,B,,,,,,,,,,,,,
+1.0,ladakh,roughness,50.12,,,,,,,B,,,,,,,,,,,,,

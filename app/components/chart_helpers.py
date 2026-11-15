@@ -8,8 +8,10 @@ def terrain_metric_chart(terrain: pd.DataFrame, metric: str) -> go.Figure:
     return px.bar(terrain, x="site_id", y=metric, title=metric.replace("_", " ").title())
 
 
-def slope_histogram_chart(histograms: pd.DataFrame) -> go.Figure:
-    """Create readable, translucent site overlays with draft threshold markers."""
+def slope_histogram_chart(
+    histograms: pd.DataFrame, emphasized_site: str | None = None
+) -> go.Figure:
+    """Plot slope distributions as lines and emphasize the selected site."""
     colors = {
         "atacama": "#4CC9F0",
         "ladakh": "#FFB000",
@@ -22,22 +24,27 @@ def slope_histogram_chart(histograms: pd.DataFrame) -> go.Figure:
         site_key = str(site_id).casefold()
         color = colors.get(site_key, fallback_colors[index % len(fallback_colors)])
         figure.add_trace(
-            go.Bar(
+            go.Scatter(
                 x=site_rows["bin_start"],
                 y=site_rows["share"],
-                width=1,
+                mode="lines",
                 name=str(site_id).title(),
-                marker={"color": color, "opacity": 0.55},
+                line={
+                    "color": color,
+                    "width": 3.5 if site_key == str(emphasized_site).casefold() else 1.2,
+                },
+                opacity=1.0 if site_key == str(emphasized_site).casefold() else 0.35,
                 hovertemplate=(
                     "%{x:.0f} to %{customdata:.0f}"
                     "<br>Share of valid pixels: %{y:.2%}<extra>%{fullData.name}</extra>"
                 ),
                 customdata=site_rows["bin_end"],
+                connectgaps=False,
             )
         )
     figure.update_layout(
-        barmode="overlay",
-        xaxis_title="Slope value (unit unconfirmed)",
+        height=260,
+        xaxis_title="Slope value",
         yaxis_title="Share of valid pixels",
         legend_title="Site",
     )
@@ -50,6 +57,65 @@ def slope_histogram_chart(histograms: pd.DataFrame) -> go.Figure:
             annotation_position="top",
             annotation_font_color="#FFFFFF",
         )
+    return figure
+
+
+def terrain_slope_distribution_chart(
+    histograms: pd.DataFrame, mode: str = "Distribution"
+) -> go.Figure:
+    """Show per-site slope shares or cumulative area at/above each bin start."""
+    colors = {
+        "atacama": "#168aad",
+        "ladakh": "#d97706",
+        "askja": "#15803d",
+        "jezero": "#be185d",
+    }
+    figure = go.Figure()
+    for site_id, rows in histograms.groupby("site_id", sort=False):
+        rows = rows.sort_values("bin_start")
+        shares = pd.to_numeric(rows["share"], errors="coerce")
+        if mode == "Share steeper than":
+            plot_rows = rows.assign(plot_share=shares.iloc[::-1].cumsum().iloc[::-1])
+        else:
+            plot_rows = rows.assign(plot_share=shares)
+        site_color = colors.get(str(site_id).casefold(), "#475569")
+        rgb = tuple(int(site_color[offset:offset + 2], 16) for offset in (1, 3, 5))
+        fill_color = f"rgba({rgb[0]},{rgb[1]},{rgb[2]},0.14)"
+        figure.add_trace(
+            go.Scatter(
+                x=plot_rows["bin_start"],
+                y=plot_rows["plot_share"] * 100,
+                mode="lines",
+                name=str(site_id).title(),
+                line={"color": site_color, "width": 3},
+                fill="tozeroy",
+                fillcolor=fill_color,
+                customdata=plot_rows["site_id"].astype(str),
+                hovertemplate=(
+                    "Site: %{customdata}<br>Slope: %{x}"
+                    "<br>Share: %{y:.2f}%<extra></extra>"
+                ),
+                connectgaps=False,
+            )
+        )
+    for threshold in (10, 17, 24):
+        figure.add_vline(
+            x=threshold,
+            line_dash="dash",
+            line_color="#64748b",
+            annotation_text=str(threshold),
+            annotation_position="top",
+            annotation_font_color="#334155",
+        )
+    figure.update_layout(
+        height=420,
+        xaxis_title="Slope value",
+        yaxis_title=("Share of valid area (%)" if mode == "Distribution" else "Area at or above slope (%)"),
+        yaxis={"ticksuffix": "%", "rangemode": "tozero"},
+        hovermode="closest",
+        legend_title="Site",
+        margin={"t": 45, "b": 45},
+    )
     return figure
 
 

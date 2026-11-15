@@ -30,7 +30,7 @@ def build_terrain_profile_table(site_terrain: pd.DataFrame) -> pd.DataFrame:
             display_value = str(value)
             display_tier = f"Tier {tier}"
         elif metric_name == "slope_p90_deg":
-            display_value = f"{float(value):.2f} (unit unconfirmed)"
+            display_value = f"{float(value):.2f}"
             display_tier = f"Tier {tier}"
         elif unit == "%":
             display_value = f"{float(value):.2f}%"
@@ -53,11 +53,18 @@ def render_page_banner(
     else:
         sample_files = [name for name, source in data_sources.items() if source == "sample"]
     if sample_files:
-        file_list = ", ".join(f"`{name}`" for name in sample_files)
-        text = f"PLACEHOLDER DATA: sample data is in use for {file_list}."
+        text = "PLACEHOLDER DATA: illustrative sample values are in use."
         st.warning(f"{text} {message}" if message else text, icon="\u26a0\ufe0f")
     elif message:
         st.info(message)
+
+
+def render_next_step(page: str, label: str) -> None:
+    """Use Streamlit navigation in the running app and remain renderable in isolated AppTests."""
+    try:
+        st.page_link(page, label=label, icon="➡️")
+    except st.errors.StreamlitPageNotFoundError:
+        st.markdown(f"[{label}](/{page})")
 
 
 def _key_metrics(site_terrain: pd.DataFrame) -> list[tuple[str, str]]:
@@ -111,13 +118,13 @@ def render_site_card(
             reason = notes[notes.ne("")].iloc[0] if not notes[notes.ne("")].empty else "source data is unavailable"
             for prefix in ("Terrain metrics pending CRS review:", "Terrain metrics pending:"):
                 reason = reason.removeprefix(prefix).strip()
-            st.write(f"Terrain data not yet included: {reason}")
+            st.write(f"Terrain measurements are not available yet: {reason}")
 
         key_metrics = _key_metrics(site_terrain)
         if key_metrics:
             for column, (label, value) in zip(st.columns(len(key_metrics)), key_metrics):
                 column.metric(label, value)
-            st.caption("Slope unit is not yet confirmed, so slope values are provisional.")
+            st.caption("Slope cutoffs are provisional because the measurement unit is not yet confirmed.")
 
         sources = []
         if not valued_terrain.empty:

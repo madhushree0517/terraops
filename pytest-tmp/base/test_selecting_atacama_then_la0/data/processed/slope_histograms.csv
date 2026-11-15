@@ -1,0 +1,5 @@
+site_id,bin_start,bin_end,pixel_count,share
+atacama,0,1,1,0.25
+atacama,1,2,3,0.75
+ladakh,0,1,1,0.25
+ladakh,1,2,3,0.75

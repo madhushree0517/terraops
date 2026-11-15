@@ -9,6 +9,7 @@ import numpy as np
 import pandas as pd
 import rasterio
 from pyproj import CRS
+from pyproj import Transformer
 from rasterio.features import geometry_mask
 from rasterio.enums import Resampling
 
@@ -30,11 +31,21 @@ TERRAIN_METRICS_COLUMNS = [
     "resolution_y", "resolution_unit", "statistics_scope",
 ]
 SLOPE_HISTOGRAM_COLUMNS = ["site_id", "bin_start", "bin_end", "pixel_count", "share"]
+DAILY_SURFACE_MATCH_COLUMNS = [
+    "site_id", "period_of_day", "season", "earth_variable", "mars_variable",
+    "share_in_band_pct", "n_matching_days", "n_valid_days", "source",
+]
 SLOPE_PREVIEW_METADATA_COLUMNS = [
     "site_id", "image_path", "source_file", "crs", "extent_left", "extent_bottom",
     "extent_right", "extent_top", "pixel_size_x", "pixel_size_y", "pixel_size_unit",
-    "preview_width", "preview_height",
+    "preview_width", "preview_height", "bounds_west", "bounds_south", "bounds_east",
+    "bounds_north", "slope_min", "slope_max",
 ]
+SITE_EXTENT_FILES = {
+    "askja": ("Extent_Askja.gpkg", "Askja, Iceland"),
+    "atacama": ("Extent_Atacama.gpkg", "Atacama Desert, Chile"),
+    "ladakh": ("Extent_Ladakh.gpkg", "Ladakh, India"),
+}
 CATALOGUE_COLUMNS = [
     "schema_version", "dataset_name", "source", "url", "file_format",
     "spatial_resolution", "temporal_resolution", "observation_period", "units",
@@ -46,11 +57,6 @@ BOUNDARY_LAYER_TO_SITE = {
     "Extent_Atacama — extent": "atacama",
     "Extent_Ladakh — extent": "ladakh",
     "Extent_Jezero Crater — extent": "jezero",
-}
-SITE_EXTENT_FILES = {
-    "askja": ("Extent_Askja.gpkg", "Askja, Iceland"),
-    "atacama": ("Extent_Atacama.gpkg", "Atacama Desert, Chile"),
-    "ladakh": ("Extent_Ladakh.gpkg", "Ladakh, India"),
 }
 TERRAIN_DEM_SOURCES = {
     "askja": "Copernicus GLO30",
@@ -219,6 +225,46 @@ def _build_sites(raw_dir: Path, processed_dir: Path) -> bool:
     return True
 
 
+def _build_site_extents(raw_dir: Path, processed_dir: Path) -> bool:
+    """Write the supplied Earth footprints in geographic coordinates for map display."""
+    features = []
+    terrain_dir = raw_dir / "large" / "terrain"
+    for site_id, (filename, name) in SITE_EXTENT_FILES.items():
+        source_path = terrain_dir / filename
+        if not source_path.is_file():
+            _log(f"SKIP site extent {site_id}: supplied footprint is absent: {filename}.")
+            continue
+        extents = gpd.read_file(source_path)
+        if extents.empty or extents.crs is None or not extents.geometry.notna().any():
+            _log(f"SKIP site extent {site_id}: supplied footprint has no usable geometry or CRS.")
+            continue
+        geometry = extents.geometry.dropna().union_all()
+        if geometry.is_empty:
+            _log(f"SKIP site extent {site_id}: supplied footprint geometry is empty.")
+            continue
+        geometry_wgs84 = gpd.GeoSeries([geometry], crs=extents.crs).to_crs("EPSG:4326").iloc[0]
+        features.append(
+            {
+                "type": "Feature",
+                "geometry": geometry_wgs84.__geo_interface__,
+                "properties": {
+                    "schema_version": SCHEMA_VERSION,
+                    "site_id": site_id,
+                    "name": name,
+                    "source_file": f"large/terrain/{filename}",
+                    "notes": "supplied extent footprint; not a verified field boundary",
+                },
+            }
+        )
+    processed_dir.mkdir(parents=True, exist_ok=True)
+    output_path = processed_dir / "site_extents.geojson"
+    with output_path.open("w", encoding="utf-8") as destination:
+        json.dump({"type": "FeatureCollection", "features": features}, destination, indent=2)
+        destination.write("\n")
+    _log(f"WROTE site_extents.geojson: {len(features)} supplied Earth footprint(s), EPSG:4326.")
+    return bool(features)
+
+
 def _windowed_zonal_stats(path: Path, geometry: Any | None) -> dict[str, float | int]:
     count = 0
     total = 0.0
@@ -379,6 +425,8 @@ def _write_slope_preview(
     source_path: Path,
 ) -> dict[str, Any]:
     from PIL import Image
+    from rasterio.transform import from_bounds
+    from rasterio.warp import Resampling as WarpResampling, reproject
 
     width = min(dataset.width, 800)
     scale = width / dataset.width
@@ -390,20 +438,67 @@ def _write_slope_preview(
         masked=True,
     )
     values = band.compressed()
-    pixels = np.full((height, width), 220, dtype=np.uint8)
+    palette = np.asarray(
+        ((248, 250, 252), (190, 230, 220), (82, 179, 167), (37, 110, 165), (8, 48, 107)),
+        dtype=np.float64,
+    )
+    pixels = np.empty((height, width, 3), dtype=np.uint8)
+    slope_min = slope_max = float("nan")
     if values.size:
-        low = float(values.min())
-        high = float(values.max())
-        if high > low:
-            scaled = np.clip((band.filled(low).astype(np.float64) - low) / (high - low), 0, 1)
-            pixels = (255 * (1 - scaled)).astype(np.uint8)
-            pixels[np.ma.getmaskarray(band)] = 220
-        else:
-            pixels[~np.ma.getmaskarray(band)] = 128
+        slope_min = float(values.min())
+        slope_max = float(values.max())
+        scaled = (
+            np.clip((band.filled(slope_min).astype(np.float64) - slope_min) / (slope_max - slope_min), 0, 1)
+            if slope_max > slope_min
+            else np.zeros((height, width), dtype=np.float64)
+        )
+        stops = np.linspace(0, 1, len(palette))
+        for channel in range(3):
+            pixels[:, :, channel] = np.interp(
+                scaled, stops, palette[:, channel]
+            ).astype(np.uint8)
+        pixels[np.ma.getmaskarray(band)] = palette[0].astype(np.uint8)
+    else:
+        pixels[:, :, :] = palette[0].astype(np.uint8)
+    # Downsample first, then reproject the preview itself so it can be overlaid
+    # directly on the EPSG:4326 footprint without stretching projected pixels.
+    source_transform = dataset.transform @ rasterio.Affine.scale(
+        dataset.width / width, dataset.height / height
+    )
+    bounds_west, bounds_south, bounds_east, bounds_north = Transformer.from_crs(
+        dataset.crs, "EPSG:4326", always_xy=True
+    ).transform_bounds(*dataset.bounds, densify_pts=21)
+    geographic_transform = from_bounds(
+        bounds_west, bounds_south, bounds_east, bounds_north, width, height
+    )
+    projected_pixels = np.empty((height, width, 3), dtype=np.uint8)
+    for channel in range(3):
+        projected_pixels[:, :, channel] = palette[0, channel].astype(np.uint8)
+        reproject(
+            source=pixels[:, :, channel],
+            destination=projected_pixels[:, :, channel],
+            src_transform=source_transform,
+            src_crs=dataset.crs,
+            dst_transform=geographic_transform,
+            dst_crs="EPSG:4326",
+            resampling=WarpResampling.bilinear,
+        )
+    preview_alpha = np.where(np.ma.getmaskarray(band), 0, 255).astype(np.uint8)
+    projected_alpha = np.zeros((height, width), dtype=np.uint8)
+    reproject(
+        source=preview_alpha,
+        destination=projected_alpha,
+        src_transform=source_transform,
+        src_crs=dataset.crs,
+        dst_transform=geographic_transform,
+        dst_crs="EPSG:4326",
+        resampling=WarpResampling.nearest,
+    )
+    rgba_pixels = np.dstack((projected_pixels, projected_alpha))
     preview_dir = processed_dir / "previews"
     preview_dir.mkdir(parents=True, exist_ok=True)
     preview_path = preview_dir / f"{site_id}_slope.png"
-    Image.fromarray(pixels, mode="L").save(preview_path, format="PNG")
+    Image.fromarray(rgba_pixels).save(preview_path, format="PNG")
     return {
         "site_id": site_id,
         "image_path": preview_path.relative_to(processed_dir).as_posix(),
@@ -420,6 +515,12 @@ def _write_slope_preview(
         else "unknown",
         "preview_width": width,
         "preview_height": height,
+        "bounds_west": float(bounds_west),
+        "bounds_south": float(bounds_south),
+        "bounds_east": float(bounds_east),
+        "bounds_north": float(bounds_north),
+        "slope_min": slope_min,
+        "slope_max": slope_max,
     }
 
 
@@ -802,6 +903,85 @@ def _build_mars_temperature_envelope(raw_dir: Path, processed_dir: Path) -> bool
     return True
 
 
+def _build_daily_surface_temperature_matches(raw_dir: Path, processed_dir: Path) -> bool:
+    """Compare available daily Earth surface means with each loaded Mars seasonal band."""
+    daily_path = raw_dir / "package" / "Earth_temperature_daily_analysis.csv"
+    summary_path = processed_dir / "temperature_monthly.csv"
+    envelope_path = processed_dir / "mars_temperature_envelope.json"
+    if not daily_path.is_file() or not summary_path.is_file() or not envelope_path.is_file():
+        _log("SKIP earth_surface_temperature_matches.csv: daily source, site crosswalk, or Mars envelope is absent.")
+        return False
+
+    daily = pd.read_csv(daily_path)
+    required = {"site", "day_mean_C", "day_valid_pixels", "night_mean_C", "night_valid_pixels"}
+    missing = required - set(daily.columns)
+    if missing:
+        _log(
+            "SKIP earth_surface_temperature_matches.csv: daily source is missing columns: "
+            + ", ".join(sorted(missing))
+            + "."
+        )
+        return False
+    earth_summary = pd.read_csv(summary_path)
+    crosswalk = earth_summary.loc[:, ["site_id", "source_label"]].dropna().drop_duplicates()
+    crosswalk["source_label_key"] = crosswalk["source_label"].astype(str).str.strip().str.casefold()
+    daily["source_label_key"] = daily["site"].astype(str).str.strip().str.casefold()
+    with envelope_path.open(encoding="utf-8") as source:
+        envelope = json.load(source)
+    seasonal_bands = envelope.get("seasonal_envelopes", [])
+    if not seasonal_bands:
+        _log("SKIP earth_surface_temperature_matches.csv: Mars seasonal bands are absent.")
+        return False
+
+    records = []
+    for site in crosswalk.itertuples(index=False):
+        site_days = daily.loc[daily["source_label_key"] == site.source_label_key]
+        for period, value_column, valid_column in (
+            ("day", "day_mean_C", "day_valid_pixels"),
+            ("night", "night_mean_C", "night_valid_pixels"),
+        ):
+            values = pd.to_numeric(site_days[value_column], errors="coerce")
+            valid_pixels = pd.to_numeric(site_days[valid_column], errors="coerce")
+            valid_values = values.loc[values.notna() & valid_pixels.gt(0)]
+            for band in seasonal_bands:
+                lower = pd.to_numeric(pd.Series([band.get("min_c")]), errors="coerce").iloc[0]
+                upper = pd.to_numeric(pd.Series([band.get("max_c")]), errors="coerce").iloc[0]
+                n_valid = int(valid_values.size)
+                n_matching = (
+                    int(valid_values.between(float(lower), float(upper), inclusive="both").sum())
+                    if pd.notna(lower) and pd.notna(upper) and n_valid
+                    else 0
+                )
+                share = (100.0 * n_matching / n_valid) if n_valid else float("nan")
+                records.append(
+                    {
+                        "site_id": site.site_id,
+                        "period_of_day": period,
+                        "season": band.get("season", ""),
+                        "earth_variable": "MODIS land-surface temperature",
+                        "mars_variable": band.get("mars_variable", envelope.get("variable_type", "")),
+                        "share_in_band_pct": share,
+                        "n_matching_days": n_matching if n_valid else float("nan"),
+                        "n_valid_days": n_valid if n_valid else float("nan"),
+                        "source": daily_path.relative_to(raw_dir).as_posix(),
+                    }
+                )
+
+    if not records:
+        _log("SKIP earth_surface_temperature_matches.csv: no site/season comparisons could be formed.")
+        return False
+    processed_dir.mkdir(parents=True, exist_ok=True)
+    output_path = processed_dir / "earth_surface_temperature_matches.csv"
+    pd.DataFrame(records, columns=DAILY_SURFACE_MATCH_COLUMNS).to_csv(
+        output_path, index=False, na_rep=""
+    )
+    _log(
+        f"WROTE earth_surface_temperature_matches.csv: {len(records)} site/period/season rows; "
+        "missing daily values remain blank."
+    )
+    return True
+
+
 def _build_analogy_gaps(raw_dir: Path, processed_dir: Path) -> bool:
     reviewed_path = raw_dir.parent / "sample" / "analogy_gaps.json"
     if reviewed_path.is_file():
@@ -919,9 +1099,15 @@ def build_processed(raw_dir: str | Path | None = None, processed_dir: str | Path
 
     results = {
         "sites.geojson": "built" if _build_sites(raw_root, output_root) else "skipped",
+        "site_extents.geojson": "built" if _build_site_extents(raw_root, output_root) else "skipped",
         "terrain_metrics.csv": "built" if _build_terrain_metrics(raw_root, output_root) else "skipped",
         "temperature_monthly.csv": "built" if _build_temperature_monthly(raw_root, output_root) else "skipped",
         "mars_temperature_envelope.json": "built" if _build_mars_temperature_envelope(raw_root, output_root) else "skipped",
+        "earth_surface_temperature_matches.csv": (
+            "built"
+            if _build_daily_surface_temperature_matches(raw_root, output_root)
+            else "skipped"
+        ),
         "analogy_gaps.json": "built" if _build_analogy_gaps(raw_root, output_root) else "skipped",
         "datasets_catalogue.csv": "built" if _build_catalogue(raw_root, output_root) else "skipped",
     }

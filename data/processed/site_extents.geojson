@@ -1,0 +1,116 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -17.000277778,
+              65.000138889
+            ],
+            [
+              -16.000277778,
+              65.000138889
+            ],
+            [
+              -16.000277778,
+              66.000138889
+            ],
+            [
+              -17.000277778,
+              66.000138889
+            ],
+            [
+              -17.000277778,
+              65.000138889
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "schema_version": "1.0",
+        "site_id": "askja",
+        "name": "Askja, Iceland",
+        "source_file": "large/terrain/Extent_Askja.gpkg",
+        "notes": "supplied extent footprint; not a verified field boundary"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -69.000138889,
+              -22.999861111
+            ],
+            [
+              -68.000138889,
+              -22.999861111
+            ],
+            [
+              -68.000138889,
+              -21.999861111
+            ],
+            [
+              -69.000138889,
+              -21.999861111
+            ],
+            [
+              -69.000138889,
+              -22.999861111
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "schema_version": "1.0",
+        "site_id": "atacama",
+        "name": "Atacama Desert, Chile",
+        "source_file": "large/terrain/Extent_Atacama.gpkg",
+        "notes": "supplied extent footprint; not a verified field boundary"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              76.999861111,
+              34.000138889
+            ],
+            [
+              77.999861111,
+              34.000138889
+            ],
+            [
+              77.999861111,
+              35.000138889
+            ],
+            [
+              76.999861111,
+              35.000138889
+            ],
+            [
+              76.999861111,
+              34.000138889
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "schema_version": "1.0",
+        "site_id": "ladakh",
+        "name": "Ladakh, India",
+        "source_file": "large/terrain/Extent_Ladakh.gpkg",
+        "notes": "supplied extent footprint; not a verified field boundary"
+      }
+    }
+  ]
+}

@@ -1,5 +1,6 @@
 import pandas as pd
 import streamlit as st
+from app.components.site_profile import render_next_step
 
 from app.utils.config import get_contract_file_statuses
 from app.utils.loaders import (
@@ -15,6 +16,7 @@ from app.utils.location import build_location_consistency
 
 st.set_page_config(page_title="Data Sources | TERRAOPS", layout="wide")
 st.title("Data Sources")
+st.caption("How to use this page: check which contract files are loaded, inspect source and location notes, then review missing-value and temperature-compatibility details.")
 file_statuses = get_contract_file_statuses()
 active_sources = {source for source in file_statuses.values() if source != "missing"}
 data_mode = next(iter(active_sources)) if len(active_sources) == 1 else (
@@ -27,6 +29,7 @@ status_labels = {
     "missing": "Missing",
 }
 st.subheader("Contract file sources")
+st.caption("This table shows whether each expected input is loaded from processed, sample, or missing data.")
 st.dataframe(
     pd.DataFrame(
         [
@@ -44,6 +47,7 @@ st.dataframe(
     hide_index=True,
     width="stretch",
 )
+st.caption("Read each row as the active source used by the app for that contract file.")
 sample_files = [filename for filename, source in file_statuses.items() if source == "sample"]
 if sample_files:
     st.warning(
@@ -52,6 +56,7 @@ if sample_files:
     )
 
 st.subheader("Dataset catalogue")
+st.caption("Use the body filter to inspect dataset providers, formats, coverage, units, and citations.")
 try:
     catalogue = load_datasets_catalogue().copy()
     body_by_dataset = {
@@ -115,6 +120,7 @@ try:
             "licence": "Licence",
         },
     )
+    st.caption("Each row describes a dataset recorded in the loaded catalogue; open a dataset name below for its limitations.")
     for _, row in visible_catalogue.iterrows():
         with st.expander(str(row["dataset_name"]), expanded=False):
             limitation = row.get("limitations")
@@ -127,12 +133,23 @@ except Exception as error:
     st.error(f"Could not load the dataset catalogue: {error}")
 
 st.subheader("Location consistency")
+st.caption("This check compares supplied site coordinates with documented source locations; warnings do not select a preferred coordinate.")
+st.caption(
+    "Agreed approach: terrain footprint is the reference; footprint-based temperature extraction pending"
+)
 try:
     location_table = build_location_consistency(load_sites())
-    st.dataframe(location_table, hide_index=True, width="stretch")
     warning_rows = location_table.loc[
         location_table["Finding"].str.startswith("Warning:")
     ]
+    if warning_rows.empty:
+        st.info("No location warnings were found in the loaded rows.")
+    else:
+        st.dataframe(warning_rows, hide_index=True, width="stretch")
+        st.caption("These are only the rows flagged for a location discrepancy.")
+    with st.expander("Show full location consistency table", expanded=False):
+        st.dataframe(location_table, hide_index=True, width="stretch")
+        st.caption("The full table includes rows with and without a location warning.")
     for site_name in warning_rows["Site"].drop_duplicates():
         site_rows = warning_rows.loc[warning_rows["Site"] == site_name]
         details = "; ".join(
@@ -150,6 +167,7 @@ except FileNotFoundError:
     st.info("Site location data are not available for a consistency check.")
 
 st.subheader("Temperature compatibility")
+st.caption("This check reports whether Earth and Mars temperature rows use compatible measurement labels.")
 try:
     temperatures = load_temperature_monthly()
     envelope = load_mars_temperature_envelope()
@@ -177,6 +195,7 @@ except Exception as error:
     st.error(f"Could not check temperature compatibility: {error}")
 
 st.subheader("Missing values by file and column")
+st.caption("Use this summary to see which loaded columns contain missing entries; counts come from each loaded file.")
 try:
     quality_summary = get_data_quality_summary()
     if quality_summary.empty:
@@ -199,6 +218,9 @@ try:
             for filename, file_summary in visible_columns.groupby("file", sort=False):
                 with st.expander(filename, expanded=False):
                     st.dataframe(file_summary.drop(columns="file"), hide_index=True, width="stretch")
+                    st.caption("Each row gives the missing-entry count and total row count for one column.")
 except Exception as error:
     st.error(f"Could not build the data-quality summary: {error}")
+
+render_next_step("pages/1_Mars_Reference.py", "Next step: Mars Reference")
 
